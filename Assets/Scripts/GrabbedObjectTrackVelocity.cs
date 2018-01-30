@@ -22,7 +22,7 @@ public class GrabbedObjectTrackVelocity : VRTK_InteractableObject
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
-        maxVelocityRelMass = rb.mass * 2;
+        maxVelocityRelMass = 1/ rb.mass;
         maxVelocity = maxVelocityRelMass;
 		nullVector = new Vector3(0, 0, 0);
 	}

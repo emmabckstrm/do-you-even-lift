@@ -51,23 +51,32 @@
             base.FixedUpdate();
 
             // Calls different functions depending on what movementlimiation type has been chosen
-            if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection)
+            // If any direction
+            // Since the acceleration is dependant on the speed, we always want to calculate the speed
+            if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.AccelerationAnyDirection)
             {
                 speed = CalculateGeneralVelocity(lastPosition);
+                if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection)
+                {
+                    CheckMovementSpeed(CalculateAccelerationAny(speed));
+                }
+                else {
+                    CheckMovementSpeed(speed);
+                }
             }
-            else if (movementLimitType == MovementLimitationTypes.VelocityVertical)
+            else 
             {
                 speed = CalculateVerticalVelocity(lastPosition);
+                if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection)
+                {
+                    CheckMovementSpeed(CalculateAccelerationVertical(speed));
+                }
+                else {
+                    CheckMovementSpeed(speed);
+                }
             }
-            else if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection)
-            {
-                speed = CalculateAccelerationAny(lastPosition);
-            }
-            else if (movementLimitType == MovementLimitationTypes.AccelerationVertical)
-            {
-                speed = CalculateAccelerationVertical(lastPosition);
-            }
-            CheckMovementSpeed(speed);
+
+            lastSpeed = speed;
             lastPosition = transform.position;
         }
 
@@ -82,28 +91,30 @@
             return (Mathf.Abs(transform.position.y - lastPos.y)) / Time.deltaTime;
         }
         // Calculates the acceleration in any direction
-        private float CalculateAccelerationAny(Vector3 lastPos)
+        private float CalculateAccelerationAny(float speed)
         {
-            return (CalculateGeneralVelocity(lastPos) / Time.deltaTime);
+            return ((Mathf.Abs(speed - lastSpeed)) / Time.deltaTime);
         }
         // Calculates the acceleration in vertical direction
-        private float CalculateAccelerationVertical(Vector3 lastPos)
+        private float CalculateAccelerationVertical(float speed)
         {
-            return (CalculateVerticalVelocity(lastPos) / Time.deltaTime);
+            return ((Mathf.Abs(speed-lastSpeed)) / Time.deltaTime);
         }
 
         // Checks if the velocity exceeds the limit
         private void CheckMovementSpeed(float speed)
         {
             serializedData = "Thiss is the speed  " + speed;
-            //Debug.Log("This is the limit " + speedLimit);
+            Debug.Log("Thiss is the speed  " + speed);
+            Debug.Log("last speed " + lastSpeed);
+            Debug.Log("This is the limit " + speedLimit);
             //Debug.Log("This is the mass " + interactableRigidbody.mass);
             // Write to disk
             
             //writeString(serializedData);
             if (speed > speedLimit)
             {
-                //Debug.Log("Grabb attachment says TOO FAST! Limit; " + speedLimit);
+                Debug.Log("Grabb attachment says TOO FAST! Limit; " + speedLimit);
                 ForceReleaseGrab();
             }
         }

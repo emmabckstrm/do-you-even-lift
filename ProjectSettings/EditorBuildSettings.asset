@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/003_FixedJointMovementCheckInteractableObj.unity
+    guid: 02b3ca3c7fa4c0e42ab13033f06eaac4
+  - enabled: 1
+    path: Assets/Scenes/Prototype_0.1.unity
+    guid: 7ce1e655d652fb347b33fd8ed6550fe5
