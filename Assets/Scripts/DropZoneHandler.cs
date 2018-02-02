@@ -7,6 +7,7 @@ public class DropZoneHandler : MonoBehaviour {
     public int numberOfChildren = 0;
     public int numberOfCorrectDrops = 0;
     public float timeDelay = 2.0f;
+    public bool changeSceneAutomatically = false;
     private float timeStart;
     private bool delayingTime;
     private float timeDiff;
@@ -17,10 +18,7 @@ public class DropZoneHandler : MonoBehaviour {
 	void Start () {
         sceneManager = GameObject.Find("AppManager").GetComponent<SceneManagement>();
         statManager = GameObject.Find("AppManager").GetComponent<StatManager>();
-        foreach (Transform child in transform)
-        {
-            numberOfChildren++;
-        }
+        UpdateNumberOfChildren();
     }
 	
 	// Update is called once per frame
@@ -33,6 +31,14 @@ public class DropZoneHandler : MonoBehaviour {
             }
         }
 	}
+    public void UpdateNumberOfChildren()
+    {
+        numberOfChildren = 0;
+        foreach (Transform child in transform)
+        {
+            numberOfChildren++;
+        }
+    }
     // adds a counter to correctly dropped objects
     public void addCorrectDrop() {
         numberOfCorrectDrops++;
@@ -44,10 +50,8 @@ public class DropZoneHandler : MonoBehaviour {
     }
     // controls the number of dropped objects if it is equal to number of children
     private void checkCorrectDrops() {
-        Debug.Log("Checking correct drops");
-        if (numberOfCorrectDrops == numberOfChildren)
+        if (numberOfCorrectDrops >= numberOfChildren)
             {
-                Debug.Log("Yes, we're maxed out!");
                 delayingTime = true;
                 timeStart = Time.time;
             }
@@ -59,7 +63,10 @@ public class DropZoneHandler : MonoBehaviour {
     private void UpdateAndContinue(bool correct)
     {
         statManager.localSceneStats.correct = correct;
-        sceneManager.NextScene();
+        if (changeSceneAutomatically)
+        {
+            sceneManager.NextScene();
+        } 
     }
 
 }

@@ -26,7 +26,6 @@ public class SceneManagement : MonoBehaviour {
     // called first
     void OnEnable()
     {
-        Debug.Log("OnEnable called");
         prefab = GlobalControl.Instance.GetWeightPrefab();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -38,7 +37,6 @@ public class SceneManagement : MonoBehaviour {
     // called second
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded: " + scene.name);
         CreateObjects();
         //Debug.Log(mode);
     }
@@ -61,7 +59,12 @@ public class SceneManagement : MonoBehaviour {
 
     public void NextScene()
     {
-        GlobalControl.Instance.PerformDiscrimination();
+        if (SceneManager.GetActiveScene().name.Contains("discrimination") && SceneManager.GetActiveScene().name.Contains("pair"))
+        {
+            GlobalControl.Instance.PerformDiscrimination();
+        }
+        statManagerScript.SaveData(SceneManager.GetActiveScene().buildIndex);
+        
         // only adds nextScene index if the scene is not reloadable
         if (!CheckIfReloadableScene())
         {
@@ -86,17 +89,16 @@ public class SceneManagement : MonoBehaviour {
         // loads next scene
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
-            statManagerScript.SaveData(currentSceneIndex);
+            statManagerScript.ResetLocalData();
             SceneManager.LoadScene(nextSceneIndex);
         }
         else
         {
-            statManagerScript.SaveData(currentSceneIndex);
             statManagerScript.PrintData();
             return;
         }
     }
-    //dynamically loads weights
+    //dynamically loads weights for scenes with 'discrimination' in name
     private void CreateObjects()
     {
         if (SceneManager.GetActiveScene().name.Contains("discrimination"))
@@ -122,28 +124,31 @@ public class SceneManagement : MonoBehaviour {
 
         for (int i = 0; i < 2; i++)
         {
-            Vector3 pos = new Vector3(-3.9f, 1.4f, 0.5f + i * 0.45f);
-            weight = Instantiate(prefab, pos, Quaternion.identity);
-            //weight.transform.localScale = weight.transform.localScale * 0.7f;
+            Vector3 localPos = new Vector3(0, 0, i*0.45f);
+            Transform parent = GameObject.Find("Weight placement").transform;
+            weight = Instantiate(prefab, parent.position, Quaternion.identity, parent);
+            weight.transform.localPosition = localPos;
             weight.transform.rotation = Quaternion.Euler(0, 90f, 0);
             weight.GetComponent<Rigidbody>().mass = weights[j];
+            weight.GetComponent<VRTK.InteractableObjectTrackMovement>().UpdateMovementLimitValue();
             j++;
         }
     }
     // creates obejcts for weight discrimination in group
     private void CreateObjectsDiscriminationGroup()
     {
-        Debug.Log("yoyo");
         GameObject weight;
         float[] weights = GlobalControl.Instance.GetWeights();
         //int num = GlobalControl.Instance.GetDiscriminations() * 2;
         for (int i=0; i<weights.Length; i++)
         {
-            Vector3 pos = new Vector3(-3.9f, 1.4f, 0.5f + i * 0.45f);
-            weight = Instantiate(prefab, pos, Quaternion.identity);
-            //weight.transform.localScale = weight.transform.localScale * 0.7f;
-            weight.transform.rotation = Quaternion.Euler(0, 90f, 0);
+            Vector3 localPos = new Vector3(0, 0, i * 0.3f);
+            Transform parent = GameObject.Find("Weight placement").transform;
+            weight = Instantiate(prefab, parent.position, Quaternion.identity, parent);
             weight.GetComponent<Rigidbody>().mass = weights[i];
+            weight.transform.localPosition = localPos;
+            weight.transform.rotation = Quaternion.Euler(0, 90f, 0);
+            weight.GetComponent<VRTK.InteractableObjectTrackMovement>().UpdateMovementLimitValue();
         }
     }
 

@@ -21,6 +21,10 @@ public class StatManager : MonoBehaviour {
     {
         Debug.Log(GlobalControl.Instance.SerializeData());
     }
+    public void ResetLocalData()
+    {
+        localSceneStats = new SceneStatistics();
+    }
 
     
 }

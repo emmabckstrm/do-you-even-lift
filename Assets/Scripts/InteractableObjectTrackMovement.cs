@@ -187,6 +187,19 @@
             //Debug.Log("total touches to this obj: " + numberOfTouches);
             base.StartTouching(currentTouchingObject);
         }
+        // Updates movement limit
+        public void UpdateMovementLimitValue()
+        {
+            // Calculates movement limit depending on what movementLimitationType is chosen
+            if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.VelocityVertical)
+            {
+                speedLimit = (1 / (interactableRigidbody.mass));
+            }
+            else if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection || movementLimitType == MovementLimitationTypes.AccelerationVertical)
+            {
+                speedLimit = (150 / (interactableRigidbody.mass));
+            }
+        }
         // Writes to file 
         public void writeString(string str)
         {

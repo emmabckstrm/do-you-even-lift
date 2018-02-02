@@ -37,22 +37,21 @@ public class GlobalControl : MonoBehaviour
         }
         //Sets this to not be destroyed when reloading scene0
         DontDestroyOnLoad(gameObject);
-        Debug.Log("Setting up stuff!");
         SetupSceneStats();
         SetupWeightDiscrimination();
     }
     // Sets up an array with scene stats corresponding to number of scenes
     private void SetupSceneStats() {
-        totalScenes = SceneManager.sceneCountInBuildSettings;
+        totalScenes = SceneManager.sceneCountInBuildSettings + numberOfDiscriminations-1;
         sceneStats = new SceneStatistics[totalScenes];
-        for (int i = 0; i < totalScenes; i++) {
+        for (int i = 0; i < sceneStats.Length; i++) {
             sceneStats[i] = new SceneStatistics();
         }
     }
     // saves scene data
-    public void SaveSceneData(int scene, SceneStatistics stats=null) {
+    public void SaveSceneData(int scene, SceneStatistics stats) {
         if (stats != null) {
-            sceneStats[scene] = stats;
+            sceneStats[scene + discriminationsPerformed-1] = stats;
         }
         
     }
