@@ -980,8 +980,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1526376188}
-  - component: {fileID: 1526376187}
   - component: {fileID: 1526376189}
+  - component: {fileID: 1526376187}
+  - component: {fileID: 1526376190}
   m_Layer: 0
   m_Name: AppManager
   m_TagString: Untagged
@@ -1000,6 +1001,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a86c75ef0b53da4397e53a0573b211a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSceneIndex: 0
+  nextSceneIndex: 0
 --- !u!4 &1526376188
 Transform:
   m_ObjectHideFlags: 0
@@ -1022,6 +1025,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5be1728321f19db4dae98bd86988dd89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementLimitType: 0
+--- !u!114 &1526376190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1526376186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4c1f4be9297d6849b5a9add4023c063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1603132366 stripped

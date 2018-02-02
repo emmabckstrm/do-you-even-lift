@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/003_FixedJointMovementCheckInteractableObj.unity
-    guid: 02b3ca3c7fa4c0e42ab13033f06eaac4
+    path: Assets/Scenes/Prototype1/002_Weight_discrimination_pair.unity
+    guid: 84e96e07a23a7404b83be6b50cdc0ed3
   - enabled: 1
-    path: Assets/Scenes/Prototype_0.1.unity
-    guid: 7ce1e655d652fb347b33fd8ed6550fe5
+    path: Assets/Scenes/Prototype1/005_Weight_discrimination_group.unity
+    guid: 91ec7eba74af2644fa5925d9ce3a38e9
+  - enabled: 1
+    path: Assets/Scenes/Prototype1/006_Weight_puzzle.unity
+    guid: 548113c565f45ed4ea4d9c72fedadb1b

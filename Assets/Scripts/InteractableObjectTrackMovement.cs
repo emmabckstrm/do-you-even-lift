@@ -12,11 +12,16 @@
             VelocityAnyDirection,
             VelocityVertical,
             AccelerationAnyDirection,
-            AccelerationVertical
+            AccelerationVertical,
         }
         [Tooltip("Determines in what direction the movement limit is")]
         public MovementLimitationTypes movementLimitType = MovementLimitationTypes.VelocityAnyDirection;
+        [Tooltip("If checked, the global movement limitation type overrides the one chosen for this object")]
+        public bool GlobalMovementLimit = true;
         protected float speedLimit = 10f;
+        private float speedTotal = 0f;
+        private float accelerationTotal = 0f;
+        private float acceleration = 0f;
         private float speed = 0f;
         private float lastSpeed = 0f;
         private Vector3 lastPosition = Vector3.zero;
@@ -27,20 +32,29 @@
         private int numberOfGrabs = 0;
         private int numberOfTouches = 0;
         public string path = "Assets/Logs/log.txt";
+        protected StatManager statManager;
+        protected GlobalControl globalControl;
 
         // Use this for initialization
-        protected void Start()
+        protected override void Awake()
         {
+            base.Awake();
             Rigidbody rb = interactableRigidbody;
+            statManager = GameObject.Find("AppManager").GetComponent<StatManager>();
+            globalControl = GameObject.Find("AppManager").GetComponent<GlobalControl>();
+            if (GlobalMovementLimit) {
+                movementLimitType = (MovementLimitationTypes)globalControl.movementLimitType;
+            }
             // Calculates movement limit depending on what movementLimitationType is chosen
             if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.VelocityVertical)
             {
-                speedLimit = (3 / (interactableRigidbody.mass));
+                speedLimit = (1 / (interactableRigidbody.mass));
             }
             else if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection || movementLimitType == MovementLimitationTypes.AccelerationVertical)
             {
                 speedLimit = (150 / (interactableRigidbody.mass));
             }
+            
         }
 
         /// <summary>
@@ -58,20 +72,31 @@
                 speed = CalculateGeneralVelocity(lastPosition);
                 if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection)
                 {
-                    CheckMovementSpeed(CalculateAccelerationAny(speed));
+                    acceleration = CalculateAccelerationAny(speed);
+                    accelerationTotal += acceleration;
+                    //Debug.Log("average acceleration " + (accelerationTotal / (numberOfGrabs + 1)));
+                    CheckMovementSpeed(acceleration);
                 }
                 else {
+                    speedTotal += speed;
+                    //Debug.Log("average speed " + (speedTotal / (numberOfGrabs + 1)));
                     CheckMovementSpeed(speed);
                 }
             }
             else 
             {
+                // if acceleration or speed vertically
                 speed = CalculateVerticalVelocity(lastPosition);
                 if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection)
                 {
-                    CheckMovementSpeed(CalculateAccelerationVertical(speed));
+                    acceleration = CalculateAccelerationVertical(speed);
+                    accelerationTotal += acceleration;
+                    //Debug.Log("average acceleration " + (accelerationTotal / (numberOfGrabs + 1)));
+                    CheckMovementSpeed(acceleration);
                 }
                 else {
+                    speedTotal += speed;
+                    //Debug.Log("average speed " + (speedTotal / (numberOfGrabs + 1)));
                     CheckMovementSpeed(speed);
                 }
             }
@@ -105,16 +130,16 @@
         private void CheckMovementSpeed(float speed)
         {
             serializedData = "Thiss is the speed  " + speed;
-            Debug.Log("Thiss is the speed  " + speed);
-            Debug.Log("last speed " + lastSpeed);
-            Debug.Log("This is the limit " + speedLimit);
+            //Debug.Log("Thiss is the speed  " + speed);
+            //Debug.Log("last speed " + lastSpeed);
+            //Debug.Log("This is the limit " + speedLimit);
             //Debug.Log("This is the mass " + interactableRigidbody.mass);
             // Write to disk
             
             //writeString(serializedData);
             if (speed > speedLimit)
             {
-                Debug.Log("Grabb attachment says TOO FAST! Limit; " + speedLimit);
+                //Debug.Log("Grabb attachment says TOO FAST! Limit; " + speedLimit);
                 ForceReleaseGrab();
             }
         }
@@ -130,6 +155,17 @@
         { 
             timeGrabbed = Time.time - timeGrabStart;
             numberOfGrabs += 1;
+            statManager.localSceneStats.timeGrabbingObj += timeGrabbed;
+            statManager.localSceneStats.totalGrabs += 1;
+            if (previousGrabbingObject.name.Contains("right"))
+            {
+                statManager.localSceneStats.totalGrabsRight += 1;
+                statManager.localSceneStats.timeGrabbingRight += timeGrabbed;
+            }
+            else {
+                statManager.localSceneStats.totalGrabsLeft += 1;
+                statManager.localSceneStats.timeGrabbingLeft += timeGrabbed;
+            }
             //Debug.Log("Ungrabbed! " + previousGrabbingObject.name + " after this time " + timeGrabbed);
             //Debug.Log(this.name + " Total grabs " + numberOfGrabs);
             writeString2("hej-----" + numberOfGrabs);
@@ -139,6 +175,15 @@
         public override void StartTouching(VRTK_InteractTouch currentTouchingObject)
         {
             numberOfTouches += 1;
+            statManager.localSceneStats.totalTouches += 1;
+            if (currentTouchingObject.name.Contains("right"))
+            {
+                statManager.localSceneStats.totalTouchesRight += 1;
+            }
+            else
+            {
+                statManager.localSceneStats.totalTouchesLeft += 1;
+            }
             //Debug.Log("total touches to this obj: " + numberOfTouches);
             base.StartTouching(currentTouchingObject);
         }

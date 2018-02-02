@@ -14,6 +14,7 @@ public class DropZoneCylinder : MonoBehaviour {
     private void OnCollisionEnter(Collision other)
     {
         hasObject = true;
+        Debug.Log("collision enter " + this + " and " + other);
         dropZoneHandlerScript.addCorrectDrop();
     }
 
