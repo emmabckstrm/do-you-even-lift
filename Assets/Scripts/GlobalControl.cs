@@ -51,7 +51,15 @@ public class GlobalControl : MonoBehaviour
     // saves scene data
     public void SaveSceneData(int scene, SceneStatistics stats) {
         if (stats != null) {
-            sceneStats[scene + discriminationsPerformed-1] = stats;
+            if (discriminationsPerformed > 0)
+            {
+                sceneStats[scene + discriminationsPerformed-1] = stats;
+            }
+            else
+            {
+                sceneStats[scene] = stats;
+            }
+            
         }
         
     }

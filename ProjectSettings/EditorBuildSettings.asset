@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Prototype1/001_First_scene.unity
+    guid: f5e80e07164d32d4787023a804ee9cbd
+  - enabled: 1
     path: Assets/Scenes/Prototype1/002_Weight_discrimination_pair.unity
     guid: 84e96e07a23a7404b83be6b50cdc0ed3
   - enabled: 1

@@ -5,12 +5,15 @@ using UnityEngine;
 public class DropZoneHandler : MonoBehaviour {
 
     public int numberOfChildren = 0;
-    public int numberOfCorrectDrops = 0;
+    public int numberOfValidDrops = 0;
     public float timeDelay = 2.0f;
     public bool changeSceneAutomatically = false;
     private float timeStart;
     private bool delayingTime;
     private float timeDiff;
+    private List<Transform> children;
+    //private List<DropZone> dropZones;
+    private DropZone[] dropZones;
     private SceneManagement sceneManager;
     private StatManager statManager;
 
@@ -27,42 +30,73 @@ public class DropZoneHandler : MonoBehaviour {
         if (delayingTime) {
             timeDiff = Time.time - timeStart;
             if (timeDiff >= timeDelay) {
-                UpdateAndContinue(true);
+                UpdateAndContinue(CheckCorrectDrops());
             }
         }
 	}
     public void UpdateNumberOfChildren()
     {
         numberOfChildren = 0;
-        foreach (Transform child in transform)
-        {
-            numberOfChildren++;
-        }
+        numberOfChildren = transform.childCount;
+
+
+        dropZones = transform.GetComponentsInChildren<DropZone>();
+
     }
     // adds a counter to correctly dropped objects
-    public void addCorrectDrop() {
-        numberOfCorrectDrops++;
-        checkCorrectDrops();
+    public void AddValidDrop() {
+        numberOfValidDrops++;
+        CheckValidDrops();
     }
-    public void removeCorrectDrop() {
-        numberOfCorrectDrops--;
-        checkCorrectDrops();
+    public void RemoveValidDrop() {
+        numberOfValidDrops--;
+        CheckValidDrops();
     }
     // controls the number of dropped objects if it is equal to number of children
-    private void checkCorrectDrops() {
-        if (numberOfCorrectDrops >= numberOfChildren)
+    private void CheckValidDrops() {
+        Debug.Log("children and valid drops " + numberOfChildren + " " + numberOfValidDrops);
+        if (numberOfValidDrops >= numberOfChildren)
+        {
+            Debug.Log("Valid drops!");
+            CheckCorrectDrops();
+            delayingTime = true;
+            timeStart = Time.time;
+        }
+        else {
+            delayingTime = false;
+        }
+    }
+    // controls if the dropped objects are in weight order
+    private bool CheckCorrectDrops()
+    {
+        float last = -1f;
+        int points = 0;
+        foreach (DropZone dropZone in dropZones)
+        {
+            if (dropZone.placedWeight > last)
             {
-                delayingTime = true;
-                timeStart = Time.time;
+                // good!
+                points++;
+                last = dropZone.placedWeight;
             }
-            else {
-                delayingTime = false;
-            }
+        }
+        if (points == numberOfChildren)
+        {
+            Debug.Log("Yes, correct!");
+            statManager.localSceneStats.correct = true;
+            return true;
+        } else
+        {
+            Debug.Log("Not correct!");
+            statManager.localSceneStats.correct = false;
+            return false;
+        }
     }
 
     private void UpdateAndContinue(bool correct)
     {
         statManager.localSceneStats.correct = correct;
+        numberOfValidDrops = 0;
         if (changeSceneAutomatically)
         {
             sceneManager.NextScene();

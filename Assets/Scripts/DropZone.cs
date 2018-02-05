@@ -5,28 +5,44 @@ using UnityEngine;
 public class DropZone : MonoBehaviour {
     public bool hasObject = false;
     private DropZoneHandler dropZoneHandlerScript;
+    public float placedWeight;
+    private bool triggered = false;
 
     private void Start()
     {
         dropZoneHandlerScript = transform.parent.GetComponent<DropZoneHandler>();
     }
-
-    private void OnCollisionEnter(Collision other)
+    public void Update()
     {
+        //triggered = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (triggered) return;
+        triggered = true;
         hasObject = true;
-        if (other.gameObject.tag.Contains("Weight"))
+        Debug.Log("Trigger " + other.gameObject.transform.parent.name);
+        Transform dropZone = other.gameObject.transform.parent;
+        if (dropZone.tag.Contains("Weight"))
         {
-            dropZoneHandlerScript.addCorrectDrop();
+            placedWeight = dropZone.GetComponent<Rigidbody>().mass;
+            dropZoneHandlerScript.AddValidDrop();
         }
         
     }
 
-    private void OnCollisionExit(Collision other)
+    private void OnTriggerExit(Collider other)
     {
+        if (!triggered) return;
+        triggered = false;
         hasObject = false;
-        if (other.gameObject.tag.Contains("Weight"))
+        Transform dropZone = other.gameObject.transform.parent;
+        Debug.Log("Trigger remove ");
+        if (dropZone.tag.Contains("Weight"))
         {
-            dropZoneHandlerScript.removeCorrectDrop();
+            placedWeight = 0;
+            dropZoneHandlerScript.RemoveValidDrop();
         }
     }
 }

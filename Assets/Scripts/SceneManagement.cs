@@ -11,9 +11,6 @@ public class SceneManagement : MonoBehaviour {
     private StatManager statManagerScript;
 
     public GameObject prefab;
-    public float gridX = 5f;
-    public float gridY = 5f;
-    public float spacing = 2f;
 
     private void Start()
     {

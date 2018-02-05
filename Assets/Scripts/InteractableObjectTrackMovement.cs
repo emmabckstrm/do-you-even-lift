@@ -46,14 +46,8 @@
                 movementLimitType = (MovementLimitationTypes)globalControl.movementLimitType;
             }
             // Calculates movement limit depending on what movementLimitationType is chosen
-            if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.VelocityVertical)
-            {
-                speedLimit = (1 / (interactableRigidbody.mass));
-            }
-            else if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection || movementLimitType == MovementLimitationTypes.AccelerationVertical)
-            {
-                speedLimit = (150 / (interactableRigidbody.mass));
-            }
+            UpdateMovementLimitValue();
+            Debug.Log("cool limit " + speedLimit);
             
         }
 
@@ -130,10 +124,10 @@
         private void CheckMovementSpeed(float speed)
         {
             serializedData = "Thiss is the speed  " + speed;
-            //Debug.Log("Thiss is the speed  " + speed);
+            Debug.Log("Thiss is the speed  " + speed);
             //Debug.Log("last speed " + lastSpeed);
-            //Debug.Log("This is the limit " + speedLimit);
-            //Debug.Log("This is the mass " + interactableRigidbody.mass);
+            Debug.Log("This is the limit " + speedLimit);
+            Debug.Log("This is the mass " + interactableRigidbody.mass);
             // Write to disk
             
             //writeString(serializedData);
@@ -193,7 +187,7 @@
             // Calculates movement limit depending on what movementLimitationType is chosen
             if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.VelocityVertical)
             {
-                speedLimit = (1 / (interactableRigidbody.mass));
+                speedLimit = ((3 / (interactableRigidbody.mass))+0.5f);
             }
             else if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection || movementLimitType == MovementLimitationTypes.AccelerationVertical)
             {
