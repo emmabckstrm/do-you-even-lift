@@ -47,7 +47,6 @@
             }
             // Calculates movement limit depending on what movementLimitationType is chosen
             UpdateMovementLimitValue();
-            Debug.Log("cool limit " + speedLimit);
             
         }
 
@@ -68,12 +67,10 @@
                 {
                     acceleration = CalculateAccelerationAny(speed);
                     accelerationTotal += acceleration;
-                    //Debug.Log("average acceleration " + (accelerationTotal / (numberOfGrabs + 1)));
                     CheckMovementSpeed(acceleration);
                 }
                 else {
                     speedTotal += speed;
-                    //Debug.Log("average speed " + (speedTotal / (numberOfGrabs + 1)));
                     CheckMovementSpeed(speed);
                 }
             }
@@ -85,12 +82,10 @@
                 {
                     acceleration = CalculateAccelerationVertical(speed);
                     accelerationTotal += acceleration;
-                    //Debug.Log("average acceleration " + (accelerationTotal / (numberOfGrabs + 1)));
                     CheckMovementSpeed(acceleration);
                 }
                 else {
                     speedTotal += speed;
-                    //Debug.Log("average speed " + (speedTotal / (numberOfGrabs + 1)));
                     CheckMovementSpeed(speed);
                 }
             }
@@ -124,10 +119,6 @@
         private void CheckMovementSpeed(float speed)
         {
             serializedData = "Thiss is the speed  " + speed;
-            Debug.Log("Thiss is the speed  " + speed);
-            //Debug.Log("last speed " + lastSpeed);
-            Debug.Log("This is the limit " + speedLimit);
-            Debug.Log("This is the mass " + interactableRigidbody.mass);
             // Write to disk
             
             //writeString(serializedData);
@@ -140,7 +131,6 @@
         // Overridden to log start time of grab
         public override void Grabbed(VRTK_InteractGrab currentGrabbingObject = null)
         {
-            //Debug.Log("Yey, it was grabbed! It's grabbed by " + currentGrabbingObject.name);
             timeGrabStart = Time.time;
             base.Grabbed(currentGrabbingObject);
         }

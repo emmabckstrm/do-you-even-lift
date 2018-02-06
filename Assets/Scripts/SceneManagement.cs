@@ -116,7 +116,7 @@ public class SceneManagement : MonoBehaviour {
     private void CreateObjectsDiscriminationPair()
     {
         GameObject weight;
-        float[] weights = GlobalControl.Instance.GetWeights();
+        float[] weights = GlobalControl.Instance.GetWeightsPair();
         int j = GlobalControl.Instance.GetDiscriminationsPerformed()*2;
 
         for (int i = 0; i < 2; i++)
@@ -135,7 +135,7 @@ public class SceneManagement : MonoBehaviour {
     private void CreateObjectsDiscriminationGroup()
     {
         GameObject weight;
-        float[] weights = GlobalControl.Instance.GetWeights();
+        float[] weights = GlobalControl.Instance.GetWeightsGroup();
         //int num = GlobalControl.Instance.GetDiscriminations() * 2;
         for (int i=0; i<weights.Length; i++)
         {

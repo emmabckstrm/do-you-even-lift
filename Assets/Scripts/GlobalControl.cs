@@ -23,6 +23,9 @@ public class GlobalControl : MonoBehaviour
     public GameObject weightPrefab;
     private int discriminationsPerformed = 0;
     private float[] weights;
+    private float[] weightsPair;
+    private float[] weightsAll;
+    public List<List<float>> weights2;
 
     void Awake()
     {
@@ -94,25 +97,107 @@ public class GlobalControl : MonoBehaviour
     // Sets up an array of weights as numbers for weight discrimination scenes
     private void SetupWeightDiscrimination()
     {
-        weights = new float[numberOfDiscriminations * 2];
-        float[] tempWeights = new float[weights.Length];
-        int j = weights.Length-1;
-        int k = 0;
+        int totalWeights = numberOfDiscriminations * 2;
+        weightsPair = new float[totalWeights];
+        weightsAll = new float[totalWeights];
+        float[][] tempList = new float[numberOfDiscriminations][];
+        int x = totalWeights - 1;
+        int y = 0;
         // sets weights from smallest to largest
-        for (int i=0;i< weights.Length; i++) {
-            tempWeights[i] = minimumWeight + (weightStep * i);
+        for (int i=0;i< totalWeights; i++) {
+            weightsAll[i] = minimumWeight + (weightStep * i);
         }
         // pairing weights lightest with heavinest etc
-        for (int i =0;i<weights.Length; i=i+2)
+        for (int i = 0; i < numberOfDiscriminations; i++)
         {
-            weights[i] = tempWeights[k];
-            weights[i + 1] = tempWeights[j];
-            j--;
-            k++;
+            List<int> randomIndex = RandomListOrder(2);
+            float[] tempP = new float[2];
+            tempP[randomIndex[0]] = weightsAll[y];
+            tempP[randomIndex[1]] = weightsAll[x];
+            tempList[i] = tempP;
+            x--;
+            y++;
         }
-        
+        tempList = RandomizeFloatArrayArray(tempList);
+        weightsAll = RandomizeFloatArray(weightsAll);
+        x = 0;
+        for (int i=0; i<numberOfDiscriminations; i++)
+        {
+            for (int u=0; u<2; u++)
+            {
+                weightsPair[x] = tempList[i][u];
+                x++;
+            }
+        }
 
     }
+    // Randomizes a list, takes an source list and randomizes the objects
+    public float[] RandomizeFloatArray(float[] sourceList)
+    {
+        float[] result = new float[sourceList.Length];
+        List<int> order = RandomListOrder(sourceList.Length);
+        for (int i = 0; i < sourceList.Length; i++)
+        {
+            int x = order[i];
+            result[i] = (sourceList[x]);
+        }
+        return result;
+    }
+    // Randomizes a list, takes an source list and randomizes the objects
+    public float[][] RandomizeFloatArrayArray(float[][] sourceList)
+    {
+        float[][] result = new float[sourceList.Length][];
+        List<int> order = RandomListOrder(sourceList.Length);
+        for (int i = 0; i < sourceList.Length; i++)
+        {
+            int x = order[i];
+            result[i] = (sourceList[x]);
+        }
+        return result;
+    }
+    // Randomizes a list, takes an source list and randomizes the objects
+    public List<float> RandomizeFloatList(List<float> sourceList)
+    {
+        List<float> result = new List<float>();
+        List<int> order = RandomListOrder(sourceList.Count);
+        for (int i = 0; i < sourceList.Count; i++)
+        {
+            int x = order[i];
+            result.Add(sourceList[x]);
+        }
+        return result;
+    }
+    // Randomizes a list, takes an source list and randomizes the objects
+    public List<List<float>> RandomizeFloatListList(List<List<float>> sourceList)
+    {
+        List<List<float>> result = new List<List<float>>();
+        List<int> order = RandomListOrder(sourceList.Count);
+        for (int i = 0; i < sourceList.Count; i++)
+        {
+            int x = order[i];
+            result.Add(sourceList[x]);
+        }
+        return result;
+    }
+    // Randomizes a list order, returns a list with int indexes
+    private List<int> RandomListOrder(int size)
+    {
+
+        int x = 0;
+        int rand;
+        List<int> chosenNums = new List<int>();
+        while (x < size)
+        {
+            rand = RandomNumber(0, size);
+            if (!chosenNums.Contains(rand))
+            {
+                x++;
+                chosenNums.Add(rand);
+            }
+        }
+        return chosenNums;
+    }
+
     public bool CheckDiscriminationsPerformed()
     {
         if (discriminationsPerformed < numberOfDiscriminations) {
@@ -138,9 +223,23 @@ public class GlobalControl : MonoBehaviour
     {
         return weights;
     }
+    public float[] GetWeightsPair()
+    {
+        return weightsPair;
+    }
+    public float[] GetWeightsGroup()
+    {
+        return weightsAll;
+    }
     public GameObject GetWeightPrefab()
     {
         return weightPrefab;
+    }
+    private int RandomNumber(int min, int max)
+    {
+        System.Random random = new System.Random();
+        return random.Next(min, max);
+
     }
 
 
