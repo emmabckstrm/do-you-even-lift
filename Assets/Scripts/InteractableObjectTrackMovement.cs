@@ -1,7 +1,6 @@
 ﻿namespace VRTK
 {
     using UnityEngine;
-    using System.IO;
     using System.Linq;
 
     public class InteractableObjectTrackMovement : VRTK_InteractableObject
@@ -33,7 +32,6 @@
         private int numberOfTouches = 0;
         private int numberOfForceReleases = 0;
         private bool forceRelease = false;
-        public string path = "Assets/Logs/log.txt";
         protected StatManager statManager;
         protected GlobalControl globalControl;
 
@@ -161,9 +159,7 @@
             }
             statManager.AddCSVStatPerGrab(timeGrabStart, timeGrabEnd, interactableRigidbody.mass, hand, forceRelease);
             forceRelease = false;
-            //Debug.Log("Ungrabbed! " + previousGrabbingObject.name + " after this time " + timeGrabbed);
-            //Debug.Log(this.name + " Total grabs " + numberOfGrabs);
-            writeString2("hej-----" + numberOfGrabs);
+
             base.Ungrabbed(previousGrabbingObject);
         }
         //Overridden to count number of touches to object
@@ -197,37 +193,7 @@
                 speedLimit = (150 / (interactableRigidbody.mass));
             }
         }
-        // Writes to file 
-        public void writeString(string str)
-        {
-            
-            //Write some text to the file
-            StreamWriter writer = new StreamWriter(path);
-            long endPoint = writer.BaseStream.Length;
-            writer.BaseStream.Seek((endPoint - 1), SeekOrigin.Begin);
-            writer.WriteLine(str);
-            writer.Close();
-        }
-        public void writeString2(string str) {
-            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.ReadWrite))
-            {
-                StreamWriter sw = new StreamWriter(fs);
-                long endPoint = fs.Length;
-                // Set the stream position to the end of the file.        
-                fs.Seek(endPoint-2, SeekOrigin.Begin);
-                sw.Write(str + "\n\n}");
-                sw.Flush();
-            }
-        }
-        public void CreateEntry(string npcName) //npcName = "item1"
-        {
-            //string endTag = String.Format("[/{0}]", npcName);
-            string lineToAdd = "//Add a line here in between the specific boundaries";
-
-            var txtLines = File.ReadAllLines(path).ToList();   //Fill a list with the lines from the txt file.
-            //txtLines.Insert(txtLines.IndexOf(endTag), lineToAdd);  //Insert the line you want to add last under the tag 'item1'.
-            //File.WriteAllLines(path, txtLines);                //Add the lines including the new one.
-        }
+        
 
 
     }

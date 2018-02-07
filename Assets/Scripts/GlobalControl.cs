@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,6 +28,8 @@ public class GlobalControl : MonoBehaviour
     private float[] weightsPair;
     private float[] weightsAll;
     public List<List<float>> weights2;
+
+    private string path = "DataLogs/";
 
     void Awake()
     {
@@ -177,6 +181,8 @@ public class GlobalControl : MonoBehaviour
         serializedData += SerializeDataCSV();
         serializedData += "\n\n\n";
         serializedData += SerializeDataPerGrabCSV();
+
+        WriteDataToFile();
         return serializedData;
     }
     // Serialize data to json format
@@ -224,6 +230,34 @@ public class GlobalControl : MonoBehaviour
             serializedData += sceneStat.GetCSVStatPerGrab();
         }
         return serializedData;
+    }
+
+    // writes all collected data to files
+    public void WriteDataToFile()
+    {
+        // create folder with this name DateTime.Now.ToString("yyyy-MM-dd HH:mm")
+        string currentPath = path + DateTime.Now.ToString("yyyy-MM-dd HHmm");
+        currentPath += "/";
+
+        Directory.CreateDirectory(Path.GetDirectoryName(currentPath));
+        // writes to json
+        WriteStringToFile(currentPath + "log.json", SerializeDataJson());
+        // write to one csv
+        WriteStringToFile(currentPath + "log.csv", SerializeDataCSV());
+        // write to another csv
+        WriteStringToFile(currentPath + "logPerGrab.csv", SerializeDataPerGrabCSV());
+    }
+
+    // Writes to file 
+    public void WriteStringToFile(string p, string str)
+    {
+        
+        using (FileStream fs = new FileStream(p, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+        {
+            StreamWriter sw = new StreamWriter(fs);
+            sw.Write(str);
+            sw.Flush();
+        }
     }
 
     public bool CheckDiscriminationsPerformed()
