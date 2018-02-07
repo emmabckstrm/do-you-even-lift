@@ -54,10 +54,8 @@ public class DropZoneHandler : MonoBehaviour {
     }
     // controls the number of dropped objects if it is equal to number of children
     private void CheckValidDrops() {
-        Debug.Log("children and valid drops " + numberOfChildren + " " + numberOfValidDrops);
         if (numberOfValidDrops >= numberOfChildren)
         {
-            Debug.Log("Valid drops!");
             CheckCorrectDrops();
             delayingTime = true;
             timeStart = Time.time;
@@ -82,12 +80,10 @@ public class DropZoneHandler : MonoBehaviour {
         }
         if (points == numberOfChildren)
         {
-            Debug.Log("Yes, correct!");
             statManager.localSceneStats.correct = true;
             return true;
         } else
         {
-            Debug.Log("Not correct!");
             statManager.localSceneStats.correct = false;
             return false;
         }

@@ -31,6 +31,8 @@
         private float timeGrabbed = 0.0f;
         private int numberOfGrabs = 0;
         private int numberOfTouches = 0;
+        private int numberOfForceReleases = 0;
+        private bool forceRelease = false;
         public string path = "Assets/Logs/log.txt";
         protected StatManager statManager;
         protected GlobalControl globalControl;
@@ -125,8 +127,11 @@
             if (speed > speedLimit)
             {
                 //Debug.Log("Grabb attachment says TOO FAST! Limit; " + speedLimit);
+                forceRelease = true;
+                numberOfForceReleases++;
+                statManager.localSceneStats.totalForceReleases += 1;
                 ForceReleaseGrab();
-            }
+            } 
         }
         // Overridden to log start time of grab
         public override void Grabbed(VRTK_InteractGrab currentGrabbingObject = null)
@@ -136,20 +141,26 @@
         }
         // Overridden to log end time of grab
         public override void Ungrabbed(VRTK_InteractGrab previousGrabbingObject = null)
-        { 
-            timeGrabbed = Time.time - timeGrabStart;
+        {
+            float timeGrabEnd = Time.time;
+            timeGrabbed = timeGrabEnd - timeGrabStart;
             numberOfGrabs += 1;
             statManager.localSceneStats.timeGrabbingObj += timeGrabbed;
             statManager.localSceneStats.totalGrabs += 1;
+            string hand = "";
             if (previousGrabbingObject.name.Contains("right"))
             {
                 statManager.localSceneStats.totalGrabsRight += 1;
                 statManager.localSceneStats.timeGrabbingRight += timeGrabbed;
+                hand = "right";
             }
             else {
                 statManager.localSceneStats.totalGrabsLeft += 1;
                 statManager.localSceneStats.timeGrabbingLeft += timeGrabbed;
+                hand = "left";
             }
+            statManager.AddCSVStatPerGrab(timeGrabStart, timeGrabEnd, interactableRigidbody.mass, hand, forceRelease);
+            forceRelease = false;
             //Debug.Log("Ungrabbed! " + previousGrabbingObject.name + " after this time " + timeGrabbed);
             //Debug.Log(this.name + " Total grabs " + numberOfGrabs);
             writeString2("hej-----" + numberOfGrabs);
@@ -177,7 +188,9 @@
             // Calculates movement limit depending on what movementLimitationType is chosen
             if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.VelocityVertical)
             {
-                speedLimit = ((3 / (interactableRigidbody.mass))+0.5f);
+                // speedLimit = ((2 / (interactableRigidbody.mass))+0.1f); works good
+                // speedLimit = ((1.5f / (interactableRigidbody.mass))+0.07f); // works good as well. A bit frustrating but I managed to get the first four scenes correct
+                speedLimit = ((2.3f / (interactableRigidbody.mass))+0.07f);
             }
             else if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection || movementLimitType == MovementLimitationTypes.AccelerationVertical)
             {

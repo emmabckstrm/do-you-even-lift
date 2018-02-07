@@ -66,34 +66,6 @@ public class GlobalControl : MonoBehaviour
         }
         
     }
-    // Serialize data to json format
-    public string SerializeData()
-    {
-        string serializedData = "[";
-
-
-        for (int i=0;i< sceneStats.Length; i++)
-        {
-            SceneStatistics sceneStat = sceneStats[i];
-            serializedData += sceneStat.Serialize();
-            if (i < sceneStats.Length-1)
-            {
-                serializedData += ",";
-            }            
-            // TODO: Fix so that it dynamically loops through scenneStat properties
-            /*
-            PropertyInfo[] properties = typeof(SceneStatistics).GetProperties();
-            Debug.Log("hello " + properties + " length " + properties.Length);
-            foreach (PropertyInfo property in properties)
-            {
-                Debug.Log("yoyoyo00");
-                Debug.Log("Name: " + property.Name + " Value: " + property.GetValue(sceneStat, null));
-            }*/
-        }
-        serializedData += "]";
-        return serializedData;
-    }
-
     // Sets up an array of weights as numbers for weight discrimination scenes
     private void SetupWeightDiscrimination()
     {
@@ -196,6 +168,62 @@ public class GlobalControl : MonoBehaviour
             }
         }
         return chosenNums;
+    }
+
+    public string SerializeData()
+    {
+        string serializedData = SerializeDataJson();
+        serializedData += "\n\n\n";
+        serializedData += SerializeDataCSV();
+        serializedData += "\n\n\n";
+        serializedData += SerializeDataPerGrabCSV();
+        return serializedData;
+    }
+    // Serialize data to json format
+    public string SerializeDataJson()
+    {
+        string serializedData = "[";
+
+        for (int i = 0; i < sceneStats.Length; i++)
+        {
+            SceneStatistics sceneStat = sceneStats[i];
+            serializedData += sceneStat.SerializeJson();
+            if (i < sceneStats.Length - 1)
+            {
+                serializedData += ",";
+            }
+            // TODO: Fix so that it dynamically loops through scenneStat properties
+            /*
+            PropertyInfo[] properties = typeof(SceneStatistics).GetProperties();
+            Debug.Log("hello " + properties + " length " + properties.Length);
+            foreach (PropertyInfo property in properties)
+            {
+                Debug.Log("Name: " + property.Name + " Value: " + property.GetValue(sceneStat, null));
+            }*/
+        }
+        serializedData += "]";
+        return serializedData;
+    }
+    public string SerializeDataCSV()
+    {
+        string serializedData = sceneStats[0].SerializeCSVHeader();
+        for (int i = 0; i < sceneStats.Length; i++)
+        {
+            SceneStatistics sceneStat = sceneStats[i];
+            serializedData += sceneStat.SerializeCSV();
+        }
+        return serializedData;
+    }
+    public string SerializeDataPerGrabCSV()
+    {
+        string serializedData = "";
+        serializedData += sceneStats[0].GetCSVStatPerGrabHeader();
+        for (int i = 0; i < sceneStats.Length; i++)
+        {
+            SceneStatistics sceneStat = sceneStats[i];
+            serializedData += sceneStat.GetCSVStatPerGrab();
+        }
+        return serializedData;
     }
 
     public bool CheckDiscriminationsPerformed()

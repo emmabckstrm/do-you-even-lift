@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class SceneStatistics 
 {
+    public int sceneNumber;
     public float timeToCompletion; // Total time to complete task
     public float timeGrabbingObj; // total time grabbing an object
     public float timeGrabbingRight; // total time grabbing any object with right controller
@@ -16,11 +17,17 @@ public class SceneStatistics
     public int totalTouchesLeft;
     public int totalGrabsRight;
     public int totalGrabsLeft;
+    public int totalForceReleases;
 
-    public string Serialize() {
+    private string CSVStatPerGrabHeader = "sceneNumber, startTime, endTime, duration, weight, hand, forceRelease\n";
+    private string CSVStatPerGrab = "";
+
+    public string SerializeJson() {
         string serializedData = "";
+        serializedData += "{";
 
-        serializedData += ("{" + "\"timeToCompletion\":" + timeToCompletion);
+        serializedData += ("\"sceneNumber\":" + sceneNumber);
+        serializedData += ("\"timeToCompletion\":" + timeToCompletion);
         serializedData += (",\"timeGrabbingObj\":"+timeGrabbingObj);
         serializedData += (",\"timeGrabbingRight\":" + timeGrabbingRight);
         serializedData += (",\"timeGrabbingLeft\":" + timeGrabbingLeft);
@@ -31,10 +38,45 @@ public class SceneStatistics
         serializedData += (",\"totalTouchesLeft\":" + totalTouchesLeft);
         serializedData += (",\"totalGrabsRight\":" + totalGrabsRight);
         serializedData += (",\"totalGrabsLeft\":" + totalGrabsLeft);
-        serializedData += (",\"timeGrabbingObj\":" + timeGrabbingObj);
+        serializedData += (",\"totalForceReleases\":" + totalForceReleases);
         serializedData += "}";
 
         return serializedData;
+    }
+    public string SerializeCSVHeader()
+    {
+        string serializedData = "";
+        serializedData += "sceneNumber,timeToCompletion,timeGrabbingObj,timeGrabbingRight,timeGrabbingLeft,correct,";
+        serializedData += "totalTouches,totalGrabs,totalTouchesRight,";
+        serializedData += "totalTouchesLeft,totalGrabsRight,totalGrabsLeft,totalForceReleases";
+        serializedData += "\n";
+        return serializedData;
+    }
+    public string SerializeCSV()
+    {
+        string serializedData = "";
+
+        serializedData += sceneNumber + "," + timeToCompletion + "," + timeGrabbingObj + "," + timeGrabbingRight + ",";
+        serializedData += timeGrabbingLeft + "," + correct + "," + totalTouches + "," + totalGrabs + ",";
+        serializedData += totalTouchesRight + "," + totalTouchesLeft + "," + totalGrabsRight + ",";
+        serializedData += totalGrabsLeft + "," + totalForceReleases;
+
+        serializedData += "\n";
+
+        return serializedData;
+    }
+
+    public void AddCSVStatPerGrab(string data)
+    {
+        CSVStatPerGrab += data + "\n";
+    }
+    public string GetCSVStatPerGrab()
+    {
+        return CSVStatPerGrab;
+    }
+    public string GetCSVStatPerGrabHeader()
+    {
+        return CSVStatPerGrabHeader;
     }
 
 }

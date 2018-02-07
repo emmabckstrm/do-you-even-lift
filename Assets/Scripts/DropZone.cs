@@ -22,7 +22,6 @@ public class DropZone : MonoBehaviour {
         if (triggered) return;
         triggered = true;
         hasObject = true;
-        Debug.Log("Trigger " + other.gameObject.transform.parent.name);
         Transform dropZone = other.gameObject.transform.parent;
         if (dropZone.tag.Contains("Weight"))
         {
@@ -38,7 +37,6 @@ public class DropZone : MonoBehaviour {
         triggered = false;
         hasObject = false;
         Transform dropZone = other.gameObject.transform.parent;
-        Debug.Log("Trigger remove ");
         if (dropZone.tag.Contains("Weight"))
         {
             placedWeight = 0;

@@ -8,7 +8,9 @@ public class SceneManagement : MonoBehaviour {
     public int currentSceneIndex;
     public int nextSceneIndex;
     private bool reloadScene = false;
+    private float timeSceneStart;
     private StatManager statManagerScript;
+    private int sceneNumber;
 
     public GameObject prefab;
 
@@ -35,7 +37,8 @@ public class SceneManagement : MonoBehaviour {
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         CreateObjects();
-        //Debug.Log(mode);
+        timeSceneStart = Time.time;
+        sceneNumber++;
     }
 
     void OnGUI()
@@ -56,6 +59,7 @@ public class SceneManagement : MonoBehaviour {
 
     public void NextScene()
     {
+        StopTime();
         if (SceneManager.GetActiveScene().name.Contains("discrimination") && SceneManager.GetActiveScene().name.Contains("pair"))
         {
             GlobalControl.Instance.PerformDiscrimination();
@@ -95,21 +99,24 @@ public class SceneManagement : MonoBehaviour {
             return;
         }
     }
+    private void StopTime()
+    {
+        float duration = Time.time - timeSceneStart;
+        statManagerScript.localSceneStats.timeToCompletion = duration;
+    }
     //dynamically loads weights for scenes with 'discrimination' in name
     private void CreateObjects()
     {
-        if (SceneManager.GetActiveScene().name.Contains("discrimination"))
+        if (SceneManager.GetActiveScene().name.Contains("discrimination") && SceneManager.GetActiveScene().name.Contains("pair"))
         {
-            if (SceneManager.GetActiveScene().name.Contains("pair"))
-            {
-                // if weight discrimination pair
-                CreateObjectsDiscriminationPair();
-            } else
-            {
-                // if weight discrimination group
-                CreateObjectsDiscriminationGroup();
-            }
+            // if weight discrimination pair
+            CreateObjectsDiscriminationPair();
+        } else if (!SceneManager.GetActiveScene().name.Contains("static"))
+        {
+            // if weight discrimination group
+            CreateObjectsDiscriminationGroup();
         }
+            
          
     }
     // creates objects for weight discrimination in pars
@@ -147,6 +154,11 @@ public class SceneManagement : MonoBehaviour {
             weight.transform.rotation = Quaternion.Euler(0, 90f, 0);
             weight.GetComponent<VRTK.InteractableObjectTrackMovement>().UpdateMovementLimitValue();
         }
+    }
+
+    public int GetSceneNumber()
+    {
+        return sceneNumber;
     }
 
     
