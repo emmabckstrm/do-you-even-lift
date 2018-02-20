@@ -20,10 +20,13 @@ public class GlobalControl : MonoBehaviour
     [Tooltip("Determines in what direction the movement limit is")]
     public MovementLimitationTypes movementLimitType = MovementLimitationTypes.VelocityAnyDirection;
     public int numberOfDiscriminations = 3;
+    public int numberOfDiscriminationScenes = 2;
     public float minimumWeight = 1.0f;
     public float weightStep = 1.0f;
     public GameObject weightPrefab;
     private int discriminationsPerformed = 0;
+    private int discriminationScenesPerformed = 0;
+    private int totalDiscriminations = 0;
     private float[] weights;
     private float[] weightsPair;
     private float[] weightsAll;
@@ -49,8 +52,9 @@ public class GlobalControl : MonoBehaviour
     }
     // Sets up an array with scene stats corresponding to number of scenes
     private void SetupSceneStats() {
-        totalScenes = SceneManager.sceneCountInBuildSettings + numberOfDiscriminations-1;
+        totalScenes = SceneManager.sceneCountInBuildSettings + numberOfDiscriminationScenes*(numberOfDiscriminations- numberOfDiscriminationScenes);
         sceneStats = new SceneStatistics[totalScenes];
+        totalDiscriminations = numberOfDiscriminations * numberOfDiscriminationScenes;
         for (int i = 0; i < sceneStats.Length; i++) {
             sceneStats[i] = new SceneStatistics();
         }
@@ -268,6 +272,10 @@ public class GlobalControl : MonoBehaviour
         {
             return false;
         }
+    }
+    public void ResetDiscriminations()
+    {
+        discriminationsPerformed = 0;
     }
     public void PerformDiscrimination()
     {
