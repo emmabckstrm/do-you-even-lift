@@ -52,7 +52,7 @@ public class GlobalControl : MonoBehaviour
     }
     // Sets up an array with scene stats corresponding to number of scenes
     private void SetupSceneStats() {
-        totalScenes = SceneManager.sceneCountInBuildSettings + numberOfDiscriminationScenes*(numberOfDiscriminations- numberOfDiscriminationScenes);
+        totalScenes = SceneManager.sceneCountInBuildSettings + (numberOfDiscriminationScenes*(numberOfDiscriminations)- numberOfDiscriminationScenes);
         sceneStats = new SceneStatistics[totalScenes];
         totalDiscriminations = numberOfDiscriminations * numberOfDiscriminationScenes;
         for (int i = 0; i < sceneStats.Length; i++) {
@@ -62,14 +62,9 @@ public class GlobalControl : MonoBehaviour
     // saves scene data
     public void SaveSceneData(int scene, SceneStatistics stats) {
         if (stats != null) {
-            if (discriminationsPerformed > 0)
-            {
-                sceneStats[scene + discriminationsPerformed-1] = stats;
-            }
-            else
-            {
+            
                 sceneStats[scene] = stats;
-            }
+            
             
         }
         

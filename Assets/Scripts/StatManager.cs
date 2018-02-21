@@ -18,7 +18,8 @@ public class StatManager : MonoBehaviour {
     // Saves local data to global controller
     public void SaveData(int index)
     {
-        localSceneStats.sceneNumber = index;
+        localSceneStats.sceneName = sceneManager.GetSceneName();
+        localSceneStats.sceneNumber = sceneManager.GetSceneNumber();
         GlobalControl.Instance.SaveSceneData(index, localSceneStats);
     }
     public void PrintData()
@@ -33,8 +34,9 @@ public class StatManager : MonoBehaviour {
     public void AddCSVStatPerGrab(float startTime, float endTime, float weight, string hand, bool forceRelease)
     {
         float duration = endTime - startTime;
+        string sceneName = sceneManager.GetSceneName();
         int sceneNumber = sceneManager.GetSceneNumber();
-        string CSVStatPerGrab = sceneNumber + "," + startTime + "," + endTime + "," + duration + "," + weight + "," + hand + "," + forceRelease;
+        string CSVStatPerGrab = sceneNumber + "," + startTime + "," + endTime + "," + duration + "," + weight + "," + hand + "," + forceRelease + "," + sceneName;
         localSceneStats.AddCSVStatPerGrab(CSVStatPerGrab);
     }
 

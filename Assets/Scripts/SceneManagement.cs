@@ -10,7 +10,7 @@ public class SceneManagement : MonoBehaviour {
     private bool reloadScene = false;
     private float timeSceneStart;
     private StatManager statManagerScript;
-    private int sceneNumber;
+    private int sceneNumber = 0;
 
     private SceneSettings sceneSettings;
     public GameObject prefab;
@@ -20,13 +20,17 @@ public class SceneManagement : MonoBehaviour {
     {
         statManagerScript = GetComponent<StatManager>();
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        //sceneNumber = currentSceneIndex;
         nextSceneIndex = currentSceneIndex;
         prefab = GlobalControl.Instance.GetWeightPrefab();
     }
     // called first
     void OnEnable()
     {
-        createObjectsScript = GameObject.Find("SceneSettings").transform.GetComponent<CreateObjects>();
+        if (GameObject.Find("SceneSettings") != null)
+        {
+            createObjectsScript = GameObject.Find("SceneSettings").transform.GetComponent<CreateObjects>();
+        }
         prefab = GlobalControl.Instance.GetWeightPrefab();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -38,10 +42,12 @@ public class SceneManagement : MonoBehaviour {
     // called second
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        sceneSettings = GameObject.Find("SceneSettings").transform.GetComponent<SceneSettings>();
-        createObjectsScript = GameObject.Find("SceneSettings").transform.GetComponent<CreateObjects>();
-        
-        createObjectsScript.Create();
+        if (GameObject.Find("SceneSettings") != null) { 
+            sceneSettings = GameObject.Find("SceneSettings").transform.GetComponent<SceneSettings>();
+            createObjectsScript = GameObject.Find("SceneSettings").transform.GetComponent<CreateObjects>();
+
+            createObjectsScript.Create();
+        }
         timeSceneStart = Time.time;
         sceneNumber++;
     }
@@ -65,17 +71,20 @@ public class SceneManagement : MonoBehaviour {
     public void NextScene()
     {
         StopTime();
-        if (sceneSettings.performDiscriminations)
+        if (GameObject.Find("SceneSettings") != null)
         {
-            GlobalControl.Instance.PerformDiscrimination();
+            if (sceneSettings.performDiscriminations)
+            {
+                GlobalControl.Instance.PerformDiscrimination();
+            }
         }
-        statManagerScript.SaveData(SceneManager.GetActiveScene().buildIndex);
+        statManagerScript.SaveData(sceneNumber-1);
         
         // only adds nextScene index if the scene is not reloadable
         if (!CheckIfReloadableScene())
         {
             nextSceneIndex++;
-            if (sceneSettings.reloadableScene)
+            if (GameObject.Find("SceneSettings") && sceneSettings.reloadableScene)
             {
                 GlobalControl.Instance.ResetDiscriminations();
             }
@@ -87,7 +96,7 @@ public class SceneManagement : MonoBehaviour {
     // check if the current scene should be reloaded
     private bool CheckIfReloadableScene()
     {
-        if (sceneSettings.reloadableScene)
+        if (GameObject.Find("SceneSettings") != null && sceneSettings.reloadableScene)
         {
             return (GlobalControl.Instance.CheckDiscriminationsPerformed());
         }
@@ -120,6 +129,10 @@ public class SceneManagement : MonoBehaviour {
     public int GetSceneNumber()
     {
         return sceneNumber;
+    }
+    public string GetSceneName()
+    {
+        return (SceneManager.GetActiveScene().name);
     }
 
     

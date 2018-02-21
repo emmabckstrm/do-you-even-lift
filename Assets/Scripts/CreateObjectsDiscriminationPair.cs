@@ -30,14 +30,13 @@ public class CreateObjectsDiscriminationPair : CreateObjects {
     // creates objects for weight discrimination in pairs
     public override void Create()
     {
-        Debug.Log("create function pair");
         if (j >= weights.Length)
         {
             j = 0;
         }
         for (int i = 0; i < 2; i++)
         {
-            Vector3 localPos = new Vector3(0, 0, i * 0.45f);
+            Vector3 localPos = new Vector3(0, 0, i * 0.3f);
             Transform parent = GameObject.Find("Weight placement").transform;
             weight = Instantiate(prefab, parent.position, Quaternion.identity, parent);
             weight.transform.localPosition = localPos;

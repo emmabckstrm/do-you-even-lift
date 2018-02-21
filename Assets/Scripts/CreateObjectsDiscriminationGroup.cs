@@ -33,7 +33,6 @@ public class CreateObjectsDiscriminationGroup : CreateObjects
     // creates objects for weight discrimination in pairs
     public override void Create()
     {
-        Debug.Log("create function group");
         for (int i = 0; i < weights.Length; i++)
         {
             Vector3 localPos = new Vector3(0, 0, i * 0.3f);

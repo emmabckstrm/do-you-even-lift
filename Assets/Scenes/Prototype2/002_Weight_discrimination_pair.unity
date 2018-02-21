@@ -213,7 +213,7 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d10caa94b66eee34389803de40c76bce, type: 2}
+      objectReference: {fileID: 2100000, guid: 2ded7f556aa9afc43a115be7a3b601df, type: 2}
     - target: {fileID: 65365753235058710, guid: 9191234d89f619b45add5e4a0b61ff9b,
         type: 2}
       propertyPath: m_Enabled
@@ -275,6 +275,11 @@ Prefab:
       propertyPath: m_Name
       value: DropZone (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 23787360711331536, guid: 9191234d89f619b45add5e4a0b61ff9b,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bafd58178a2f0c94eb9ec3c89bdb645c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9191234d89f619b45add5e4a0b61ff9b, type: 2}
   m_IsPrefabParent: 0
@@ -352,6 +357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementLimitType: 1
   numberOfDiscriminations: 3
+  numberOfDiscriminationScenes: 2
   minimumWeight: 1
   weightStep: 2
   weightPrefab: {fileID: 1342628079711942, guid: 2a9865b84a3ac2546b703b7cf81fccbf,
@@ -584,7 +590,7 @@ MonoBehaviour:
   numberOfChildren: 0
   numberOfValidDrops: 0
   timeDelay: 2.5
-  changeSceneAutomatically: 0
+  changeSceneAutomatically: 1
 --- !u!1 &1135670851
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,7 +623,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 2ded7f556aa9afc43a115be7a3b601df, type: 2}
+  - {fileID: 2100000, guid: 7d8a915ee81801e419e235e1bed44e04, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -830,7 +836,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1476081797}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.52199984, y: 0.86600006, z: -0.53}
+  m_LocalPosition: {x: 0.522, y: 0.86600006, z: -0.447}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 841008247}
@@ -1011,6 +1017,26 @@ Prefab:
     - target: {fileID: 4000010114616428, guid: 41c0760bd81dd084283814f0c432b466, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114485273770408838, guid: 41c0760bd81dd084283814f0c432b466,
+        type: 2}
+      propertyPath: triggerAlias
+      value: 122
+      objectReference: {fileID: 0}
+    - target: {fileID: 114485273770408838, guid: 41c0760bd81dd084283814f0c432b466,
+        type: 2}
+      propertyPath: gripAlias
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 114485273770408838, guid: 41c0760bd81dd084283814f0c432b466,
+        type: 2}
+      propertyPath: distancePickupLeft
+      value: 122
+      objectReference: {fileID: 0}
+    - target: {fileID: 114485273770408838, guid: 41c0760bd81dd084283814f0c432b466,
+        type: 2}
+      propertyPath: distancePickupRight
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 41c0760bd81dd084283814f0c432b466, type: 2}

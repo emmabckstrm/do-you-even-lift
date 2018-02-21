@@ -114,7 +114,17 @@
         {
             return ((Mathf.Abs(speed-lastSpeed)) / Time.deltaTime);
         }
-
+        protected override void ForceReleaseGrab()
+        {
+            GameObject grabbingObject = GetGrabbingObject();
+            if (grabbingObject != null)
+            {
+                grabbingObject.GetComponent<VRTK_InteractGrab>().ForceRelease();
+                forceRelease = true;
+                numberOfForceReleases++;
+                statManager.localSceneStats.totalForceReleases += 1;
+            }
+        }
         // Checks if the velocity exceeds the limit
         private void CheckMovementSpeed(float speed)
         {
@@ -124,10 +134,8 @@
             //writeString(serializedData);
             if (speed > speedLimit)
             {
-                //Debug.Log("Grabb attachment says TOO FAST! Limit; " + speedLimit);
-                forceRelease = true;
-                numberOfForceReleases++;
-                statManager.localSceneStats.totalForceReleases += 1;
+                Debug.Log("Grabb attachment says TOO FAST! Limit; " + speedLimit);
+                
                 ForceReleaseGrab();
             } 
         }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class SceneStatistics 
 {
+    public string sceneName;
     public int sceneNumber;
     public float timeToCompletion; // Total time to complete task
     public float timeGrabbingObj; // total time grabbing an object
@@ -19,7 +20,7 @@ public class SceneStatistics
     public int totalGrabsLeft;
     public int totalForceReleases;
 
-    private string CSVStatPerGrabHeader = "sceneNumber, startTime, endTime, duration, weight, hand, forceRelease\n";
+    private string CSVStatPerGrabHeader = "sceneName, sceneNumber, startTime, endTime, duration, weight, hand, forceRelease\n";
     private string CSVStatPerGrab = "";
 
     public string SerializeJson() {
@@ -27,7 +28,7 @@ public class SceneStatistics
         serializedData += "{";
 
         serializedData += ("\"sceneNumber\":" + sceneNumber);
-        serializedData += ("\"timeToCompletion\":" + timeToCompletion);
+        serializedData += (",\"timeToCompletion\":" + timeToCompletion);
         serializedData += (",\"timeGrabbingObj\":"+timeGrabbingObj);
         serializedData += (",\"timeGrabbingRight\":" + timeGrabbingRight);
         serializedData += (",\"timeGrabbingLeft\":" + timeGrabbingLeft);
@@ -39,6 +40,7 @@ public class SceneStatistics
         serializedData += (",\"totalGrabsRight\":" + totalGrabsRight);
         serializedData += (",\"totalGrabsLeft\":" + totalGrabsLeft);
         serializedData += (",\"totalForceReleases\":" + totalForceReleases);
+        serializedData += (",\"sceneName\":\"" + sceneName + "\"");
         serializedData += "}";
 
         return serializedData;
@@ -49,6 +51,7 @@ public class SceneStatistics
         serializedData += "sceneNumber,timeToCompletion,timeGrabbingObj,timeGrabbingRight,timeGrabbingLeft,correct,";
         serializedData += "totalTouches,totalGrabs,totalTouchesRight,";
         serializedData += "totalTouchesLeft,totalGrabsRight,totalGrabsLeft,totalForceReleases";
+        serializedData += ",sceneName";
         serializedData += "\n";
         return serializedData;
     }
@@ -56,10 +59,12 @@ public class SceneStatistics
     {
         string serializedData = "";
 
+        
         serializedData += sceneNumber + "," + timeToCompletion + "," + timeGrabbingObj + "," + timeGrabbingRight + ",";
         serializedData += timeGrabbingLeft + "," + correct + "," + totalTouches + "," + totalGrabs + ",";
         serializedData += totalTouchesRight + "," + totalTouchesLeft + "," + totalGrabsRight + ",";
         serializedData += totalGrabsLeft + "," + totalForceReleases;
+        serializedData += "," + sceneName;
 
         serializedData += "\n";
 

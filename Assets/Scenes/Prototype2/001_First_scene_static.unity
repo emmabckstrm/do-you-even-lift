@@ -239,6 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementLimitType: 1
   numberOfDiscriminations: 3
+  numberOfDiscriminationScenes: 2
   minimumWeight: 1
   weightStep: 2
   weightPrefab: {fileID: 1342628079711942, guid: 2a9865b84a3ac2546b703b7cf81fccbf,
@@ -489,7 +490,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 2ded7f556aa9afc43a115be7a3b601df, type: 2}
+  - {fileID: 2100000, guid: 7d8a915ee81801e419e235e1bed44e04, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
