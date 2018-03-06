@@ -5,9 +5,7 @@ using UnityEngine;
 public class CreateObjectsDiscriminationGroup : CreateObjects
 {
 
-    GameObject weight;
-    public GameObject prefab;
-    float[] weights;
+    
     int j;
 
     // Use this for initialization
@@ -42,6 +40,8 @@ public class CreateObjectsDiscriminationGroup : CreateObjects
             weight.transform.localPosition = localPos;
             weight.transform.rotation = Quaternion.Euler(0, 0f, 0);
             weight.GetComponent<VRTK.InteractableObjectTrackMovement>().UpdateMovementLimitValue();
+            UpdatePairNum(weights[i]);
         }
+        SetPairNum();
     }
 }

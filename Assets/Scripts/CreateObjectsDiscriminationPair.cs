@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class CreateObjectsDiscriminationPair : CreateObjects {
 
-    GameObject weight;
-    public GameObject prefab;
-    float[] weights;
+    
     int j;
 
     // Use this for initialization
@@ -43,7 +41,9 @@ public class CreateObjectsDiscriminationPair : CreateObjects {
             weight.transform.rotation = Quaternion.Euler(0, 0f, 0);
             weight.GetComponent<Rigidbody>().mass = weights[j];
             weight.GetComponent<VRTK.InteractableObjectTrackMovement>().UpdateMovementLimitValue();
+            UpdatePairNum(weights[j]);
             j++;
         }
+        SetPairNum();
     }
 }

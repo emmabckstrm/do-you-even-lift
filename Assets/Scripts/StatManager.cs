@@ -36,9 +36,12 @@ public class StatManager : MonoBehaviour {
         float duration = endTime - startTime;
         string sceneName = sceneManager.GetSceneName();
         int sceneNumber = sceneManager.GetSceneNumber();
-        string CSVStatPerGrab = sceneNumber + "," + startTime + "," + endTime + "," + duration + "," + weight + "," + hand + "," + forceRelease + "," + sceneName;
+        string CSVStatPerGrab = sceneNumber + "," + startTime + "," + endTime + "," + duration + "," + weight + "," + hand + "," + forceRelease + "," + sceneName + "," + localSceneStats.pair;
         localSceneStats.AddCSVStatPerGrab(CSVStatPerGrab);
     }
 
-
+    public void SetPair(float p)
+    {
+        localSceneStats.pair = p;
+    }
 }

@@ -19,8 +19,9 @@ public class SceneStatistics
     public int totalGrabsRight;
     public int totalGrabsLeft;
     public int totalForceReleases;
+    public float pair; // the lightest weight of the pair
 
-    private string CSVStatPerGrabHeader = "sceneName, sceneNumber, startTime, endTime, duration, weight, hand, forceRelease\n";
+    private string CSVStatPerGrabHeader = "sceneNumber, startTime, endTime, duration, weight, hand, forceRelease, sceneName, pair\n";
     private string CSVStatPerGrab = "";
 
     public string SerializeJson() {
@@ -41,6 +42,7 @@ public class SceneStatistics
         serializedData += (",\"totalGrabsLeft\":" + totalGrabsLeft);
         serializedData += (",\"totalForceReleases\":" + totalForceReleases);
         serializedData += (",\"sceneName\":\"" + sceneName + "\"");
+        serializedData += (",\"pair\":\"" + pair + "\"");
         serializedData += "}";
 
         return serializedData;
@@ -51,7 +53,7 @@ public class SceneStatistics
         serializedData += "sceneNumber,timeToCompletion,timeGrabbingObj,timeGrabbingRight,timeGrabbingLeft,correct,";
         serializedData += "totalTouches,totalGrabs,totalTouchesRight,";
         serializedData += "totalTouchesLeft,totalGrabsRight,totalGrabsLeft,totalForceReleases";
-        serializedData += ",sceneName";
+        serializedData += ",sceneName,pair";
         serializedData += "\n";
         return serializedData;
     }
@@ -64,7 +66,7 @@ public class SceneStatistics
         serializedData += timeGrabbingLeft + "," + correct + "," + totalTouches + "," + totalGrabs + ",";
         serializedData += totalTouchesRight + "," + totalTouchesLeft + "," + totalGrabsRight + ",";
         serializedData += totalGrabsLeft + "," + totalForceReleases;
-        serializedData += "," + sceneName;
+        serializedData += "," + sceneName + "," + pair;
 
         serializedData += "\n";
 
