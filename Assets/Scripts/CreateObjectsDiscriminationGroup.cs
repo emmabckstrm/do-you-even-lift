@@ -5,7 +5,7 @@ using UnityEngine;
 public class CreateObjectsDiscriminationGroup : CreateObjects
 {
 
-    
+
     int j;
 
     // Use this for initialization
@@ -39,7 +39,7 @@ public class CreateObjectsDiscriminationGroup : CreateObjects
             weight.GetComponent<Rigidbody>().mass = weights[i];
             weight.transform.localPosition = localPos;
             weight.transform.rotation = Quaternion.Euler(0, 0f, 0);
-            weight.GetComponent<VRTK.InteractableObjectTrackMovement>().UpdateMovementLimitValue();
+            weight.GetComponent<VRTK.InteractableObjectCustom>().UpdateMovementLimitValue();
             UpdatePairNum(weights[i]);
         }
         SetPairNum();

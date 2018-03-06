@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CreateObjectsDiscriminationPair : CreateObjects {
 
-    
+
     int j;
 
     // Use this for initialization
@@ -22,7 +22,7 @@ public class CreateObjectsDiscriminationPair : CreateObjects {
 
     // Update is called once per frame
     void Update () {
-		
+
 	}
 
     // creates objects for weight discrimination in pairs
@@ -40,7 +40,7 @@ public class CreateObjectsDiscriminationPair : CreateObjects {
             weight.transform.localPosition = localPos;
             weight.transform.rotation = Quaternion.Euler(0, 0f, 0);
             weight.GetComponent<Rigidbody>().mass = weights[j];
-            weight.GetComponent<VRTK.InteractableObjectTrackMovement>().UpdateMovementLimitValue();
+            weight.GetComponent<VRTK.InteractableObjectCustom>().UpdateMovementLimitValue();
             UpdatePairNum(weights[j]);
             j++;
         }
