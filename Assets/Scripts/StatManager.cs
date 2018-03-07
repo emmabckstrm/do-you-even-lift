@@ -14,7 +14,7 @@ public class StatManager : MonoBehaviour {
         sceneManager = gameObject.GetComponent<SceneManagement>();
 
     }
-	
+
     // Saves local data to global controller
     public void SaveData(int index)
     {

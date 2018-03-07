@@ -18,7 +18,7 @@ public class SceneManagement : MonoBehaviour {
 
     private void Start()
     {
-        statManagerScript = GetComponent<StatManager>();
+
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         //sceneNumber = currentSceneIndex;
         nextSceneIndex = currentSceneIndex;
@@ -27,6 +27,8 @@ public class SceneManagement : MonoBehaviour {
     // called first
     void OnEnable()
     {
+        statManagerScript = GetComponent<StatManager>();
+        statManagerScript.ResetLocalData();
         if (GameObject.Find("SceneSettings") != null)
         {
             createObjectsScript = GameObject.Find("SceneSettings").transform.GetComponent<CreateObjects>();
@@ -42,7 +44,7 @@ public class SceneManagement : MonoBehaviour {
     // called second
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (GameObject.Find("SceneSettings") != null) { 
+        if (GameObject.Find("SceneSettings") != null) {
             sceneSettings = GameObject.Find("SceneSettings").transform.GetComponent<SceneSettings>();
             createObjectsScript = GameObject.Find("SceneSettings").transform.GetComponent<CreateObjects>();
 
@@ -59,13 +61,13 @@ public class SceneManagement : MonoBehaviour {
         {
             NextScene();
         }
-        
+
             /*
             if (GUI.Button(new Rect(120, 40, 100, 30), "Save all data"))
             {
                 statManagerScript.SaveData(currentSceneIndex);
                 statManagerScript.PrintData();
-            }*/   
+            }*/
     }
 
     public void NextScene()
@@ -79,7 +81,7 @@ public class SceneManagement : MonoBehaviour {
             }
         }
         statManagerScript.SaveData(sceneNumber-1);
-        
+
         // only adds nextScene index if the scene is not reloadable
         if (!CheckIfReloadableScene())
         {
@@ -89,8 +91,8 @@ public class SceneManagement : MonoBehaviour {
                 GlobalControl.Instance.ResetDiscriminations();
             }
         }
-        
-        
+
+
         LoadNextScene();
     }
     // check if the current scene should be reloaded
@@ -124,7 +126,7 @@ public class SceneManagement : MonoBehaviour {
         float duration = Time.time - timeSceneStart;
         statManagerScript.localSceneStats.timeToCompletion = duration;
     }
-  
+
 
     public int GetSceneNumber()
     {
@@ -135,5 +137,5 @@ public class SceneManagement : MonoBehaviour {
         return (SceneManager.GetActiveScene().name);
     }
 
-    
+
 }

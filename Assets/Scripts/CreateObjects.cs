@@ -14,10 +14,10 @@ public class CreateObjects : MonoBehaviour {
     void Start () {
         statManager = GameObject.Find("AppManager").transform.GetComponent<StatManager>();
     }
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
     void Awake()
     {
@@ -36,6 +36,7 @@ public class CreateObjects : MonoBehaviour {
 
     public void SetPairNum()
     {
-        statManager.SetPair(lowestPairNum);
+      Debug.Log("pair " + lowestPairNum);
+        statManager.SetPair((float)lowestPairNum);
     }
 }
