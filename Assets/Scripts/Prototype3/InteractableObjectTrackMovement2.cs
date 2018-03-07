@@ -10,6 +10,11 @@ namespace VRTK
         public float safeZoneDistance = 0f;
         protected HingeJoint hingeJoint;
         protected JointSpring jointSpring;
+        public float timeStep;
+        public int numFrames = 30;
+        protected int currentFrame = 0;
+        protected float[] movementArray;
+        protected float[] movementArrayTemp;
 
         // Use this for initialization
         protected override void Awake()
@@ -25,7 +30,6 @@ namespace VRTK
               float newDamper = interactableRigidbody.mass / 100;
               jointSpring.damper = newDamper;
             }
-
             // gets other scripts
             statManager = GameObject.Find("AppManager").GetComponent<StatManager>();
             globalControl = GameObject.Find("AppManager").GetComponent<GlobalControl>();
@@ -48,44 +52,69 @@ namespace VRTK
               // Since the acceleration is dependant on the speed, we always want to calculate the speed
               if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.AccelerationAnyDirection)
               {
-                  CalculateMovementAnyDirection();
+                  speed = CalculateMovementAnyDirection();
               }
               else
               {
-                  CalculateMovementVertical();
+                  speed = CalculateMovementVertical();
               }
+              UpdateMovementArray();
+              currentFrame++;
 
+              float averageMovement = CalculateAverageMovement();
+              CheckMovementSpeed(averageMovement);
               lastSpeed = speed;
               lastPosition = transform.position;
+
+              if (currentFrame == numFrames-1) {
+                currentFrame = 0;
+              }
+
             }
         }
+        //Updates speed array
+        protected void UpdateMovementArray() {
+          Debug.Log("arrays " + movementArray + movementArrayTemp);
+          System.Array.Copy(movementArray, 0, movementArrayTemp, 0, numFrames);
+          movementArray[0] = speed;
+          System.Array.Copy(movementArrayTemp, 0, movementArray, 1, numFrames-1);
+        }
+        protected float CalculateAverageMovement() {
+          float total = 0f;
+          for (int i=0; i<currentFrame; i++) {
+            total += speed;
+          }
+          float averageMovement = total / currentFrame;
+          Debug.Log("averageMovement "+ averageMovement);
+          return averageMovement;
+        }
         // Calculates the speed or acceleration in any direction
-        protected void CalculateMovementAnyDirection() {
+        protected float CalculateMovementAnyDirection() {
           speed = CalculateGeneralVelocity(lastPosition);
           if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection)
           {
               acceleration = CalculateAccelerationAny(speed);
               accelerationTotal += acceleration;
-              CheckMovementSpeed(acceleration);
+              return (acceleration);
           }
           else {
               speedTotal += speed;
-              CheckMovementSpeed(speed);
+              return (speed);
           }
         }
         // Calculates the velocity or acceleration vertically
-        protected void CalculateMovementVertical() {
+        protected float CalculateMovementVertical() {
           // if acceleration or speed vertically
           speed = CalculateVerticalVelocity(lastPosition);
           if (movementLimitType == MovementLimitationTypes.AccelerationVertical)
           {
               acceleration = CalculateAccelerationVertical(speed);
               accelerationTotal += acceleration;
-              CheckMovementSpeed(acceleration);
+              return (acceleration);
           }
           else {
               speedTotal += speed;
-              CheckMovementSpeed(speed);
+              return (speed);
           }
         }
         // Calculates the acceleration in any direction
@@ -115,6 +144,8 @@ namespace VRTK
         {
             timeGrabStart = Time.time;
             startPosition = transform.position;
+            movementArray = Enumerable.Repeat(0f, numFrames).ToArray();
+            movementArrayTemp = Enumerable.Repeat(0f, numFrames).ToArray();
             base.Grabbed(currentGrabbingObject);
         }
         // Overridden to log end time of grab
