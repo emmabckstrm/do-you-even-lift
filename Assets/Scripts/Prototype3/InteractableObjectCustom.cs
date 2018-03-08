@@ -41,6 +41,7 @@ namespace VRTK
         // Calculates the velocity based on objects position
         protected virtual float CalculateGeneralVelocity(Vector3 lastPos)
         {
+            Debug.Log(((transform.position - lastPos).magnitude) / Time.deltaTime);
             return (((transform.position - lastPos).magnitude) / Time.deltaTime);
         }
         // Calculates movement velocity in vertical
@@ -64,7 +65,7 @@ namespace VRTK
         {
             if (speed > speedLimit)
             {
-
+                Debug.Log(" *************** Too fast! speed limit " + speedLimit + " speed " + speed);
                 ForceReleaseGrab();
             }
         }

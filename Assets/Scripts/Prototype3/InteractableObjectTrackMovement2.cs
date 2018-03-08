@@ -10,11 +10,15 @@ namespace VRTK
         public float safeZoneDistance = 0f;
         protected HingeJoint hingeJoint;
         protected JointSpring jointSpring;
-        public float timeStep;
-        public int numFrames = 30;
+        protected float timeStep;
+        protected int numFrames = 30;
         protected int currentFrame = 0;
         protected float[] movementArray;
         protected float[] movementArrayTemp;
+        protected float avgMovement = 0f;
+        [Tooltip("Number of frames that will be skipped each time velocity or acceleration is calculated")]
+        protected int skipFrames = 3;
+        protected float lastFrameTime = 0f;
 
         // Use this for initialization
         protected override void Awake()
@@ -46,86 +50,116 @@ namespace VRTK
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (safeZoneDistance == 0 || (transform.position - startPosition).magnitude > safeZoneDistance ) {
-              // Calls different functions depending on what movementlimiation type has been chosen
-              // If any direction
-              // Since the acceleration is dependant on the speed, we always want to calculate the speed
-              if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.AccelerationAnyDirection)
-              {
-                  speed = CalculateMovementAnyDirection();
+            if (IsGrabbed()) {
+              if (currentFrame%skipFrames == 0) {
+                if (safeZoneDistance == 0 || (transform.position - startPosition).magnitude > safeZoneDistance ) {
+                  // Calls different functions depending on what movementlimiation type has been chosen
+                  // If any direction
+                  // Since the acceleration is dependant on the speed, we always want to calculate the speed
+                  if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.AccelerationAnyDirection)
+                  {
+                      CalculateMovementAnyDirection();
+                  }
+                  else
+                  {
+                      CalculateMovementVertical();
+                  }
+                  //vleocity or acc
+                  if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.VelocityVertical) {
+                    UpdateMovementArray(speed);
+                  } else {
+                    UpdateMovementArray(acceleration);
+                  }
+
+
+                  //Debug.Log("frame " + currentFrame);
+
+                  avgMovement = CalculateAverageMovement();
+                  CheckMovementSpeed(avgMovement);
+                  // always velocity
+                  lastSpeed = speed;
+                  lastPosition = transform.position;
+
+                  lastFrameTime = Time.time;
+                }
               }
-              else
-              {
-                  speed = CalculateMovementVertical();
-              }
-              UpdateMovementArray();
               currentFrame++;
-
-              float averageMovement = CalculateAverageMovement();
-              CheckMovementSpeed(averageMovement);
-              lastSpeed = speed;
-              lastPosition = transform.position;
-
-              if (currentFrame == numFrames-1) {
+              if (currentFrame == numFrames) {
                 currentFrame = 0;
               }
-
             }
+
         }
         //Updates speed array
-        protected void UpdateMovementArray() {
-          Debug.Log("arrays " + movementArray + movementArrayTemp);
-          System.Array.Copy(movementArray, 0, movementArrayTemp, 0, numFrames);
-          movementArray[0] = speed;
-          System.Array.Copy(movementArrayTemp, 0, movementArray, 1, numFrames-1);
+        protected void UpdateMovementArray(float movement) {
+          movementArray[currentFrame] = movement;
         }
         protected float CalculateAverageMovement() {
           float total = 0f;
-          for (int i=0; i<currentFrame; i++) {
-            total += speed;
+          int j = 0;
+          for (int i=0; i<currentFrame+1; i=i+skipFrames) {
+            total += movementArray[i];
+            j++;
           }
-          float averageMovement = total / currentFrame;
+          float averageMovement = total / j;
           Debug.Log("averageMovement "+ averageMovement);
           return averageMovement;
         }
         // Calculates the speed or acceleration in any direction
-        protected float CalculateMovementAnyDirection() {
+        protected void CalculateMovementAnyDirection() {
           speed = CalculateGeneralVelocity(lastPosition);
+          //Debug.Log("general Velocity and last velocity " + speed + " " + lastSpeed);
           if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection)
           {
               acceleration = CalculateAccelerationAny(speed);
+              Debug.Log("acceleration " + acceleration);
               accelerationTotal += acceleration;
-              return (acceleration);
+              UpdateMovementArray(acceleration);
           }
           else {
               speedTotal += speed;
-              return (speed);
+              Debug.Log("velocity " + speed);
+              UpdateMovementArray(speed);
           }
         }
         // Calculates the velocity or acceleration vertically
-        protected float CalculateMovementVertical() {
+        protected void CalculateMovementVertical() {
           // if acceleration or speed vertically
           speed = CalculateVerticalVelocity(lastPosition);
           if (movementLimitType == MovementLimitationTypes.AccelerationVertical)
           {
               acceleration = CalculateAccelerationVertical(speed);
               accelerationTotal += acceleration;
-              return (acceleration);
+              UpdateMovementArray(acceleration);
           }
           else {
               speedTotal += speed;
-              return (speed);
+              Debug.Log("velocity " + speed);
+              UpdateMovementArray(speed);
           }
+        }
+        // Calculates the velocity based on objects position
+        protected override float CalculateGeneralVelocity(Vector3 lastPos)
+        {
+            //Debug.Log("general velocity " + (((transform.position - lastPos).magnitude) / (Time.time - lastFrameTime)));
+            return (((transform.position - lastPos).magnitude) / (Time.time - lastFrameTime));
+        }
+        // Calculates movement velocity in vertical
+        protected override float CalculateVerticalVelocity(Vector3 lastPos)
+        {
+            return (Mathf.Abs(transform.position.y - lastPos.y)) / (Time.time - lastFrameTime);
         }
         // Calculates the acceleration in any direction
         protected override float CalculateAccelerationAny(float speed)
         {
-            return ((Mathf.Abs(speed - lastSpeed)) / Time.deltaTime);
+            Debug.Log("velocty and lastSpeed " + speed + " " + lastSpeed);
+            Debug.Log("time " + (Time.time - lastFrameTime));
+            return ((Mathf.Abs(speed - lastSpeed)) / (Time.time - lastFrameTime));
         }
         // Calculates the acceleration in vertical direction
         protected override float CalculateAccelerationVertical(float speed)
         {
-            return ((Mathf.Abs(speed-lastSpeed)) / Time.deltaTime);
+            return ((Mathf.Abs(speed-lastSpeed)) / (Time.time - lastFrameTime));
         }
         protected override void ForceReleaseGrab()
         {
@@ -142,8 +176,11 @@ namespace VRTK
         // Overridden to log start time of grab
         public override void Grabbed(VRTK_InteractGrab currentGrabbingObject = null)
         {
+            Debug.Log("----------------- grab start ---------------");
+            Debug.Log("movement limiation type " + movementLimitType);
             timeGrabStart = Time.time;
             startPosition = transform.position;
+            currentFrame = 0;
             movementArray = Enumerable.Repeat(0f, numFrames).ToArray();
             movementArrayTemp = Enumerable.Repeat(0f, numFrames).ToArray();
             base.Grabbed(currentGrabbingObject);
@@ -186,7 +223,8 @@ namespace VRTK
             }
             else if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection || movementLimitType == MovementLimitationTypes.AccelerationVertical)
             {
-                speedLimit = (150 / (interactableRigidbody.mass));
+                // speedLimit = ((150 / (interactableRigidbody.mass+5))+0.2f);
+                speedLimit = (130f / (interactableRigidbody.mass));
             }
         }
 
