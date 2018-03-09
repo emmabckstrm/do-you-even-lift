@@ -19,11 +19,13 @@ namespace VRTK
         [Tooltip("Number of frames that will be skipped each time velocity or acceleration is calculated")]
         protected int skipFrames = 3;
         protected float lastFrameTime = 0f;
+        protected Shake shakeScript;
 
         // Use this for initialization
         protected override void Awake()
         {
             base.Awake();
+            shakeScript = GetComponent<Shake>();
             safeZoneDistance = 0.067f;
             Rigidbody rb = interactableRigidbody;
             // modifies the hingeJoint
@@ -71,16 +73,12 @@ namespace VRTK
                   } else {
                     UpdateMovementArray(acceleration);
                   }
-
-
                   //Debug.Log("frame " + currentFrame);
-
                   avgMovement = CalculateAverageMovement();
                   CheckMovementSpeed(avgMovement);
                   // always velocity
                   lastSpeed = speed;
                   lastPosition = transform.position;
-
                   lastFrameTime = Time.time;
                 }
               }
@@ -225,14 +223,11 @@ namespace VRTK
             else if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection || movementLimitType == MovementLimitationTypes.AccelerationVertical)
             {
                 // speedLimit = ((150 / (interactableRigidbody.mass+5))+0.2f);
-                speedLimit = (130f / (interactableRigidbody.mass));
+                speedLimit = (20f / (interactableRigidbody.mass+5));
             }
         }
         public override void UpdateAngularDrag() {
           interactableRigidbody.angularDrag = (0.1f * (interactableRigidbody.mass*interactableRigidbody.mass));
         }
-
-
-
     }
 }

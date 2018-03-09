@@ -47,7 +47,7 @@
             }
             // Calculates movement limit depending on what movementLimitationType is chosen
             UpdateMovementLimitValue();
-            
+
         }
 
         /// <summary>
@@ -74,7 +74,7 @@
                     CheckMovementSpeed(speed);
                 }
             }
-            else 
+            else
             {
                 // if acceleration or speed vertically
                 speed = CalculateVerticalVelocity(lastPosition);
@@ -130,14 +130,14 @@
         {
             serializedData = "Thiss is the speed  " + speed;
             // Write to disk
-            
+
             //writeString(serializedData);
             if (speed > speedLimit)
             {
                 Debug.Log("Grabb attachment says TOO FAST! Limit; " + speedLimit);
-                
+
                 ForceReleaseGrab();
-            } 
+            }
         }
         // Overridden to log start time of grab
         public override void Grabbed(VRTK_InteractGrab currentGrabbingObject = null)
@@ -201,7 +201,7 @@
                 speedLimit = (150 / (interactableRigidbody.mass));
             }
         }
-        
+
 
 
     }
