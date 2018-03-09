@@ -42,6 +42,7 @@ namespace VRTK
             }
             // Calculates movement limit depending on what movementLimitationType is chosen
             UpdateMovementLimitValue();
+            UpdateAngularDrag();
 
         }
         /// <summary>
@@ -102,7 +103,7 @@ namespace VRTK
             j++;
           }
           float averageMovement = total / j;
-          Debug.Log("averageMovement "+ averageMovement);
+          //Debug.Log("averageMovement "+ averageMovement);
           return averageMovement;
         }
         // Calculates the speed or acceleration in any direction
@@ -112,13 +113,13 @@ namespace VRTK
           if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection)
           {
               acceleration = CalculateAccelerationAny(speed);
-              Debug.Log("acceleration " + acceleration);
+              //Debug.Log("acceleration " + acceleration);
               accelerationTotal += acceleration;
               UpdateMovementArray(acceleration);
           }
           else {
               speedTotal += speed;
-              Debug.Log("velocity " + speed);
+              //Debug.Log("velocity " + speed);
               UpdateMovementArray(speed);
           }
         }
@@ -152,8 +153,8 @@ namespace VRTK
         // Calculates the acceleration in any direction
         protected override float CalculateAccelerationAny(float speed)
         {
-            Debug.Log("velocty and lastSpeed " + speed + " " + lastSpeed);
-            Debug.Log("time " + (Time.time - lastFrameTime));
+            //Debug.Log("velocty and lastSpeed " + speed + " " + lastSpeed);
+            //Debug.Log("time " + (Time.time - lastFrameTime));
             return ((Mathf.Abs(speed - lastSpeed)) / (Time.time - lastFrameTime));
         }
         // Calculates the acceleration in vertical direction
@@ -176,8 +177,8 @@ namespace VRTK
         // Overridden to log start time of grab
         public override void Grabbed(VRTK_InteractGrab currentGrabbingObject = null)
         {
-            Debug.Log("----------------- grab start ---------------");
-            Debug.Log("movement limiation type " + movementLimitType);
+            //Debug.Log("----------------- grab start ---------------");
+            //Debug.Log("movement limiation type " + movementLimitType);
             timeGrabStart = Time.time;
             startPosition = transform.position;
             currentFrame = 0;
@@ -226,6 +227,9 @@ namespace VRTK
                 // speedLimit = ((150 / (interactableRigidbody.mass+5))+0.2f);
                 speedLimit = (130f / (interactableRigidbody.mass));
             }
+        }
+        public override void UpdateAngularDrag() {
+          interactableRigidbody.angularDrag = (0.1f * (interactableRigidbody.mass*interactableRigidbody.mass));
         }
 
 

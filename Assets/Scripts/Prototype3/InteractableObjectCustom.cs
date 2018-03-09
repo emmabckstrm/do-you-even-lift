@@ -90,6 +90,7 @@ namespace VRTK
         {
 
         }
+        public virtual void UpdateAngularDrag() {}
 
 
 
