@@ -11,13 +11,13 @@ namespace VRTK
         protected HingeJoint hingeJoint;
         protected JointSpring jointSpring;
         protected float timeStep;
-        protected int numFrames = 30;
+        protected int numFrames = 40;
         protected int currentFrame = 0;
         protected float[] movementArray;
         protected float[] movementArrayTemp;
         protected float avgMovement = 0f;
         [Tooltip("Number of frames that will be skipped each time velocity or acceleration is calculated")]
-        protected int skipFrames = 3;
+        protected int skipFrames = 4;
         protected float lastFrameTime = 0f;
         protected Shake shakeScript;
 
@@ -70,12 +70,16 @@ namespace VRTK
                   //vleocity or acc
                   if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.VelocityVertical) {
                     UpdateMovementArray(speed);
+                    // check speed here when not using average movement
+                    CheckMovementSpeed(speed);
                   } else {
                     UpdateMovementArray(acceleration);
+                    // check speed here when not using average movement
+                    CheckMovementSpeed(acceleration);
                   }
-                  //Debug.Log("frame " + currentFrame);
-                  avgMovement = CalculateAverageMovement();
-                  CheckMovementSpeed(avgMovement);
+                  // Debug.Log("frame " + currentFrame);
+                  //avgMovement = CalculateAverageMovement();
+                  //CheckMovementSpeed(avgMovement);
                   // always velocity
                   lastSpeed = speed;
                   lastPosition = transform.position;
@@ -96,12 +100,13 @@ namespace VRTK
         protected float CalculateAverageMovement() {
           float total = 0f;
           int j = 0;
-          for (int i=0; i<currentFrame+1; i=i+skipFrames) {
+          for (int i=0; i<numFrames; i=i+skipFrames) {
             total += movementArray[i];
+            Debug.Log("movementcalc " + i + " - " + movementArray[i]);
             j++;
           }
           float averageMovement = total / j;
-          //Debug.Log("averageMovement "+ averageMovement);
+          Debug.Log("averageMovement "+ averageMovement);
           return averageMovement;
         }
         // Calculates the speed or acceleration in any direction
@@ -113,12 +118,12 @@ namespace VRTK
               acceleration = CalculateAccelerationAny(speed);
               //Debug.Log("acceleration " + acceleration);
               accelerationTotal += acceleration;
-              UpdateMovementArray(acceleration);
+              //UpdateMovementArray(acceleration);
           }
           else {
               speedTotal += speed;
               //Debug.Log("velocity " + speed);
-              UpdateMovementArray(speed);
+              //UpdateMovementArray(speed);
           }
         }
         // Calculates the velocity or acceleration vertically
@@ -129,12 +134,12 @@ namespace VRTK
           {
               acceleration = CalculateAccelerationVertical(speed);
               accelerationTotal += acceleration;
-              UpdateMovementArray(acceleration);
+              //UpdateMovementArray(acceleration);
           }
           else {
               speedTotal += speed;
               Debug.Log("velocity " + speed);
-              UpdateMovementArray(speed);
+              //UpdateMovementArray(speed);
           }
         }
         // Calculates the velocity based on objects position
@@ -217,13 +222,15 @@ namespace VRTK
             if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.VelocityVertical)
             {
                 // speedLimit = ((2 / (interactableRigidbody.mass))+0.1f); works good
-                // speedLimit = ((1.5f / (interactableRigidbody.mass))+0.07f); // works good as well. A bit frustrating but I managed to get the first four scenes correct
-                speedLimit = ((2.3f / (interactableRigidbody.mass))+0.07f);
+                 //speedLimit = ((1.5f / (interactableRigidbody.mass))+0.07f); // works good as well. A bit frustrating but I managed to get the first four scenes correct
+                //speedLimit = ((2.3f / (interactableRigidbody.mass))+0.07f); // used for user study1
+                //speedLimit = (4/(interactableRigidbody.mass+0.45f)-0.1f); //wip
+                speedLimit = (1.8f / interactableRigidbody.mass);
             }
             else if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection || movementLimitType == MovementLimitationTypes.AccelerationVertical)
             {
                 // speedLimit = ((150 / (interactableRigidbody.mass+5))+0.2f);
-                speedLimit = (20f / (interactableRigidbody.mass+5));
+                speedLimit = (30f / (interactableRigidbody.mass+5));
             }
         }
         public override void UpdateAngularDrag() {
