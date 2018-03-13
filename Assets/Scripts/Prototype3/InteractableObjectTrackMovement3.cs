@@ -3,22 +3,22 @@ namespace VRTK
     using UnityEngine;
     using System.Linq;
 
-    public class InteractableObjectTrackMovement2 : InteractableObjectCustom
+    public class InteractableObjectTrackMovement3 : InteractableObjectCustom
     {
-        // calculates movement every x frame
+				// calculates average movement
 
         protected Vector3 startPosition;
         public float safeZoneDistance = 0f;
         protected HingeJoint hingeJoint;
         protected JointSpring jointSpring;
         protected float timeStep;
-        protected int numFrames = 40;
+        protected int numFrames = 10;
         protected int currentFrame = 0;
         protected float[] movementArray;
         protected float[] movementArrayTemp;
         protected float avgMovement = 0f;
         [Tooltip("Number of frames that will be skipped each time velocity or acceleration is calculated")]
-        protected int skipFrames = 4;
+        protected int skipFrames = 1;
         protected float lastFrameTime = 0f;
         protected Shake shakeScript;
 
@@ -72,15 +72,15 @@ namespace VRTK
                   if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.VelocityVertical) {
                     UpdateMovementArray(speed);
                     // check speed here when not using average movement
-                    CheckMovementSpeed(speed);
+                    //CheckMovementSpeed(speed);
                   } else {
                     UpdateMovementArray(acceleration);
                     // check speed here when not using average movement
-                    CheckMovementSpeed(acceleration);
+                    //CheckMovementSpeed(acceleration);
                   }
                   // Debug.Log("frame " + currentFrame);
-                  //avgMovement = CalculateAverageMovement();
-                  //CheckMovementSpeed(avgMovement);
+                  avgMovement = CalculateAverageMovement();
+                  CheckMovementSpeed(avgMovement);
                   // always velocity
                   lastSpeed = speed;
                   lastPosition = transform.position;
@@ -103,11 +103,11 @@ namespace VRTK
           int j = 0;
           for (int i=0; i<numFrames; i=i+skipFrames) {
             total += movementArray[i];
-            Debug.Log("movementcalc " + i + " - " + movementArray[i]);
+            //Debug.Log("movementcalc " + i + " - " + movementArray[i]);
             j++;
           }
           float averageMovement = total / j;
-          Debug.Log("averageMovement "+ averageMovement);
+          //Debug.Log("averageMovement "+ averageMovement);
           return averageMovement;
         }
         // Calculates the speed or acceleration in any direction
@@ -139,7 +139,7 @@ namespace VRTK
           }
           else {
               speedTotal += speed;
-              Debug.Log("velocity " + speed);
+              //Debug.Log("velocity " + speed);
               //UpdateMovementArray(speed);
           }
         }

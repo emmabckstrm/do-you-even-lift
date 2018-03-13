@@ -132,7 +132,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1084882984030734}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 0.51, y: 1.3855, z: -0.147}
+  m_LocalPosition: {x: 0.068, y: 1.383, z: -0.515}
   m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
   m_Children:
   - {fileID: 4047715087644200}
@@ -189,7 +189,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 6566fdff26aa815409b41a836c4482b7, type: 2}
+  - {fileID: 2100000, guid: 2f6c0fa58a425ab48b71e037be2fea11, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -396,8 +396,8 @@ MonoBehaviour:
   useOverrideButton: 0
   allowedUseControllers: 0
   usingState: 0
-  movementLimitType: 2
-  GlobalMovementLimit: 1
+  movementLimitType: 1
+  GlobalMovementLimit: 0
   safeZoneDistance: 0
 --- !u!153 &153322548769329848
 ConfigurableJoint:
@@ -409,7 +409,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.47, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.51, y: 1.4183999, z: -0.147}
+  m_ConnectedAnchor: {x: 0.068, y: 1.4159, z: -0.515}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: -1, z: 0}
   m_XMotion: 0
@@ -420,7 +420,7 @@ ConfigurableJoint:
   m_AngularZMotion: 1
   m_LinearLimitSpring:
     spring: 0
-    damper: 0
+    damper: 0.01
   m_LinearLimit:
     limit: 0
     bounciness: 0
@@ -440,11 +440,11 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 51.251316
+    limit: 115.05246
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
-    limit: 10.244363
+    limit: 13.165597
     bounciness: 0
     contactDistance: 0
   m_TargetPosition: {x: 0, y: 0, z: 0}

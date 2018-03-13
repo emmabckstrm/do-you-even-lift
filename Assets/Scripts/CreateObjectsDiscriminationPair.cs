@@ -34,13 +34,15 @@ public class CreateObjectsDiscriminationPair : CreateObjects {
         }
         for (int i = 0; i < 2; i++)
         {
-            Vector3 localPos = new Vector3(0, 0, i * 0.3f);
+            Vector3 localPos = new Vector3(-i * 0.3f, 0, 0);
+            Debug.Log("local pos " + localPos);
             Transform parent = GameObject.Find("Weight placement").transform;
-            weight = Instantiate(prefab, parent.position, Quaternion.identity, parent);
-            weight.transform.localPosition = localPos;
+            weight = Instantiate(prefab, parent.position+localPos, Quaternion.identity, parent);
+            //weight.transform.localPosition = localPos;
             weight.transform.rotation = Quaternion.Euler(0, 0f, 0);
             weight.GetComponent<Rigidbody>().mass = weights[j];
             weight.GetComponent<VRTK.InteractableObjectCustom>().UpdateMovementLimitValue();
+            weight.GetComponent<VRTK.InteractableObjectCustom>().UpdateAngularDrag();
             UpdatePairNum(weights[j]);
             j++;
         }
