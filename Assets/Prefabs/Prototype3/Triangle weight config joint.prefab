@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114298863574568228}
   - component: {fileID: 114703546628043678}
   - component: {fileID: 153322548769329848}
+  - component: {fileID: 114157343694724714}
   m_Layer: 0
   m_Name: Triangle weight config joint
   m_TagString: Weight
@@ -132,7 +133,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1084882984030734}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 0.068, y: 1.383, z: -0.515}
+  m_LocalPosition: {x: 1.7129439, y: 0.6503614, z: 0.9650382}
   m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
   m_Children:
   - {fileID: 4047715087644200}
@@ -336,6 +337,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114157343694724714
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1084882984030734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 682666c5c78e5c94bbb0add2a99081b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shake: 0
+  shakeDirection: 0
 --- !u!114 &114298863574568228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -399,6 +413,7 @@ MonoBehaviour:
   movementLimitType: 1
   GlobalMovementLimit: 0
   safeZoneDistance: 0
+  warnInDangerZone: 1
 --- !u!153 &153322548769329848
 ConfigurableJoint:
   m_ObjectHideFlags: 1

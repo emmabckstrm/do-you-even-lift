@@ -17,13 +17,17 @@ public class GlobalControl : MonoBehaviour
         AccelerationAnyDirection,
         AccelerationVertical,
     }
+    [Header("Movement limitation", order = 1)]
     [Tooltip("Determines in what direction the movement limit is")]
     public MovementLimitationTypes movementLimitType = MovementLimitationTypes.VelocityAnyDirection;
+    [Header("Weight discriminations", order = 2)]
     public int numberOfDiscriminations = 3;
     public int numberOfDiscriminationScenes = 2;
     public float minimumWeight = 1.0f;
     public float weightStep = 1.0f;
     public GameObject weightPrefab;
+    [Header("Other", order = 3)]
+    public bool warnInDangerZone;
     private int discriminationsPerformed = 0;
     private int discriminationScenesPerformed = 0;
     private int totalDiscriminations = 0;
@@ -62,12 +66,12 @@ public class GlobalControl : MonoBehaviour
     // saves scene data
     public void SaveSceneData(int scene, SceneStatistics stats) {
         if (stats != null) {
-            
+
                 sceneStats[scene] = stats;
-            
-            
+
+
         }
-        
+
     }
     // Sets up an array of weights as numbers for weight discrimination scenes
     private void SetupWeightDiscrimination()
@@ -247,10 +251,10 @@ public class GlobalControl : MonoBehaviour
         WriteStringToFile(currentPath + "logPerGrab.csv", SerializeDataPerGrabCSV());
     }
 
-    // Writes to file 
+    // Writes to file
     public void WriteStringToFile(string p, string str)
     {
-        
+
         using (FileStream fs = new FileStream(p, FileMode.OpenOrCreate, FileAccess.ReadWrite))
         {
             StreamWriter sw = new StreamWriter(fs);

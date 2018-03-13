@@ -9,6 +9,9 @@ namespace VRTK
 
         protected Vector3 startPosition;
         public float safeZoneDistance = 0f;
+        public bool globalDangerZoneWarning = true;
+        public bool warnInDangerZone = true;
+        protected float speedDangerZone = 0.15f;
         protected HingeJoint hingeJoint;
         protected JointSpring jointSpring;
         protected float timeStep;
@@ -139,7 +142,7 @@ namespace VRTK
           }
           else {
               speedTotal += speed;
-              Debug.Log("velocity " + speed);
+              //Debug.Log("velocity " + speed);
               //UpdateMovementArray(speed);
           }
         }
@@ -165,6 +168,18 @@ namespace VRTK
         protected override float CalculateAccelerationVertical(float speed)
         {
             return ((Mathf.Abs(speed-lastSpeed)) / (Time.time - lastFrameTime));
+        }
+        protected override void CheckMovementSpeed(float speed) {
+          if (speed > speedLimit)
+          {
+              Debug.Log(" *************** Too fast! speed limit " + speedLimit + " speed " + speed + " angular drag " + interactableRigidbody.angularDrag);
+              ForceReleaseGrab();
+          } else if (warnInDangerZone && speed > speedLimit-speedDangerZone && !shakeScript.IsShaking()) {
+            Debug.Log(" ******* ALMOST Too fast! danger zone speed limit " + speedLimit + " speed " + speed);
+            shakeScript.EnableShake();
+          } else if (warnInDangerZone && speed <= speedLimit-speedDangerZone && shakeScript.IsShaking()){
+            shakeScript.DisableShake();
+          }
         }
         protected override void ForceReleaseGrab()
         {
@@ -195,6 +210,7 @@ namespace VRTK
         {
             float timeGrabEnd = Time.time;
             timeGrabbed = timeGrabEnd - timeGrabStart;
+            shakeScript.DisableShake();
             numberOfGrabs += 1;
             statManager.localSceneStats.timeGrabbingObj += timeGrabbed;
             statManager.localSceneStats.totalGrabs += 1;
