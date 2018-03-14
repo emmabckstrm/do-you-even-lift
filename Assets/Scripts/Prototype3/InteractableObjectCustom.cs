@@ -37,6 +37,7 @@ namespace VRTK
         protected bool forceRelease = false;
         protected StatManager statManager;
         protected GlobalControl globalControl;
+        protected float timeForceRelease;
 
         // Calculates the velocity based on objects position
         protected virtual float CalculateGeneralVelocity(Vector3 lastPos)
@@ -68,6 +69,9 @@ namespace VRTK
                 Debug.Log(" *************** Too fast! speed limit " + speedLimit + " speed " + speed + " angular drag " + interactableRigidbody.angularDrag);
                 ForceReleaseGrab();
             }
+        }
+        public virtual float GetForceReleaseTime() {
+          return timeForceRelease;
         }
         //Overridden to count number of touches to object
         public override void StartTouching(VRTK_InteractTouch currentTouchingObject)

@@ -11,7 +11,7 @@ public class Shake : MonoBehaviour {
 	private Vector3 startPos;
 	private Quaternion startRot;
 	public bool shake = false;
-	protected float shakeIntensity = 0.002f;
+	protected float shakeIntensity = 0.003f;
 	public ShakeDir shakeDirection = ShakeDir.X;
 
 

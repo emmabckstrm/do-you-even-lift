@@ -12,6 +12,7 @@ namespace VRTK
         public bool globalDangerZoneWarning = true;
         public bool warnInDangerZone = true;
         protected float speedDangerZone = 0.15f;
+        protected bool permanentGrab = false;
         protected HingeJoint hingeJoint;
         protected JointSpring jointSpring;
         protected float timeStep;
@@ -46,6 +47,9 @@ namespace VRTK
             if (GlobalMovementLimit) {
                 movementLimitType = (MovementLimitationTypes)globalControl.movementLimitType;
             }
+            if (globalDangerZoneWarning) {
+              warnInDangerZone = globalControl.warnInDangerZone;
+            }
             // Calculates movement limit depending on what movementLimitationType is chosen
             UpdateMovementLimitValue();
             UpdateAngularDrag();
@@ -73,13 +77,9 @@ namespace VRTK
                   }
                   //vleocity or acc
                   if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.VelocityVertical) {
-                    UpdateMovementArray(speed);
-                    // check speed here when not using average movement
-                    CheckMovementSpeed(speed);
+                    HandleCurrentMovment(speed);
                   } else {
-                    UpdateMovementArray(acceleration);
-                    // check speed here when not using average movement
-                    CheckMovementSpeed(acceleration);
+                    HandleCurrentMovment(acceleration);
                   }
                   // Debug.Log("frame " + currentFrame);
                   //avgMovement = CalculateAverageMovement();
@@ -172,13 +172,27 @@ namespace VRTK
         protected override void CheckMovementSpeed(float speed) {
           if (speed > speedLimit)
           {
-              Debug.Log(" *************** Too fast! speed limit " + speedLimit + " speed " + speed + " angular drag " + interactableRigidbody.angularDrag);
+              //Debug.Log(" *************** Too fast! speed limit " + speedLimit + " speed " + speed + " angular drag " + interactableRigidbody.angularDrag);
               ForceReleaseGrab();
           } else if (warnInDangerZone && speed > speedLimit-speedDangerZone && !shakeScript.IsShaking()) {
-            Debug.Log(" ******* ALMOST Too fast! danger zone speed limit " + speedLimit + " speed " + speed);
+            //Debug.Log(" ******* ALMOST Too fast! danger zone speed limit " + speedLimit + " speed " + speed);
             shakeScript.EnableShake();
           } else if (warnInDangerZone && speed <= speedLimit-speedDangerZone && shakeScript.IsShaking()){
             shakeScript.DisableShake();
+          }
+        }
+        protected void CheckDistanceFromOrigin() {
+          Vector3 distance = transform.position - startPosition;
+          if (distance.y > 0.5f && Mathf.Abs(distance.x) < 0.1f && Mathf.Abs(distance.z) < 0.1f) {
+            permanentGrab = true;
+          }
+        }
+        protected void HandleCurrentMovment(float movement) {
+          //UpdateMovementArray(movement);
+          // check speed here when not using average movement
+          CheckDistanceFromOrigin();
+          if (!permanentGrab) {
+            CheckMovementSpeed(movement);
           }
         }
         protected override void ForceReleaseGrab()
@@ -186,6 +200,7 @@ namespace VRTK
             GameObject grabbingObject = GetGrabbingObject();
             if (grabbingObject != null)
             {
+                timeForceRelease = Time.time;
                 grabbingObject.GetComponent<VRTK_InteractGrab>().ForceRelease();
                 forceRelease = true;
                 numberOfForceReleases++;
@@ -215,6 +230,7 @@ namespace VRTK
             statManager.localSceneStats.timeGrabbingObj += timeGrabbed;
             statManager.localSceneStats.totalGrabs += 1;
             string hand = "";
+            permanentGrab = false;
             if (previousGrabbingObject.name.Contains("right"))
             {
                 statManager.localSceneStats.totalGrabsRight += 1;
