@@ -195,6 +195,35 @@ namespace VRTK
             CheckMovementSpeed(movement);
           }
         }
+        // Updates movement limit
+        public override void UpdateMovementLimitValue()
+        {
+          // Calculates movement limit depending on what movementLimitationType is chosen
+          if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.VelocityVertical)
+          {
+            if (interactableRigidbody.mass > 9.83f) {
+              speedLimit = (1.9f / interactableRigidbody.mass + 0.06f);
+            } else if (interactableRigidbody.mass > 2.36f) {
+              // speedLimit = ((2 / (interactableRigidbody.mass))+0.1f); works good
+               //speedLimit = ((1.5f / (interactableRigidbody.mass))+0.07f); // works good as well. A bit frustrating but I managed to get the first four scenes correct
+              //speedLimit = ((2.3f / (interactableRigidbody.mass))+0.07f); // used for user study1
+              //speedLimit = (4/(interactableRigidbody.mass+0.45f)-0.1f); //wip
+              // 4/(x+0.9)-0.2 //wip
+              //speedLimit = (1.9f / interactableRigidbody.mass + 0.06f); // prototype 3A
+              //speedLimit = (-0.08f * interactableRigidbody.mass + 1.1f); // combining linear
+              speedLimit = (-0.08f * interactableRigidbody.mass + 1.05f); // combining linear
+            } else {
+              speedLimit = (-0.8f * interactableRigidbody.mass + 2.75f); // prototype 3A or cobining linear
+              //speedLimit = (-1.8f * interactableRigidbody.mass + 3.6f);
+            }
+
+          }
+          else if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection || movementLimitType == MovementLimitationTypes.AccelerationVertical)
+          {
+              // speedLimit = ((150 / (interactableRigidbody.mass+5))+0.2f);
+              speedLimit = (30f / (interactableRigidbody.mass+5));
+          }
+        }
         protected override void ForceReleaseGrab()
         {
             GameObject grabbingObject = GetGrabbingObject();
@@ -225,7 +254,9 @@ namespace VRTK
         {
             float timeGrabEnd = Time.time;
             timeGrabbed = timeGrabEnd - timeGrabStart;
-            shakeScript.DisableShake();
+            if (shakeScript != null) {
+                shakeScript.DisableShake();
+            }
             numberOfGrabs += 1;
             statManager.localSceneStats.timeGrabbingObj += timeGrabbed;
             statManager.localSceneStats.totalGrabs += 1;

@@ -115,7 +115,7 @@ namespace VRTK
           }
         }
         public virtual void UpdateAngularDrag() {
-          interactableRigidbody.angularDrag = (0.1f * (interactableRigidbody.mass*interactableRigidbody.mass*(interactableRigidbody.mass*0.5f)));
+          interactableRigidbody.angularDrag = (0.5f * (interactableRigidbody.mass*interactableRigidbody.mass));
         }
 
 

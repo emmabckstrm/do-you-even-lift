@@ -35,7 +35,6 @@ public class CreateObjectsDiscriminationPair : CreateObjects {
         for (int i = 0; i < 2; i++)
         {
             Vector3 localPos = new Vector3(-i * 0.3f, 0, 0);
-            Debug.Log("local pos " + localPos);
             Transform parent = GameObject.Find("Weight placement").transform;
             weight = Instantiate(prefab, parent.position+localPos, Quaternion.identity, parent);
             //weight.transform.localPosition = localPos;

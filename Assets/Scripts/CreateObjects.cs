@@ -36,7 +36,6 @@ public class CreateObjects : MonoBehaviour {
 
     public void SetPairNum()
     {
-      Debug.Log("pair " + lowestPairNum);
         statManager.SetPair((float)lowestPairNum);
     }
 }

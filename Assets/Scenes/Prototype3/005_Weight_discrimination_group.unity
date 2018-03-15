@@ -1226,12 +1226,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be1728321f19db4dae98bd86988dd89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementLimitType: 2
+  movementLimitType: 1
   numberOfDiscriminations: 3
   numberOfDiscriminationScenes: 2
   minimumWeight: 1
   weightStep: 2
-  weightPrefab: {fileID: 1348761486254098, guid: 7b327e75423af6641814e8e86d401fa5,
+  weightPrefab: {fileID: 1084882984030734, guid: 33767015c656d1a478a0917aafbd84f7,
     type: 2}
   warnInDangerZone: 0
 --- !u!114 &381712096
@@ -9600,7 +9600,7 @@ Prefab:
     - target: {fileID: 224000012623161658, guid: d46cf6b1ad9d84a48ae7548a2a6b41b3,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 657
+      value: 635
       objectReference: {fileID: 0}
     - target: {fileID: 224000012623161658, guid: d46cf6b1ad9d84a48ae7548a2a6b41b3,
         type: 2}

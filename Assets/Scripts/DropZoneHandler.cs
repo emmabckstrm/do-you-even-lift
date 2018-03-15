@@ -11,6 +11,7 @@ public class DropZoneHandler : MonoBehaviour {
     private float timeStart;
     private bool delayingTime;
     private float timeDiff;
+    private string weightOrder = "";
     private List<Transform> children;
     //private List<DropZone> dropZones;
     private DropZone[] dropZones;
@@ -23,7 +24,7 @@ public class DropZoneHandler : MonoBehaviour {
         statManager = GameObject.Find("AppManager").GetComponent<StatManager>();
         UpdateNumberOfChildren();
     }
-	
+
 	// Update is called once per frame
 	void Update () {
         // Checks if a current timeDelay is in progress, if so, check the delay has reached the limit
@@ -69,8 +70,10 @@ public class DropZoneHandler : MonoBehaviour {
     {
         float last = -1f;
         int points = 0;
+        weightOrder = "";
         foreach (DropZone dropZone in dropZones)
         {
+            weightOrder += (dropZone.placedWeight.ToString() + "-");
             if (dropZone.placedWeight > last)
             {
                 // good!
@@ -78,6 +81,7 @@ public class DropZoneHandler : MonoBehaviour {
                 last = dropZone.placedWeight;
             }
         }
+        statManager.localSceneStats.weightOrder = weightOrder;
         if (points == numberOfChildren)
         {
             statManager.localSceneStats.correct = true;
@@ -96,7 +100,7 @@ public class DropZoneHandler : MonoBehaviour {
         if (changeSceneAutomatically)
         {
             sceneManager.NextScene();
-        } 
+        }
     }
 
 }

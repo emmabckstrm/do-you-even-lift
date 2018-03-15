@@ -41,8 +41,9 @@ public class CreateObjectsDiscriminationGroup : CreateObjects
             weight.transform.rotation = Quaternion.Euler(0, 0f, 0);
             weight.GetComponent<VRTK.InteractableObjectCustom>().UpdateMovementLimitValue();
             weight.GetComponent<VRTK.InteractableObjectCustom>().UpdateAngularDrag();
-            UpdatePairNum(weights[i]);
+
         }
+        UpdatePairNum(0f);
         SetPairNum();
     }
 }
