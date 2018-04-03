@@ -9,6 +9,13 @@ public class GameControl : MonoBehaviour {
 	protected int maxLevel;
 	protected string gamePath = "Game/";
 	protected GameObject currentLevelObj;
+	protected string currentFloorName;
+	protected GameObject currentFloor;
+	protected int floors;
+	protected Transform[] floorObjects;
+	protected float waitingTime = 1.0f;
+	protected float startTime;
+	protected float tempTime;
 
 	// Use this for initialization
 	void Start () {
@@ -33,8 +40,20 @@ public class GameControl : MonoBehaviour {
 	}
 	// Opens the floor
 	protected void OpenFloor() {
-			Debug.Log("Environment/Floor " + (currentLevelNum-1) + "/Floor");
-		Destroy(GameObject.Find("Environment/Floor " + (currentLevelNum-1) + "/Floor"));
+			currentFloorName = ("Environment/Floor " + (currentLevelNum-1) + "/Floor");
+			currentFloor = GameObject.Find(currentFloorName);
+			floors = currentFloor.transform.childCount;
+			Debug.Log("flloooors " + floors);
+			floorObjects = new Transform[floors];
+			for (int i=0;i<floors; i++) {
+				floorObjects[i] = currentFloor.transform.GetChild(i);
+				floorObjects[i].GetComponent<Rigidbody>().isKinematic = false;
+			}
+			//Destroy(currentFloor);
+	}
+	protected IEnumerator WaitAndDestroy(float waitTime, string name) {
+		yield return new WaitForSeconds(waitTime);
+		DestroyGameObj(name);
 	}
 
 	//
@@ -45,6 +64,6 @@ public class GameControl : MonoBehaviour {
 		currentLevelNum++;
 		LoadGameObject(gamePath + "TestLevel" + currentLevelNum);
 		OpenFloor();
-		DestroyGameObj("Level " + (currentLevelNum-1));
+		StartCoroutine( WaitAndDestroy(1.0f, "Level " + (currentLevelNum-1)) );
 	}
 }

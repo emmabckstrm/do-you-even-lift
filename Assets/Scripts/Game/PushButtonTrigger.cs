@@ -8,7 +8,12 @@ public class PushButtonTrigger : MonoBehaviour {
 	protected GameObject level;
 	public GameObject prefab;
 	public ButtonHandler buttonHandlerScript;
+	public GameObject button;
 	private bool triggered = false;
+	protected Transform buttonPress;
+	protected Renderer renderer;
+	protected Material mat;
+	public Color emissionColor = new Color(0.3360726f, 0.8161765f, 0.6175128f);
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +31,8 @@ public class PushButtonTrigger : MonoBehaviour {
 
 		if (other.tag == "Button") {
 			buttonHandlerScript.PushButton();
+			mat = button.GetComponent<Renderer>().material;
+			mat.SetColor("_EmissionColor", emissionColor);
 		}
 	}
 	void OnTriggerExit(Collider other) {
@@ -33,6 +40,8 @@ public class PushButtonTrigger : MonoBehaviour {
 		triggered = false;
 		if (other.tag == "Button") {
 			buttonHandlerScript.UnpushButton();
+			mat = button.GetComponent<Renderer>().material;
+			mat.SetColor("_EmissionColor", Color.black);
 		}
 	}
 }
