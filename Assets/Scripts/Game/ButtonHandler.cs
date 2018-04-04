@@ -11,7 +11,7 @@ public class ButtonHandler : MonoBehaviour {
 	private float timeStart;
 	private bool delayingTime;
 	private float timeDiff;
-	private float timeDelay = 0.5f;
+	private float timeDelay = 1.5f;
 	protected bool levelWon = false;
 
 	// Use this for initialization

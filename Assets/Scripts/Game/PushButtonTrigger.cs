@@ -26,19 +26,19 @@ public class PushButtonTrigger : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if (triggered) return;
-		triggered = true;
-
 		if (other.tag == "Button") {
+			if (triggered) return;
+			triggered = true;
 			buttonHandlerScript.PushButton();
 			mat = button.GetComponent<Renderer>().material;
 			mat.SetColor("_EmissionColor", emissionColor);
 		}
 	}
 	void OnTriggerExit(Collider other) {
-		if (!triggered) return;
-		triggered = false;
+
 		if (other.tag == "Button") {
+			if (!triggered) return;
+			triggered = false;
 			buttonHandlerScript.UnpushButton();
 			mat = button.GetComponent<Renderer>().material;
 			mat.SetColor("_EmissionColor", Color.black);
