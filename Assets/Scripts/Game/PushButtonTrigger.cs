@@ -17,7 +17,7 @@ public class PushButtonTrigger : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//buttonHandlerScript = transform.parent.GetComponent<ButtonHandler>();
+		buttonHandlerScript = transform.parent.parent.GetComponent<ButtonHandler>();
 	}
 
 	// Update is called once per frame

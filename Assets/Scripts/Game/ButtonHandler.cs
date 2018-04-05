@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ButtonHandler : MonoBehaviour {
 
-	public GameControl gameControl;
+	protected GameControl gameControl;
 
 	protected int numberOfChildren = 0;
 	protected int pushedButtons = 0;
@@ -16,6 +16,7 @@ public class ButtonHandler : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		gameControl = GameObject.Find("AppManager").GetComponent<GameControl>();
 		UpdateNumberOfChildren();
 	}
 

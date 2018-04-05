@@ -13,13 +13,14 @@ public class GameControl : MonoBehaviour {
 	protected GameObject currentFloor;
 	protected int floors;
 	protected Transform[] floorObjects;
+	protected VRTK.VRTK_BodyPhysics physics;
 	protected float waitingTime = 1.0f;
 	protected float startTime;
 	protected float tempTime;
 
 	// Use this for initialization
 	void Start () {
-
+		physics = GameObject.Find("PlayArea").GetComponent<VRTK.VRTK_BodyPhysics>();
 	}
 
 	// Update is called once per frame
@@ -36,7 +37,7 @@ public class GameControl : MonoBehaviour {
 	}
 	// Loads a prefab from path
 	protected void LoadGameObject(string name) {
-		currentLevelObj = (GameObject) Instantiate(Resources.Load("Game/TestLevel1"));
+		currentLevelObj = (GameObject) Instantiate(Resources.Load(name));
 	}
 	// Opens the floor
 	protected void OpenFloor() {
@@ -62,8 +63,11 @@ public class GameControl : MonoBehaviour {
 
 	public void LoadNextLevel() {
 		currentLevelNum++;
-		LoadGameObject(gamePath + "TestLevel" + currentLevelNum);
+		Debug.Log("currentlevel num " + currentLevelNum);
+		LoadGameObject(gamePath + "Level " + currentLevelNum);
 		OpenFloor();
 		StartCoroutine( WaitAndDestroy(1.0f, "Level " + (currentLevelNum-1)) );
+		StartCoroutine( WaitAndDestroy(1.0f, ("Environment/Floor " + (currentLevelNum-1) + "/Floor")) );
+		physics.enableBodyCollisions = true;
 	}
 }
