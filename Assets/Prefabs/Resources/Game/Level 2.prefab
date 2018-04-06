@@ -5033,7 +5033,7 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "Use the barrels to push all the buttons. \nYou have barrels of different
-    weights."
+    weights.\nCombine the lightest and the heaviest barrel\non the big button."
 --- !u!114 &114834573650697734
 MonoBehaviour:
   m_ObjectHideFlags: 1

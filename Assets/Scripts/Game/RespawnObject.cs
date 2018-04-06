@@ -13,12 +13,18 @@ public class RespawnObject : MonoBehaviour {
 	public GameObject prefab;
 
 	// Use this for initialization
-	void Start () {
+	public void Start () {
 		gameControl = GameObject.Find("AppManager").GetComponent<GameControl>();
 		currentLevelNum = gameControl.GetCurrentLevel();
-		parent = GameObject.Find("Level " + currentLevelNum);
-		respawnPos = GameObject.Find("Level " + currentLevelNum + "/RespawnPosition").transform;
+		SetParent();
+		SetRespawnPos();
 		//respawnPos = parent.Find("RespawnPosition").transform;
+	}
+	protected virtual void SetParent() {
+		parent = GameObject.Find("Level " + currentLevelNum);
+	}
+	protected virtual void SetRespawnPos() {
+		respawnPos = GameObject.Find("Level " + currentLevelNum + "/RespawnPosition").transform;
 	}
 
 	public void Respawn() {
