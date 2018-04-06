@@ -18,30 +18,37 @@ public class GameControl : MonoBehaviour {
 	protected float startTime;
 	protected float tempTime;
 
+	//public variables
+	public int startLevel = 1;
+
 	// Use this for initialization
 	void Start () {
 		physics = GameObject.Find("PlayArea").GetComponent<VRTK.VRTK_BodyPhysics>();
+		if (startLevel > 1) {
+			StartAtLevel(startLevel);
+		}
 	}
 
 	// Update is called once per frame
 	void Update () {
 
 	}
-	protected void GetCurrentLevel() {
 
-	}
 	// Destroys a gameobject of a certain name
 	protected void DestroyGameObj(string name) {
-		//level2 = GameObject.Find(name);
-		Destroy(GameObject.Find(name));
+		GameObject obj = GameObject.Find(name);
+		if (obj != null) {
+			Destroy(obj);
+		}
+
 	}
 	// Loads a prefab from path
 	protected void LoadGameObject(string name) {
 		currentLevelObj = (GameObject) Instantiate(Resources.Load(name));
 	}
 	// Opens the floor
-	protected void OpenFloor() {
-			currentFloorName = ("Environment/Floor " + (currentLevelNum-1) + "/Floor");
+	protected void OpenFloor(int floorNum) {
+			currentFloorName = ("Environment/Floor " + (floorNum) + "/Floor");
 			currentFloor = GameObject.Find(currentFloorName);
 			floors = currentFloor.transform.childCount;
 			Debug.Log("flloooors " + floors);
@@ -57,17 +64,31 @@ public class GameControl : MonoBehaviour {
 		DestroyGameObj(name);
 	}
 
+	// starts the game at specified level
+	protected void StartAtLevel(int level) {
+		LoadGameObject(gamePath + "Level " + (level));
+		for (int i=1; i<level; i++) {
+			OpenFloor(i);
+			DestroyGameObj("Level " + (currentLevelNum));
+			StartCoroutine( WaitAndDestroy(1.0f, ("Environment/Floor " + (i) + "/Floor")) );
+			physics.enableBodyCollisions = true;
+		}
+	}
+
 	//
 	// Public methods
 	// ---------------------------------
 
 	public void LoadNextLevel() {
-		currentLevelNum++;
-		Debug.Log("currentlevel num " + currentLevelNum);
-		LoadGameObject(gamePath + "Level " + currentLevelNum);
-		OpenFloor();
-		StartCoroutine( WaitAndDestroy(1.0f, "Level " + (currentLevelNum-1)) );
-		StartCoroutine( WaitAndDestroy(1.0f, ("Environment/Floor " + (currentLevelNum-1) + "/Floor")) );
+		Debug.Log("currentlevel num " + (currentLevelNum+1));
+		LoadGameObject(gamePath + "Level " + (currentLevelNum+1));
+		OpenFloor(currentLevelNum);
+		StartCoroutine( WaitAndDestroy(1.0f, "Level " + (currentLevelNum)) );
+		StartCoroutine( WaitAndDestroy(1.0f, ("Environment/Floor " + (currentLevelNum) + "/Floor")) );
 		physics.enableBodyCollisions = true;
+		currentLevelNum++;
+	}
+	public int GetCurrentLevel() {
+		return currentLevelNum;
 	}
 }

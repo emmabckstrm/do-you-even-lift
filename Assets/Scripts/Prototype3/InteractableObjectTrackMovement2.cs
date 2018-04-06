@@ -170,15 +170,18 @@ namespace VRTK
             return ((Mathf.Abs(speed-lastSpeed)) / (Time.time - lastFrameTime));
         }
         protected override void CheckMovementSpeed(float speed) {
+          //Debug.Log("Trying to print shakeScript " + shakeScript.IsShaking());
           if (speed > speedLimit)
           {
               //Debug.Log(" *************** Too fast! speed limit " + speedLimit + " speed " + speed + " angular drag " + interactableRigidbody.angularDrag);
               ForceReleaseGrab();
-          } else if (warnInDangerZone && speed > speedLimit-speedDangerZone && !shakeScript.IsShaking()) {
-            //Debug.Log(" ******* ALMOST Too fast! danger zone speed limit " + speedLimit + " speed " + speed);
-            shakeScript.EnableShake();
-          } else if (warnInDangerZone && speed <= speedLimit-speedDangerZone && shakeScript.IsShaking()){
-            shakeScript.DisableShake();
+          } else if(shakeScript != null) {
+             if (warnInDangerZone && speed > speedLimit-speedDangerZone && !shakeScript.IsShaking()) {
+              //Debug.Log(" ******* ALMOST Too fast! danger zone speed limit " + speedLimit + " speed " + speed);
+              shakeScript.EnableShake();
+            } else if (warnInDangerZone && speed <= speedLimit-speedDangerZone && shakeScript.IsShaking()){
+              shakeScript.DisableShake();
+            }
           }
         }
         protected void CheckDistanceFromOrigin() {
