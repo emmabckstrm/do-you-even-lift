@@ -62,7 +62,7 @@ namespace VRTK
         {
             base.FixedUpdate();
             if (IsGrabbed()) {
-              if (currentFrame%skipFrames == 0) {
+              if (currentFrame%skipFrames == 0 && globalControl.useLiftLimitation) {
                 if (safeZoneDistance == 0 || (transform.position - startPosition).magnitude > safeZoneDistance ) {
                   // Calls different functions depending on what movementlimiation type has been chosen
                   // If any direction

@@ -20,9 +20,17 @@ public class FallingBarrel : RespawnObject {
 			//if (triggered) return;
 			//triggered = true;
 			Debug.Log("HEY");
+			SetNewPrefab(other.transform.parent.gameObject);
 			Respawn();
+			Destroy(other.transform.parent.gameObject);
+		} else if (other.transform.parent.gameObject.tag == "Respawn") {
+			Destroy(other.transform.parent.gameObject);
 		}
-		Destroy(other.transform.parent.gameObject);
+
+	}
+
+	protected void SetNewPrefab(GameObject gameObj) {
+		prefab = gameObj;
 	}
 
 	public void Respawn() {

@@ -26,6 +26,7 @@ public class GlobalControl : MonoBehaviour
     public float minimumWeight = 1.0f;
     public float weightStep = 1.0f;
     public GameObject weightPrefab;
+    public bool useLiftLimitation = true;
     [Header("Other", order = 3)]
     public bool warnInDangerZone;
     private int discriminationsPerformed = 0;

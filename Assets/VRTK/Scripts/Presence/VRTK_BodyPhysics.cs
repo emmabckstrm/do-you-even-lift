@@ -183,6 +183,7 @@ namespace VRTK
         protected List<Vector2> standingPositionHistory = new List<Vector2>();
         protected float playAreaHeightAdjustment = 0.009f;
         protected float bodyMass = 100f;
+        protected float bodyDrag = 1.5f;
         protected float bodyRadius = 0.15f;
         protected float leanForwardLengthAddition = 0.05f;
         protected float playAreaPositionThreshold = 0.002f;
@@ -1001,6 +1002,7 @@ namespace VRTK
                 generateRigidbody = true;
                 bodyRigidbody = playArea.gameObject.AddComponent<Rigidbody>();
                 bodyRigidbody.mass = bodyMass;
+                bodyRigidbody.drag = bodyDrag;
                 bodyRigidbody.freezeRotation = true;
             }
         }
@@ -1327,7 +1329,7 @@ namespace VRTK
             isMoving = false;
             isLeaning = false;
             onGround = false;
-            fallMinTime = Time.time + (Time.fixedDeltaTime * 3.0f); // Wait at least 3 fixed update frames before declaring falling finished 
+            fallMinTime = Time.time + (Time.fixedDeltaTime * 3.0f); // Wait at least 3 fixed update frames before declaring falling finished
             OnStartFalling(SetBodyPhysicsEvent(targetFloor, null));
         }
 

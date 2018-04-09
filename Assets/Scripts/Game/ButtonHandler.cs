@@ -5,6 +5,7 @@ using UnityEngine;
 public class ButtonHandler : MonoBehaviour {
 
 	protected GameControl gameControl;
+	public RespawnInfinite respawnScript;
 
 	protected int numberOfChildren = 0;
 	protected int pushedButtons = 0;
@@ -26,8 +27,11 @@ public class ButtonHandler : MonoBehaviour {
 		if (delayingTime) {
 				timeDiff = Time.time - timeStart;
 				if (timeDiff >= timeDelay && levelWon) {
-						Debug.Log("We have a winner!");
+						//Debug.Log("We have a winner!");
 						levelWon = false;
+						if (respawnScript != null) {
+							respawnScript.StopRespawn();
+						}
 						gameControl.LoadNextLevel();
 
 				}

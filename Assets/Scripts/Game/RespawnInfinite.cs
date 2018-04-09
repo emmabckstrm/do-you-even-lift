@@ -5,9 +5,11 @@ using UnityEngine;
 public class RespawnInfinite : RespawnObject {
 
 	protected float lastSpawn = 0f;
-	protected float cooldownTime = 3f;
+	protected float cooldownTime = 6f;
+	protected bool continueRespawn = true;
 
 	public int parentNum;
+
 
 	// Use this for initialization
 	void Start () {
@@ -16,7 +18,7 @@ public class RespawnInfinite : RespawnObject {
 
 	// Update is called once per frame
 	void Update () {
-		if(Time.time >= lastSpawn + cooldownTime)
+		if(continueRespawn && Time.time >= (lastSpawn + cooldownTime))
 		 {
 		     Respawn();
 		     lastSpawn = Time.time;
@@ -29,8 +31,12 @@ public class RespawnInfinite : RespawnObject {
 	protected override void SetRespawnPos() {
 		respawnPos = transform;
 	}
+
 	public void Respawn() {
 		Vector3 localPos = new Vector3(0.3f,0f,0f); // added because of the rotation
 		respawnedObject = Instantiate(prefab, respawnPos.position+localPos, Quaternion.Euler(0f,0f,90f), parent.transform);
+	}
+	public void StopRespawn() {
+		continueRespawn = false;
 	}
 }

@@ -51,7 +51,7 @@ public class GameControl : MonoBehaviour {
 			currentFloorName = ("Environment/Floor " + (floorNum) + "/Floor");
 			currentFloor = GameObject.Find(currentFloorName);
 			floors = currentFloor.transform.childCount;
-			Debug.Log("flloooors " + floors);
+			//Debug.Log("flloooors " + floors);
 			floorObjects = new Transform[floors];
 			for (int i=0;i<floors; i++) {
 				floorObjects[i] = currentFloor.transform.GetChild(i);
@@ -60,8 +60,13 @@ public class GameControl : MonoBehaviour {
 			//Destroy(currentFloor);
 	}
 	protected IEnumerator WaitAndDestroy(float waitTime, string name) {
+		Debug.Log("wait and destroy " + name);
 		yield return new WaitForSeconds(waitTime);
 		DestroyGameObj(name);
+	}
+	protected IEnumerator WaitAndRemoveBodyCollisions(float waitTime) {
+		yield return new WaitForSeconds(waitTime);
+		physics.enableBodyCollisions = false;
 	}
 
 	// starts the game at specified level
@@ -80,13 +85,14 @@ public class GameControl : MonoBehaviour {
 	// ---------------------------------
 
 	public void LoadNextLevel() {
-		Debug.Log("currentlevel num " + (currentLevelNum+1));
+		Debug.Log("currentlevel num " + (currentLevelNum));
 		LoadGameObject(gamePath + "Level " + (currentLevelNum+1));
 		OpenFloor(currentLevelNum);
-		StartCoroutine( WaitAndDestroy(1.0f, "Level " + (currentLevelNum)) );
+		StartCoroutine( WaitAndDestroy(1.0f, "Level " + (currentLevelNum) + "(Clone)") );
 		StartCoroutine( WaitAndDestroy(1.0f, ("Environment/Floor " + (currentLevelNum) + "/Floor")) );
 		physics.enableBodyCollisions = true;
 		currentLevelNum++;
+		StartCoroutine( WaitAndRemoveBodyCollisions(1.3f) );
 	}
 	public int GetCurrentLevel() {
 		return currentLevelNum;

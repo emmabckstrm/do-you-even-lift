@@ -27,7 +27,7 @@ public class RespawnObject : MonoBehaviour {
 		respawnPos = GameObject.Find("Level " + currentLevelNum + "/RespawnPosition").transform;
 	}
 
-	public void Respawn() {
+	public virtual void Respawn() {
 		Debug.Log("Respawn an object!");
 		respawnedObject = Instantiate(prefab, respawnPos.position, Quaternion.identity, parent.transform);
 	}
