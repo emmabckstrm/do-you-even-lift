@@ -9,21 +9,20 @@ public class GameStatistics
     public int sceneNumber;
     public float timeToCompletion; // Total time to complete task
     public float timeGrabbingObj; // total time grabbing an object
-    public float timeGrabbingRight; // total time grabbing any object with right controller
-    public float timeGrabbingLeft;
+		public float timeToFirstInteraction = 0f;
     public bool correct; // if the solution was correct
     public int totalTouches; // total number of touches to objects
     public int totalGrabs; // total number of times grabbing any object
-    public int totalTouchesRight;
-    public int totalTouchesLeft;
-    public int totalGrabsRight;
-    public int totalGrabsLeft;
-    public int totalForceReleases;
+		public int totalButtonCollisions = 0;
+		public int totalButtonTriggers = 0;
     public float pair = -1; // the lightest weight of the pair
     public string weightOrder;
 
-    private string CSVStatPerGrabHeader = "sceneNumber, startTime, endTime, duration, weight, hand, forceRelease, pair, sceneName\n";
+		protected bool firstInteraction = false;
+
+    private string CSVStatPerGrabHeader = "sceneNumber, startTime, endTime, duration, weight, pair, sceneName\n";
     private string CSVStatPerGrab = "";
+
 
     public string SerializeJson() {
         string serializedData = "";
@@ -32,16 +31,12 @@ public class GameStatistics
         serializedData += ("\"sceneNumber\":" + sceneNumber);
         serializedData += (",\"timeToCompletion\":" + timeToCompletion);
         serializedData += (",\"timeGrabbingObj\":"+timeGrabbingObj);
-        serializedData += (",\"timeGrabbingRight\":" + timeGrabbingRight);
-        serializedData += (",\"timeGrabbingLeft\":" + timeGrabbingLeft);
+				serializedData += (",\"timeToFirstInteraction\":"+timeToFirstInteraction);
         serializedData += (",\"correct\":\"" + correct +"\"");
         serializedData += (",\"totalTouches\":" + totalTouches);
         serializedData += (",\"totalGrabs\":" + totalGrabs);
-        serializedData += (",\"totalTouchesRight\":" + totalTouchesRight);
-        serializedData += (",\"totalTouchesLeft\":" + totalTouchesLeft);
-        serializedData += (",\"totalGrabsRight\":" + totalGrabsRight);
-        serializedData += (",\"totalGrabsLeft\":" + totalGrabsLeft);
-        serializedData += (",\"totalForceReleases\":" + totalForceReleases);
+				serializedData += (",\"totalButtonCollisions\":" + totalButtonCollisions);
+				serializedData += (",\"totalButtonTriggers\":" + totalButtonTriggers);
         serializedData += (",\"pair\":\"" + pair + "\"");
         serializedData += (",\"weightOrder\":\"" + weightOrder + "\"");
         serializedData += (",\"sceneName\":\"" + sceneName + "\"");
@@ -52,10 +47,11 @@ public class GameStatistics
     public string SerializeCSVHeader()
     {
         string serializedData = "";
-        serializedData += "sceneNumber,timeToCompletion,timeGrabbingObj,timeGrabbingRight,timeGrabbingLeft,correct,";
-        serializedData += "totalTouches,totalGrabs,totalTouchesRight,";
-        serializedData += "totalTouchesLeft,totalGrabsRight,totalGrabsLeft,totalForceReleases";
-        serializedData += ",pair,weightOrder,sceneName";
+        serializedData += "sceneNumber,timeToCompletion,timeGrabbingObj,";
+				serializedData += "timeToFirstInteraction,correct,";
+				serializedData += "totalTouches,totalGrabs,totalButtonCollisions,";
+				serializedData += "totalButtonTriggers,";
+        serializedData += "pair,weightOrder,sceneName";
         serializedData += "\n";
         return serializedData;
     }
@@ -64,20 +60,20 @@ public class GameStatistics
         string serializedData = "";
 
 
-        serializedData += sceneNumber + "," + timeToCompletion + "," + timeGrabbingObj + "," + timeGrabbingRight + ",";
-        serializedData += timeGrabbingLeft + "," + correct + "," + totalTouches + "," + totalGrabs + ",";
-        serializedData += totalTouchesRight + "," + totalTouchesLeft + "," + totalGrabsRight + ",";
-        serializedData += totalGrabsLeft + "," + totalForceReleases;
-        serializedData += "," + pair + "," + weightOrder + "," + sceneName;
+        serializedData += sceneNumber + "," + timeToCompletion + "," + timeGrabbingObj + ",";
+				serializedData += timeToFirstInteraction + ",";
+        serializedData += correct + "," + totalTouches + "," + totalGrabs + ",";
+				serializedData += totalButtonCollisions + "," + totalButtonTriggers + ",";
+        serializedData += pair + "," + weightOrder + "," + sceneName;
 
         serializedData += "\n";
 
         return serializedData;
     }
 
-    public void AddCSVStatPerGrab(int sceneNumber, float startTime, float endTime, float duration, float weight, string hand, bool forceRelease, float pair, string sceneName)
+    public void AddCSVStatPerGrab(int sceneNumber, float startTime, float endTime, float duration, float weight, float pair, string sceneName)
     {
-        CSVStatPerGrab += (sceneNumber + "," + startTime + "," + endTime + "," + duration + "," + weight + "," + hand + "," + forceRelease + "," + pair + "," + sceneName + "\n");
+        CSVStatPerGrab += (sceneNumber + "," + startTime + "," + endTime + "," + duration + "," + weight + "," + pair + "," + sceneName + "\n");
     }
     public string GetCSVStatPerGrab()
     {
@@ -87,5 +83,14 @@ public class GameStatistics
     {
         return CSVStatPerGrabHeader;
     }
+		public bool IsFirstInteraction() {
+			return !firstInteraction;
+		}
+		public void HandleFirstInteraction(float timestamp) {
+			if (IsFirstInteraction()) {
+				firstInteraction = true;
+				timeToFirstInteraction = timestamp;
+			}
+		}
 
 }

@@ -225,8 +225,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1035221353762546}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.30000013, y: 0.3, z: 0.30000013}
+  m_LocalPosition: {x: 2.52, y: 1.172, z: 0.62}
+  m_LocalScale: {x: 0.30000025, y: 0.3, z: 0.30000025}
   m_Children:
   - {fileID: 4098107785010276}
   - {fileID: 4516671354049596}
@@ -489,7 +489,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.99
+  m_AngularDrag: 7
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -502,7 +502,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1911016631804156}
   serializedVersion: 2
-  m_Mass: 4
+  m_Mass: 3
   m_Drag: 0
   m_AngularDrag: 30
   m_UseGravity: 1
@@ -520,8 +520,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.020000005, y: 0.005732303, z: 0.02000007}
-  m_Center: {x: 0.0000000069538744, y: 0.0021338689, z: 0.0000000029802325}
+  m_Size: {x: 0.020000005, y: 0.005207822, z: 0.02000007}
+  m_Center: {x: 0.0000000069538686, y: 0.0023961097, z: 0.000000002980227}
 --- !u!65 &65637817816855338
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -544,7 +544,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 2.14, z: -5.05}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -2.7042463e-15, y: -0.00286059, z: -0.008389343}
+  m_ConnectedAnchor: {x: -2.704245e-15, y: -0.0028605969, z: -0.008389343}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -588,7 +588,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 2.14, z: 5.05}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 2.7042463e-15, y: -0.0028595442, z: 0.0083893435}
+  m_ConnectedAnchor: {x: 2.704245e-15, y: -0.002859551, z: 0.008389345}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -629,10 +629,10 @@ ConfigurableJoint:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1638929592864862}
   m_ConnectedBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0.02, z: 0}
+  m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 2.2430007, y: -5.7221913, z: 0.035}
+  m_ConnectedAnchor: {x: -2.52, y: -5.9659967, z: -0.62}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -663,7 +663,7 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 34.14974
+    limit: 30
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:

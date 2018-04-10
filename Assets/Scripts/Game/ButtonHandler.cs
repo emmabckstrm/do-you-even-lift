@@ -50,6 +50,7 @@ public class ButtonHandler : MonoBehaviour {
 	// Adds a number to total pushed buttons count
 	public void PushButton() {
 		pushedButtons++;
+		gameControl.IncreaseButtonTriggers();
 		CheckPushedButtons();
 	}
 	// Removes a number to total pushed buttons count

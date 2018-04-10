@@ -43,4 +43,11 @@ public class StatManager : MonoBehaviour {
     {
         localSceneStats.pair = p;
     }
+
+    public virtual void IncreaseButtonCollisions(){}
+    public virtual void DecreaseButtonCollisions() {}
+    public virtual string SerializeData() {
+      return "";
+    }
+    public virtual void WriteDataToFile() {}
 }

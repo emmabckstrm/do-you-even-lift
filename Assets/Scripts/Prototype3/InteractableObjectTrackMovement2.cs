@@ -25,6 +25,7 @@ namespace VRTK
         protected int skipFrames = 4;
         protected float lastFrameTime = 0f;
         protected Shake shakeScript;
+        protected GameControl gameControl;
 
         // Use this for initialization
         protected override void Awake()
@@ -44,6 +45,7 @@ namespace VRTK
             // gets other scripts
             statManager = GameObject.Find("AppManager").GetComponent<StatManager>();
             globalControl = GameObject.Find("AppManager").GetComponent<GlobalControl>();
+            gameControl = GameObject.Find("AppManager").GetComponent<GameControl>();
             if (GlobalMovementLimit) {
                 movementLimitType = (MovementLimitationTypes)globalControl.movementLimitType;
             }
@@ -261,22 +263,11 @@ namespace VRTK
                 shakeScript.DisableShake();
             }
             numberOfGrabs += 1;
-            statManager.localSceneStats.timeGrabbingObj += timeGrabbed;
-            statManager.localSceneStats.totalGrabs += 1;
+            gameControl.AddTimeGrabbing(timeGrabbed);
+            gameControl.AddGrab();
             string hand = "";
             permanentGrab = false;
-            if (previousGrabbingObject.name.Contains("right"))
-            {
-                statManager.localSceneStats.totalGrabsRight += 1;
-                statManager.localSceneStats.timeGrabbingRight += timeGrabbed;
-                hand = "right";
-            }
-            else {
-                statManager.localSceneStats.totalGrabsLeft += 1;
-                statManager.localSceneStats.timeGrabbingLeft += timeGrabbed;
-                hand = "left";
-            }
-            statManager.AddCSVStatPerGrab(timeGrabStart, timeGrabEnd, interactableRigidbody.mass, hand, forceRelease);
+            gameControl.AddCSVStatPerGrab(timeGrabStart, timeGrabEnd, interactableRigidbody.mass, hand);
             forceRelease = false;
 
             base.Ungrabbed(previousGrabbingObject);

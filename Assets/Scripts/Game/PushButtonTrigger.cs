@@ -32,7 +32,9 @@ public class PushButtonTrigger : MonoBehaviour {
 			if (triggered) return;
 			triggered = true;
 			buttonHandlerScript.PushButton();
-			buttonHandlerScript.HandleAction(triggerAction);
+			if (actionOnTrigger) {
+				buttonHandlerScript.HandleAction(triggerAction);
+			}
 			mat = button.GetComponent<Renderer>().material;
 			mat.SetColor("_EmissionColor", emissionColor);
 		}
@@ -43,7 +45,9 @@ public class PushButtonTrigger : MonoBehaviour {
 			if (!triggered) return;
 			triggered = false;
 			buttonHandlerScript.UnpushButton();
-			buttonHandlerScript.UnhandleAction(triggerAction);
+			if (actionOnTrigger) {
+				buttonHandlerScript.UnhandleAction(triggerAction);
+			}
 			mat = button.GetComponent<Renderer>().material;
 			mat.SetColor("_EmissionColor", Color.black);
 		}

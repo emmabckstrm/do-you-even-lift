@@ -15,11 +15,15 @@ public class GameControl : MonoBehaviour {
 	protected Transform[] floorObjects;
 	protected VRTK.VRTK_BodyPhysics physics;
 	protected float waitingTime = 1.0f;
-	protected float startTime;
+	protected float levelStartTime = 0f;
+	protected float levelEndTime;
+	protected float levelDuration;
 	protected float tempTime;
+
 
 	//public variables
 	public int startLevel = 1;
+	public GameStatManager statManager;
 
 	// Use this for initialization
 	void Start () {
@@ -86,7 +90,8 @@ public class GameControl : MonoBehaviour {
 	// ---------------------------------
 
 	public void LoadNextLevel() {
-		Debug.Log("currentlevel num " + (currentLevelNum));
+		HandleLevelTime();
+		statManager.NewStat();
 		LoadGameObject(gamePath + "Level " + (currentLevelNum+1));
 		OpenFloor(currentLevelNum);
 		StartCoroutine( WaitAndDestroy(1.0f, "Level " + (currentLevelNum) + "(Clone)") );
@@ -103,7 +108,7 @@ public class GameControl : MonoBehaviour {
 		DestroyGameObj(lvl + "(Clone)");
 		LoadGameObject(gamePath + lvl);
 	}
-	public void SaveData() {}
+
 
 	void OnGUI() {
 		if (GUI.Button(new Rect(10, 50, 100, 30), "Save data")) {
@@ -112,5 +117,46 @@ public class GameControl : MonoBehaviour {
 		if (GUI.Button(new Rect(10, 90, 100, 30), "Reset level")) {
 			ResetLevel();
 		}
+	}
+
+	//
+	// Methods for statistics -----------------
+	public void SaveData() {
+		statManager.WriteDataToFile();
+		PrintData();
+	}
+
+	public void PrintData()
+	{
+			Debug.Log(statManager.SerializeData());
+	}
+
+	public void HandleLevelTime() {
+		levelEndTime = Time.time;
+		statManager.HandleLevelTime(levelStartTime, levelEndTime);
+		levelStartTime = levelEndTime;
+	}
+	public void IncreaseButtonCollisions() {
+		statManager.IncreaseButtonCollisions();
+	}
+	public void DecreaseButtonCollisions() {
+		statManager.DecreaseButtonCollisions();
+	}
+	public void IncreaseButtonTriggers() {
+		statManager.IncreaseButtonTriggers();
+	}
+	public void DecreaseButtonTriggers() {
+		statManager.DecreaseButtonTriggers();
+	}
+	public void AddTimeGrabbing(float time) {
+		statManager.AddTimeGrabbing(time);
+	}
+	public void AddGrab() {
+		statManager.AddGrab();
+	}
+	public void AddCSVStatPerGrab(float startTime, float endTime, float weight, string hand)
+	{
+			statManager.HandleFirstInteraction(startTime - levelStartTime);
+			statManager.AddCSVStatPerGrab(startTime, endTime, weight, hand);
 	}
 }
