@@ -7,6 +7,7 @@ public class RespawnObject : MonoBehaviour {
 	protected GameControl gameControl;
 	protected GameObject parent;
 	protected Transform respawnPos;
+	protected Transform respawnPosOriginal;
 	protected int currentLevelNum = 0;
 	protected GameObject respawnedObject;
 
@@ -21,14 +22,24 @@ public class RespawnObject : MonoBehaviour {
 		//respawnPos = parent.Find("RespawnPosition").transform;
 	}
 	protected virtual void SetParent() {
-		parent = GameObject.Find("Level " + currentLevelNum);
+		parent = GameObject.Find("Level " + currentLevelNum + "(Clone)");
 	}
 	protected virtual void SetRespawnPos() {
-		respawnPos = GameObject.Find("Level " + currentLevelNum + "/RespawnPosition").transform;
+		respawnPos = GameObject.Find("Level " + currentLevelNum + "(Clone)/RespawnPosition").transform;
+		respawnPosOriginal = respawnPos;
 	}
 
 	public virtual void Respawn() {
-		Debug.Log("Respawn an object!");
 		respawnedObject = Instantiate(prefab, respawnPos.position, Quaternion.identity, parent.transform);
+	}
+	public virtual void Respawn(GameObject gameObj) {
+		respawnedObject = Instantiate(gameObj, respawnPos.position, Quaternion.identity, parent.transform);
+
+	}
+	public virtual void Respawn(GameObject gameObj, Transform customPos) {
+		respawnedObject = Instantiate(gameObj, customPos.position, Quaternion.identity, parent.transform);
+	}
+	public virtual void Respawn(GameObject gameObj, Vector3 customPos) {
+		respawnedObject = Instantiate(gameObj, customPos, Quaternion.identity, parent.transform);
 	}
 }

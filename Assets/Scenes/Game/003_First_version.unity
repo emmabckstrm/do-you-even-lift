@@ -754,6 +754,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 99649344}
+  - component: {fileID: 99649345}
   m_Layer: 0
   m_Name: Wallbricks (2)
   m_TagString: Untagged
@@ -776,6 +777,18 @@ Transform:
   m_Father: {fileID: 2131167606}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90.00001}
+--- !u!65 &99649345
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 99649343}
+  m_Material: {fileID: 13400000, guid: 06b8d07ce3f848c41bf4d8a4092712b3, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 7, z: 16.36}
+  m_Center: {x: 7.89, y: 4.25, z: 0}
 --- !u!1 &109151682
 GameObject:
   m_ObjectHideFlags: 0
@@ -1505,6 +1518,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 174168576}
+  - component: {fileID: 174168577}
   m_Layer: 0
   m_Name: Wallbricks (3)
   m_TagString: Untagged
@@ -1527,6 +1541,18 @@ Transform:
   m_Father: {fileID: 2131167606}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 180, y: -90, z: -180}
+--- !u!65 &174168577
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 174168575}
+  m_Material: {fileID: 13400000, guid: 06b8d07ce3f848c41bf4d8a4092712b3, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 7, z: 16.36}
+  m_Center: {x: 7.89, y: 4.25, z: 0}
 --- !u!1 &182792727
 GameObject:
   m_ObjectHideFlags: 0
@@ -2061,6 +2087,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 237252062}
+  - component: {fileID: 237252063}
   m_Layer: 0
   m_Name: Wallbricks (3)
   m_TagString: Untagged
@@ -2083,6 +2110,18 @@ Transform:
   m_Father: {fileID: 1532240595}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 180, y: -90, z: -180}
+--- !u!65 &237252063
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 237252061}
+  m_Material: {fileID: 13400000, guid: 06b8d07ce3f848c41bf4d8a4092712b3, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 7, z: 16.36}
+  m_Center: {x: 7.89, y: 4.25, z: 0}
 --- !u!1 &255602499
 GameObject:
   m_ObjectHideFlags: 0
@@ -3412,7 +3451,7 @@ HingeJoint:
   m_Anchor: {x: 3.69, y: 5.09, z: 0.83}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.1184175, y: -7.8121996, z: -1.9075}
+  m_ConnectedAnchor: {x: 0.1184175, y: -7.8121996, z: 1.9075}
   m_UseSpring: 1
   m_Spring:
     spring: 0
@@ -4556,6 +4595,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 475474810}
+  - component: {fileID: 475474811}
   m_Layer: 0
   m_Name: Wall bricks
   m_TagString: Untagged
@@ -4578,6 +4618,18 @@ Transform:
   m_Father: {fileID: 1550599475}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &475474811
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 475474809}
+  m_Material: {fileID: 13400000, guid: 06b8d07ce3f848c41bf4d8a4092712b3, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 7, z: 16.36}
+  m_Center: {x: -7.89, y: 4.25, z: 0}
 --- !u!1 &485940852
 GameObject:
   m_ObjectHideFlags: 0
@@ -4586,6 +4638,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 485940853}
+  - component: {fileID: 485940854}
   m_Layer: 0
   m_Name: Wall bricks
   m_TagString: Untagged
@@ -4608,6 +4661,18 @@ Transform:
   m_Father: {fileID: 530793227}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &485940854
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 485940852}
+  m_Material: {fileID: 13400000, guid: 06b8d07ce3f848c41bf4d8a4092712b3, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 7, z: 16.36}
+  m_Center: {x: -7.89, y: 4.25, z: 0}
 --- !u!1 &505502607
 GameObject:
   m_ObjectHideFlags: 0
@@ -5620,6 +5685,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 662265670}
+  - component: {fileID: 662265671}
   m_Layer: 0
   m_Name: Wallbricks (2)
   m_TagString: Untagged
@@ -5642,6 +5708,18 @@ Transform:
   m_Father: {fileID: 530793227}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90.00001}
+--- !u!65 &662265671
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 662265669}
+  m_Material: {fileID: 13400000, guid: 06b8d07ce3f848c41bf4d8a4092712b3, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 7, z: 16.36}
+  m_Center: {x: 7.89, y: 4.25, z: 0}
 --- !u!4 &665376985
 Transform:
   m_ObjectHideFlags: 0
@@ -6331,7 +6409,7 @@ HingeJoint:
   m_Anchor: {x: 3.69, y: 5.09, z: 0.83}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.1184175, y: -11.799701, z: -1.9075}
+  m_ConnectedAnchor: {x: 0.1184175, y: -11.799701, z: 1.9075}
   m_UseSpring: 1
   m_Spring:
     spring: 0
@@ -6622,7 +6700,7 @@ HingeJoint:
   m_Anchor: {x: -3.77, y: 5.23, z: 0.83}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.17758036, y: -7.8121996, z: 1.9575}
+  m_ConnectedAnchor: {x: 0.17758036, y: -7.8121996, z: -1.9575}
   m_UseSpring: 1
   m_Spring:
     spring: 0
@@ -7376,7 +7454,7 @@ HingeJoint:
   m_Anchor: {x: -3.77, y: 5.23, z: 0.83}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.17758036, y: 0.1328001, z: 1.9575}
+  m_ConnectedAnchor: {x: 0.17758036, y: 0.1328001, z: -1.9575}
   m_UseSpring: 1
   m_Spring:
     spring: 0
@@ -9333,6 +9411,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1029426668}
+  - component: {fileID: 1029426669}
   m_Layer: 0
   m_Name: Wallbricks (3)
   m_TagString: Untagged
@@ -9355,6 +9434,18 @@ Transform:
   m_Father: {fileID: 530793227}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 180, y: -90, z: -180}
+--- !u!65 &1029426669
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1029426667}
+  m_Material: {fileID: 13400000, guid: 06b8d07ce3f848c41bf4d8a4092712b3, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 7, z: 16.36}
+  m_Center: {x: 7.89, y: 4.25, z: 0}
 --- !u!1 &1031090372
 GameObject:
   m_ObjectHideFlags: 0
@@ -9972,9 +10063,9 @@ MeshFilter:
   m_Mesh: {fileID: 4300000, guid: 9ef277ff5f15b1e48b8bbcb1461a15d5, type: 3}
 --- !u!1 &1096203187 stripped
 GameObject:
-  m_PrefabParentObject: {fileID: 1881239268371662, guid: 05ee5fd90a101cc4da09e7392e60bc43,
+  m_PrefabParentObject: {fileID: 1702783408542118, guid: 05ee5fd90a101cc4da09e7392e60bc43,
     type: 2}
-  m_PrefabInternal: {fileID: 1929582268}
+  m_PrefabInternal: {fileID: 2107147672}
 --- !u!1 &1096665303
 GameObject:
   m_ObjectHideFlags: 0
@@ -10584,9 +10675,9 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1142646278 stripped
 GameObject:
-  m_PrefabParentObject: {fileID: 1844826367961010, guid: 05ee5fd90a101cc4da09e7392e60bc43,
+  m_PrefabParentObject: {fileID: 1747039147285750, guid: 05ee5fd90a101cc4da09e7392e60bc43,
     type: 2}
-  m_PrefabInternal: {fileID: 1929582268}
+  m_PrefabInternal: {fileID: 2107147672}
 --- !u!1 &1146105848
 GameObject:
   m_ObjectHideFlags: 0
@@ -10595,6 +10686,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1146105849}
+  - component: {fileID: 1146105850}
   m_Layer: 0
   m_Name: Wallbricks (3)
   m_TagString: Untagged
@@ -10617,6 +10709,18 @@ Transform:
   m_Father: {fileID: 1550599475}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 180, y: -90, z: -180}
+--- !u!65 &1146105850
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1146105848}
+  m_Material: {fileID: 13400000, guid: 06b8d07ce3f848c41bf4d8a4092712b3, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 7, z: 16.36}
+  m_Center: {x: 7.89, y: 4.25, z: 0}
 --- !u!1 &1151513153
 GameObject:
   m_ObjectHideFlags: 0
@@ -11992,6 +12096,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1353708825}
+  - component: {fileID: 1353708826}
   m_Layer: 0
   m_Name: Wall bricks
   m_TagString: Untagged
@@ -12014,6 +12119,18 @@ Transform:
   m_Father: {fileID: 1532240595}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1353708826
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1353708824}
+  m_Material: {fileID: 13400000, guid: 06b8d07ce3f848c41bf4d8a4092712b3, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 7, z: 16.36}
+  m_Center: {x: -7.89, y: 4.25, z: 0}
 --- !u!1 &1353847995
 GameObject:
   m_ObjectHideFlags: 0
@@ -12173,6 +12290,9 @@ MonoBehaviour:
   - {fileID: 1588737395}
   - {fileID: 1529804558672246, guid: fc8a786f1b53f46499c2cb711f83c6a2, type: 2}
   - {fileID: 1340303833567332, guid: 6df0f7419e265ae4b9be5a4bc3b576bb, type: 2}
+  - {fileID: 1718099364558630, guid: 918ed293f28c7c94d85e7e7db95b1d45, type: 2}
+  - {fileID: 1966406356502204, guid: ed36b3aa3f5c9f04c80479bd114b11c8, type: 2}
+  - {fileID: 1736884710164692, guid: 67f65608575889e498f0184a7f49335d, type: 2}
   headsetYOffset: 0.2
   movementThreshold: 0.0015
   playAreaMovementThreshold: 0.00075
@@ -12501,6 +12621,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1399501405}
+  - component: {fileID: 1399501406}
   m_Layer: 0
   m_Name: Wall bricks
   m_TagString: Untagged
@@ -12523,6 +12644,18 @@ Transform:
   m_Father: {fileID: 2131167606}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1399501406
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1399501404}
+  m_Material: {fileID: 13400000, guid: 06b8d07ce3f848c41bf4d8a4092712b3, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 7, z: 16.36}
+  m_Center: {x: -7.89, y: 4.25, z: 0}
 --- !u!1 &1403715558
 GameObject:
   m_ObjectHideFlags: 0
@@ -13196,7 +13329,7 @@ HingeJoint:
   m_Anchor: {x: 3.69, y: 5.09, z: 0.83}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.1184175, y: -3.8396997, z: -1.9075}
+  m_ConnectedAnchor: {x: 0.1184175, y: -3.8396997, z: 1.9075}
   m_UseSpring: 1
   m_Spring:
     spring: 0
@@ -13328,6 +13461,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1461276359}
+  - component: {fileID: 1461276360}
   m_Layer: 0
   m_Name: Wall bricks (1)
   m_TagString: Untagged
@@ -13350,6 +13484,18 @@ Transform:
   m_Father: {fileID: 2131167606}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!65 &1461276360
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1461276358}
+  m_Material: {fileID: 13400000, guid: 06b8d07ce3f848c41bf4d8a4092712b3, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 7, z: 16.36}
+  m_Center: {x: -7.89, y: 4.25, z: 0}
 --- !u!1 &1465952926
 GameObject:
   m_ObjectHideFlags: 0
@@ -14357,7 +14503,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1544832456}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children:
@@ -14368,7 +14514,7 @@ Transform:
   - {fileID: 713150567}
   m_Father: {fileID: 0}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1550599474
 GameObject:
   m_ObjectHideFlags: 0
@@ -14512,9 +14658,9 @@ MeshFilter:
   m_Mesh: {fileID: 4300000, guid: 9aaa3144456a982458d4c21e4d6a3bda, type: 3}
 --- !u!1 &1588737395 stripped
 GameObject:
-  m_PrefabParentObject: {fileID: 1098581687661088, guid: 05ee5fd90a101cc4da09e7392e60bc43,
+  m_PrefabParentObject: {fileID: 1677516503696516, guid: 05ee5fd90a101cc4da09e7392e60bc43,
     type: 2}
-  m_PrefabInternal: {fileID: 1929582268}
+  m_PrefabInternal: {fileID: 2107147672}
 --- !u!1 &1588906793
 GameObject:
   m_ObjectHideFlags: 0
@@ -14902,6 +15048,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1610708201}
+  - component: {fileID: 1610708202}
   m_Layer: 0
   m_Name: Wallbricks (2)
   m_TagString: Untagged
@@ -14924,6 +15071,18 @@ Transform:
   m_Father: {fileID: 1532240595}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90.00001}
+--- !u!65 &1610708202
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1610708200}
+  m_Material: {fileID: 13400000, guid: 06b8d07ce3f848c41bf4d8a4092712b3, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 7, z: 16.36}
+  m_Center: {x: 7.89, y: 4.25, z: 0}
 --- !u!1 &1611386120
 GameObject:
   m_ObjectHideFlags: 0
@@ -17274,7 +17433,7 @@ HingeJoint:
   m_Anchor: {x: -3.77, y: 5.23, z: 0.83}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.17758036, y: -11.799701, z: 1.9575}
+  m_ConnectedAnchor: {x: 0.17758036, y: -11.799701, z: -1.9575}
   m_UseSpring: 1
   m_Spring:
     spring: 0
@@ -17439,6 +17598,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1892322539}
+  - component: {fileID: 1892322540}
   m_Layer: 0
   m_Name: Wall bricks (1)
   m_TagString: Untagged
@@ -17461,6 +17621,18 @@ Transform:
   m_Father: {fileID: 530793227}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!65 &1892322540
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1892322538}
+  m_Material: {fileID: 13400000, guid: 06b8d07ce3f848c41bf4d8a4092712b3, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 7, z: 16.36}
+  m_Center: {x: -7.89, y: 4.25, z: 0}
 --- !u!1 &1897391708
 GameObject:
   m_ObjectHideFlags: 0
@@ -17694,68 +17866,6 @@ MonoBehaviour:
   onGrabCollisionDelay: 0
   destroyImmediatelyOnThrow: 1
   breakForce: 1500
---- !u!1001 &1929582268
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4271243192997890, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -0.033
-      objectReference: {fileID: 0}
-    - target: {fileID: 4271243192997890, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -0.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 4271243192997890, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.52678156
-      objectReference: {fileID: 0}
-    - target: {fileID: 4271243192997890, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4271243192997890, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4271243192997890, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4271243192997890, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4271243192997890, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1597461583308906, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
-      propertyPath: m_Name
-      value: Level 1(Clone)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4075409392745916, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -2.78
-      objectReference: {fileID: 0}
-    - target: {fileID: 4075409392745916, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -1.55
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774669643561840, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -2.61
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774669643561840, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -0.41
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1929593021
 GameObject:
   m_ObjectHideFlags: 0
@@ -17876,7 +17986,7 @@ HingeJoint:
   m_Anchor: {x: -3.77, y: 5.23, z: 0.83}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.17758036, y: -3.8396997, z: 1.9575}
+  m_ConnectedAnchor: {x: 0.17758036, y: -3.8396997, z: -1.9575}
   m_UseSpring: 1
   m_Spring:
     spring: 0
@@ -18645,6 +18755,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1981627990}
+  - component: {fileID: 1981627991}
   m_Layer: 0
   m_Name: Wallbricks (2)
   m_TagString: Untagged
@@ -18667,6 +18778,18 @@ Transform:
   m_Father: {fileID: 1550599475}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90.00001}
+--- !u!65 &1981627991
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1981627989}
+  m_Material: {fileID: 13400000, guid: 06b8d07ce3f848c41bf4d8a4092712b3, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 7, z: 16.36}
+  m_Center: {x: 7.89, y: 4.25, z: 0}
 --- !u!1 &1987602066
 GameObject:
   m_ObjectHideFlags: 0
@@ -19595,6 +19718,67 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2100752614}
   m_Mesh: {fileID: 4300000, guid: 9ef277ff5f15b1e48b8bbcb1461a15d5, type: 3}
+--- !u!1001 &2107147672
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4509387008468614, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.033
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509387008468614, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509387008468614, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509387008468614, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509387008468614, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509387008468614, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509387008468614, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4509387008468614, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1757279000943780, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
+      propertyPath: m_Name
+      value: Level 1(Clone)
+      objectReference: {fileID: 0}
+    - target: {fileID: 153618009616127926, guid: 05ee5fd90a101cc4da09e7392e60bc43,
+        type: 2}
+      propertyPath: m_ConnectedAnchor.z
+      value: 0.031000018
+      objectReference: {fileID: 0}
+    - target: {fileID: 153763795880591906, guid: 05ee5fd90a101cc4da09e7392e60bc43,
+        type: 2}
+      propertyPath: m_ConnectedAnchor.z
+      value: 0.7850885
+      objectReference: {fileID: 0}
+    - target: {fileID: 153040826234295742, guid: 05ee5fd90a101cc4da09e7392e60bc43,
+        type: 2}
+      propertyPath: m_ConnectedAnchor.z
+      value: 0.601
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 05ee5fd90a101cc4da09e7392e60bc43, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &2108548103
 GameObject:
   m_ObjectHideFlags: 0
@@ -20259,7 +20443,7 @@ HingeJoint:
   m_Anchor: {x: 3.69, y: 5.09, z: 0.83}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.1184175, y: 0.1328001, z: -1.9075}
+  m_ConnectedAnchor: {x: 0.1184175, y: 0.1328001, z: 1.9075}
   m_UseSpring: 1
   m_Spring:
     spring: 0

@@ -77,6 +77,7 @@ public class GameControl : MonoBehaviour {
 			DestroyGameObj("Level " + (currentLevelNum));
 			StartCoroutine( WaitAndDestroy(1.0f, ("Environment/Floor " + (i) + "/Floor")) );
 			physics.enableBodyCollisions = true;
+			StartCoroutine( WaitAndRemoveBodyCollisions(1.7f) );
 		}
 	}
 
@@ -96,5 +97,20 @@ public class GameControl : MonoBehaviour {
 	}
 	public int GetCurrentLevel() {
 		return currentLevelNum;
+	}
+	public void ResetLevel() {
+		string lvl = ("Level " + currentLevelNum);
+		DestroyGameObj(lvl + "(Clone)");
+		LoadGameObject(gamePath + lvl);
+	}
+	public void SaveData() {}
+
+	void OnGUI() {
+		if (GUI.Button(new Rect(10, 50, 100, 30), "Save data")) {
+			SaveData();
+		}
+		if (GUI.Button(new Rect(10, 90, 100, 30), "Reset level")) {
+			ResetLevel();
+		}
 	}
 }

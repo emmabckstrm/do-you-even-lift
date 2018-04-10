@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class FallingBarrel : RespawnObject {
 
+	protected RespawnPosition originalPos;
+	protected VRTK.InteractableObjectCustom interactableObjectScript;
+	protected GameObject gameObj;
+	private bool triggered = false;
+
 	// Use this for initialization
 	void Start () {
-
+		gameControl = GameObject.Find("AppManager").GetComponent<GameControl>();
+		currentLevelNum = gameControl.GetCurrentLevel();
+		SetParent();
 	}
 
 	// Update is called once per frame
@@ -15,26 +22,42 @@ public class FallingBarrel : RespawnObject {
 	}
 
 	void OnTriggerEnter(Collider other) {
+		if (triggered) return;
+		triggered = true;
 
-		if (other.transform.parent.gameObject.tag == "Weight") {
-			//if (triggered) return;
-			//triggered = true;
+		gameObj = other.transform.parent.gameObject;
+		if (gameObj.tag == "Weight") {
+			interactableObjectScript = gameObj.GetComponent<VRTK.InteractableObjectCustom>();
 			Debug.Log("HEY");
-			SetNewPrefab(other.transform.parent.gameObject);
-			Respawn();
-			Destroy(other.transform.parent.gameObject);
-		} else if (other.transform.parent.gameObject.tag == "Respawn") {
-			Destroy(other.transform.parent.gameObject);
+			originalPos = gameObj.GetComponent<RespawnPosition>();
+
+			if (originalPos != null && !interactableObjectScript.IsGrabbed() && !interactableObjectScript.IsTouched()) {
+
+					Respawn(gameObj, originalPos.GetRespawnPosition());
+					Destroy(gameObj);
+					triggered = false;
+			} else {
+				triggered = false;
+			}
+		} else if (gameObj.tag == "Respawn") {
+			Destroy(gameObj);
+			triggered = false;
 		}
 
 	}
+	void OnTiggerExit(Collider other) {
+		gameObj = other.transform.parent.gameObject;
+		if (gameObj.tag == "Weight") {
+			if (!triggered) return;
+			triggered = false;
+		}
+	}
 
-	protected void SetNewPrefab(GameObject gameObj) {
-		prefab = gameObj;
+	protected void SetNewPrefab(GameObject go) {
+		prefab = go;
 	}
 
 	public void Respawn() {
-		Debug.Log("hello");
 		base.Respawn();
 	}
 }

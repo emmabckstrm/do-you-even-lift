@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 114278601608594814}
   - component: {fileID: 114653969427225304}
   - component: {fileID: 114368539754342044}
+  - component: {fileID: 114963909598734772}
   m_Layer: 0
   m_Name: Barrel1 (1)
   m_TagString: Weight
@@ -516,6 +517,7 @@ GameObject:
   - component: {fileID: 114919429709804306}
   - component: {fileID: 114043118065168042}
   - component: {fileID: 114813981625952076}
+  - component: {fileID: 114214713379224508}
   m_Layer: 0
   m_Name: Barrel1 (2)
   m_TagString: Respawn
@@ -1586,7 +1588,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1324150891285550}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 2.243, y: 1.172, z: 0.035}
+  m_LocalPosition: {x: 2.52, y: 1.172, z: 0.62}
   m_LocalScale: {x: 0.30000025, y: 0.3, z: 0.30000025}
   m_Children:
   - {fileID: 4991572204580538}
@@ -2138,7 +2140,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1966406356502204}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: -7.81, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2153,7 +2155,7 @@ Transform:
   - {fileID: 4083773987408688}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4524577022304454
 Transform:
   m_ObjectHideFlags: 1
@@ -2535,7 +2537,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1498094470549474}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.40499997, y: 0, z: 0}
+  m_LocalPosition: {x: 0.6819999, y: 0, z: 0.585}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4935534073435280}
@@ -4839,7 +4841,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.99
+  m_AngularDrag: 7
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -5218,6 +5220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnScript: {fileID: 114906459777747524}
+  triggerActions: 0
 --- !u!114 &114157819136758562
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5279,6 +5282,17 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "Use the barrels to push the button. \nYou have barrels of different weights.
     \nOnly one barrel is light enough to equal the balance scale. "
+--- !u!114 &114214713379224508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1397172242878200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3297099719aca04ebc8e89383baa0db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114278601608594814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5540,6 +5554,17 @@ MonoBehaviour:
   onGrabCollisionDelay: 0
   destroyImmediatelyOnThrow: 1
   customJoint: {fileID: 153779322656485918}
+--- !u!114 &114963909598734772
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1079895711199882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3297099719aca04ebc8e89383baa0db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114997294041729566
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5554,6 +5579,8 @@ MonoBehaviour:
   prefab: {fileID: 1100597833115046, guid: 9f0a38cc250b5634fa4ee98c6ce23a63, type: 2}
   buttonHandlerScript: {fileID: 0}
   button: {fileID: 1705427012282104}
+  actionOnTrigger: 0
+  triggerAction: 0
   emissionColor: {r: 0.3360726, g: 0.8161765, b: 0.6175128, a: 1}
 --- !u!136 &136585803703427552
 CapsuleCollider:
@@ -5661,7 +5688,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 2.14, z: 5.05}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 2.704245e-15, y: -0.002859551, z: 0.008389344}
+  m_ConnectedAnchor: {x: 2.704245e-15, y: -0.002859551, z: 0.008389345}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -5705,7 +5732,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.02, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 2.2430007, y: -5.7561913, z: 0.035}
+  m_ConnectedAnchor: {x: -2.5200007, y: -5.7561913, z: -0.62}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -5734,7 +5761,7 @@ ConfigurableJoint:
     contactDistance: 0
   m_AngularYZLimitSpring:
     spring: 0
-    damper: 0
+    damper: 30
   m_AngularYLimit:
     limit: 34.14974
     bounciness: 0
@@ -5799,7 +5826,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.47, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -1.272, y: -7.514, z: -0.502}
+  m_ConnectedAnchor: {x: 1.272, y: -7.514, z: 0.502}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: -1, z: 0}
   m_XMotion: 0
@@ -5893,7 +5920,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.47, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -1.015, y: -7.534, z: -0.879}
+  m_ConnectedAnchor: {x: 1.015, y: -7.534, z: 0.879}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: -1, z: 0}
   m_XMotion: 0
@@ -5987,7 +6014,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.5, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 3.8140004, y: -7.3419247, z: -1.5524981}
+  m_ConnectedAnchor: {x: -4.0910006, y: -7.3419247, z: 0.9674981}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0

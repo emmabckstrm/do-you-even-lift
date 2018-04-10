@@ -39,4 +39,7 @@ public class RespawnInfinite : RespawnObject {
 	public void StopRespawn() {
 		continueRespawn = false;
 	}
+	public void ContinueRespawn() {
+		continueRespawn = true;
+	}
 }

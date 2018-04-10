@@ -332,6 +332,7 @@ GameObject:
   - component: {fileID: 114418654241770680}
   - component: {fileID: 114987777760889380}
   - component: {fileID: 114931353400332008}
+  - component: {fileID: 114646329244368840}
   m_Layer: 0
   m_Name: Barrel1 (1)
   m_TagString: Weight
@@ -401,6 +402,7 @@ GameObject:
   - component: {fileID: 114438215352879308}
   - component: {fileID: 114471719035390518}
   - component: {fileID: 114892395327608460}
+  - component: {fileID: 114211636769001208}
   m_Layer: 0
   m_Name: Barrel1
   m_TagString: Weight
@@ -1236,7 +1238,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1911951478662394
 GameObject:
   m_ObjectHideFlags: 1
@@ -1412,7 +1414,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1736884710164692}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: -11.743, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1424,7 +1426,7 @@ Transform:
   - {fileID: 4719746542505738}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4051409951395726
 Transform:
   m_ObjectHideFlags: 1
@@ -3854,7 +3856,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.99
+  m_AngularDrag: 7
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -4429,7 +4431,20 @@ MonoBehaviour:
   prefab: {fileID: 1100597833115046, guid: 9f0a38cc250b5634fa4ee98c6ce23a63, type: 2}
   buttonHandlerScript: {fileID: 0}
   button: {fileID: 1019559628276396}
+  actionOnTrigger: 1
+  triggerAction: 0
   emissionColor: {r: 0.3360726, g: 0.8161765, b: 0.6175128, a: 1}
+--- !u!114 &114211636769001208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1311457491979566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3297099719aca04ebc8e89383baa0db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114245088077172466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4479,6 +4494,8 @@ MonoBehaviour:
   prefab: {fileID: 1100597833115046, guid: 9f0a38cc250b5634fa4ee98c6ce23a63, type: 2}
   buttonHandlerScript: {fileID: 0}
   button: {fileID: 1749187619518404}
+  actionOnTrigger: 0
+  triggerAction: 0
   emissionColor: {r: 0.3360726, g: 0.8161765, b: 0.6175128, a: 1}
 --- !u!114 &114272141454253866
 MonoBehaviour:
@@ -4491,7 +4508,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8c299e299bfc4140aab792109038295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnScript: {fileID: 0}
+  respawnScript: {fileID: 114468233818045102}
+  triggerActions: 0
 --- !u!114 &114418654241770680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4670,6 +4688,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18055ba762aa3994f9c10208cd088bc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114646329244368840
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1253297218653442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3297099719aca04ebc8e89383baa0db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114681690054322460
@@ -4936,7 +4965,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.47, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.508, y: -11.526, z: 1.135}
+  m_ConnectedAnchor: {x: -0.508, y: -11.526, z: -1.135}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: -1, z: 0}
   m_XMotion: 0
@@ -5030,7 +5059,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.47, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 1.1429993, y: -11.08, z: -1.0159998}
+  m_ConnectedAnchor: {x: -1.1429993, y: -11.08, z: 1.0159998}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: -1, z: 0}
   m_XMotion: 0
@@ -5124,7 +5153,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.5, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 4.0439997, y: -11.224925, z: 1.5364982}
+  m_ConnectedAnchor: {x: -4.0439997, y: -11.224925, z: -1.5364982}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -5218,7 +5247,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.47, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.991, y: -11.526, z: 1.033}
+  m_ConnectedAnchor: {x: -0.991, y: -11.526, z: -1.033}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: -1, z: 0}
   m_XMotion: 0
@@ -5312,7 +5341,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.5, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.93200016, y: -11.41385, z: 0.9619998}
+  m_ConnectedAnchor: {x: 0.93200016, y: -11.41385, z: -0.9619998}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -5406,7 +5435,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.02, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 2.6010008, y: -9.661192, z: -1.061}
+  m_ConnectedAnchor: {x: -2.6010008, y: -9.661192, z: 1.061}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -5435,7 +5464,7 @@ ConfigurableJoint:
     contactDistance: 0
   m_AngularYZLimitSpring:
     spring: 0
-    damper: 0
+    damper: 30
   m_AngularYLimit:
     limit: 34.14974
     bounciness: 0

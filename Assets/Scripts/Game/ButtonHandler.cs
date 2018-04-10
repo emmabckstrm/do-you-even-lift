@@ -6,6 +6,10 @@ public class ButtonHandler : MonoBehaviour {
 
 	protected GameControl gameControl;
 	public RespawnInfinite respawnScript;
+	public enum TriggerActions {
+		StopInfiniteRespawn,
+	}
+	public TriggerActions triggerActions = TriggerActions.StopInfiniteRespawn;
 
 	protected int numberOfChildren = 0;
 	protected int pushedButtons = 0;
@@ -61,6 +65,16 @@ public class ButtonHandler : MonoBehaviour {
 		}
 		else {
 			delayingTime = false;
+		}
+	}
+	public void HandleAction(TriggerActions action) {
+		if (action == TriggerActions.StopInfiniteRespawn) {
+			respawnScript.StopRespawn();
+		}
+	}
+	public void UnhandleAction(TriggerActions action) {
+		if (action == TriggerActions.StopInfiniteRespawn) {
+			respawnScript.ContinueRespawn();
 		}
 	}
 }
