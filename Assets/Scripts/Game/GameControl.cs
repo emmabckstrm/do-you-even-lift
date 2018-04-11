@@ -29,7 +29,7 @@ public class GameControl : MonoBehaviour {
 	void Start () {
 		physics = GameObject.Find("PlayArea").GetComponent<VRTK.VRTK_BodyPhysics>();
 		if (startLevel > 1) {
-			StartAtLevel(startLevel);
+			StartCoroutine( WaitAndStartAtLevel(2f, startLevel) );
 		}
 	}
 
@@ -64,7 +64,6 @@ public class GameControl : MonoBehaviour {
 			//Destroy(currentFloor);
 	}
 	protected IEnumerator WaitAndDestroy(float waitTime, string name) {
-		Debug.Log("wait and destroy " + name);
 		yield return new WaitForSeconds(waitTime);
 		DestroyGameObj(name);
 	}
@@ -72,16 +71,22 @@ public class GameControl : MonoBehaviour {
 		yield return new WaitForSeconds(waitTime);
 		physics.enableBodyCollisions = false;
 	}
+	protected IEnumerator WaitAndStartAtLevel(float waitTime, int level) {
+		yield return new WaitForSeconds(waitTime);
+		StartAtLevel(level);
+	}
 
 	// starts the game at specified level
 	protected void StartAtLevel(int level) {
+		currentLevelNum = level;
 		LoadGameObject(gamePath + "Level " + (level));
+		physics.enableBodyCollisions = true;
+		DestroyGameObj("Level " + (1) + "(Clone)");
 		for (int i=1; i<level; i++) {
 			OpenFloor(i);
-			DestroyGameObj("Level " + (currentLevelNum));
 			StartCoroutine( WaitAndDestroy(1.0f, ("Environment/Floor " + (i) + "/Floor")) );
-			physics.enableBodyCollisions = true;
-			StartCoroutine( WaitAndRemoveBodyCollisions(1.7f) );
+			statManager.NewStat();
+			//StartCoroutine( WaitAndRemoveBodyCollisions(1.7f) );
 		}
 	}
 
@@ -98,7 +103,7 @@ public class GameControl : MonoBehaviour {
 		StartCoroutine( WaitAndDestroy(1.0f, ("Environment/Floor " + (currentLevelNum) + "/Floor")) );
 		physics.enableBodyCollisions = true;
 		currentLevelNum++;
-		StartCoroutine( WaitAndRemoveBodyCollisions(1.3f) );
+		//StartCoroutine( WaitAndRemoveBodyCollisions(1.3f) );
 	}
 	public int GetCurrentLevel() {
 		return currentLevelNum;
@@ -107,6 +112,7 @@ public class GameControl : MonoBehaviour {
 		string lvl = ("Level " + currentLevelNum);
 		DestroyGameObj(lvl + "(Clone)");
 		LoadGameObject(gamePath + lvl);
+		statManager.AddReset();
 	}
 
 

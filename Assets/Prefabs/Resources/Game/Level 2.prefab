@@ -261,6 +261,7 @@ GameObject:
   - component: {fileID: 54998023672884420}
   - component: {fileID: 153318171471168434}
   - component: {fileID: 75946532763127056}
+  - component: {fileID: 114203019769692810}
   m_Layer: 0
   m_Name: Button_press
   m_TagString: Button
@@ -427,6 +428,7 @@ GameObject:
   - component: {fileID: 54979820652421950}
   - component: {fileID: 153129152824948948}
   - component: {fileID: 75048823583859194}
+  - component: {fileID: 114972299094616904}
   m_Layer: 0
   m_Name: Button_press
   m_TagString: Button
@@ -745,7 +747,7 @@ GameObject:
   - component: {fileID: 114868758209178966}
   m_Layer: 0
   m_Name: Barrel1
-  m_TagString: Untagged
+  m_TagString: Weight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -766,7 +768,7 @@ GameObject:
   - component: {fileID: 114284064145610858}
   m_Layer: 0
   m_Name: Barrel1 (3)
-  m_TagString: Untagged
+  m_TagString: Weight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -804,7 +806,7 @@ GameObject:
   - component: {fileID: 114432669046830146}
   m_Layer: 0
   m_Name: Barrel1 (1)
-  m_TagString: Untagged
+  m_TagString: Weight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4756,6 +4758,17 @@ MonoBehaviour:
   safeZoneDistance: 0
   globalDangerZoneWarning: 1
   warnInDangerZone: 1
+--- !u!114 &114203019769692810
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1198519180443256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d84810f52893b14f825e28bae52f058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114284064145610858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4816,6 +4829,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnScript: {fileID: 0}
+  triggerActions: 0
 --- !u!114 &114432669046830146
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4955,6 +4969,8 @@ MonoBehaviour:
   prefab: {fileID: 1100597833115046, guid: 9f0a38cc250b5634fa4ee98c6ce23a63, type: 2}
   buttonHandlerScript: {fileID: 114420139414099060}
   button: {fileID: 1198519180443256}
+  actionOnTrigger: 0
+  triggerAction: 0
   emissionColor: {r: 0.3360726, g: 0.8161765, b: 0.6175128, a: 1}
 --- !u!114 &114787992946054956
 MonoBehaviour:
@@ -5112,6 +5128,8 @@ MonoBehaviour:
   prefab: {fileID: 1100597833115046, guid: 9f0a38cc250b5634fa4ee98c6ce23a63, type: 2}
   buttonHandlerScript: {fileID: 114420139414099060}
   button: {fileID: 1309734533709632}
+  actionOnTrigger: 0
+  triggerAction: 0
   emissionColor: {r: 0.3360726, g: 0.8161765, b: 0.6175128, a: 1}
 --- !u!114 &114947044469179672
 MonoBehaviour:
@@ -5145,6 +5163,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shake: 0
   shakeDirection: 0
+--- !u!114 &114972299094616904
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1309734533709632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d84810f52893b14f825e28bae52f058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136500559994204752
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -5220,7 +5249,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.47, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.73109317, y: -3.5508, z: 0.27367917}
+  m_ConnectedAnchor: {x: 0.73109317, y: -3.5508, z: 0.35467917}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: -1, z: 0}
   m_XMotion: 0
@@ -5314,7 +5343,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.5, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -1.0173416, y: -3.48385, z: 0.36794204}
+  m_ConnectedAnchor: {x: -1.0173416, y: -3.48385, z: 0.44894204}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -5408,7 +5437,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.47, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 1.0496063, y: -3.5476, z: 0.7088035}
+  m_ConnectedAnchor: {x: 1.0496063, y: -3.5476, z: 0.7898035}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: -1, z: 0}
   m_XMotion: 0
@@ -5502,7 +5531,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.5, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 1.0289555, y: -3.48385, z: -0.7622432}
+  m_ConnectedAnchor: {x: 1.0289555, y: -3.48385, z: -0.6812432}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -5596,7 +5625,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.47, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 1.0536475, y: -3.3624, z: -0.09050609}
+  m_ConnectedAnchor: {x: 1.0536475, y: -3.3624, z: -0.0095060915}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: -1, z: 0}
   m_XMotion: 0

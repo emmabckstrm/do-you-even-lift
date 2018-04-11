@@ -32,7 +32,7 @@ namespace VRTK
         {
             base.Awake();
             shakeScript = GetComponent<Shake>();
-            safeZoneDistance = 0.067f;
+            safeZoneDistance = 0.057f;
             Rigidbody rb = interactableRigidbody;
             // modifies the hingeJoint
             hingeJoint = GetComponent<HingeJoint>();

@@ -42,6 +42,9 @@ public class GameStatManager : StatManager {
 	public void AddGrab() {
 		stats[gameControl.GetCurrentLevel()-1].totalGrabs += 1;
 	}
+	public void AddReset() {
+		stats[gameControl.GetCurrentLevel()-1].numberOfResets += 1;
+	}
 	public void HandleFirstInteraction(float startTime) {
 		stats[gameControl.GetCurrentLevel()-1].HandleFirstInteraction(startTime);
 	}

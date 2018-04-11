@@ -484,7 +484,7 @@ GameObject:
   - component: {fileID: 114214713379224508}
   m_Layer: 0
   m_Name: Barrel1 (2)
-  m_TagString: Respawn
+  m_TagString: Weight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -694,6 +694,8 @@ GameObject:
   - component: {fileID: 33815897746841004}
   - component: {fileID: 23412178250585360}
   - component: {fileID: 65141162218933492}
+  - component: {fileID: 65088428797225438}
+  - component: {fileID: 114355822857296096}
   m_Layer: 0
   m_Name: Tile2
   m_TagString: Untagged
@@ -1870,7 +1872,7 @@ Transform:
   m_GameObject: {fileID: 1397172242878200}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.272, y: 0.061, z: -0.502}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_Children:
   - {fileID: 4723474767601080}
   - {fileID: 4304282277476496}
@@ -1988,7 +1990,7 @@ Transform:
   m_GameObject: {fileID: 1079895711199882}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.015, y: 0.041, z: -0.879}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_Children:
   - {fileID: 4725913635774450}
   - {fileID: 4210764587778566}
@@ -4764,7 +4766,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1079895711199882}
   serializedVersion: 2
-  m_Mass: 1.9
+  m_Mass: 2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -4874,6 +4876,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.34, y: 0.31, z: 0.13}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65088428797225438
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493383963071498}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.011550875, y: 0.00781583, z: 0.015592189}
+  m_Center: {x: -0.00034067614, y: 0.0024313468, z: 0.00042264716}
 --- !u!65 &65125624870517614
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -4896,8 +4910,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.019558262, y: 0.005465587, z: 0.019107372}
-  m_Center: {x: 0.000015551845, y: 0.0017432193, z: 0.00026461083}
+  m_Size: {x: 0.019558262, y: 0.0064466856, z: 0.019107372}
+  m_Center: {x: 0.000015551768, y: 0.0022337693, z: 0.00026461063}
 --- !u!65 &65240845048728844
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -5312,6 +5326,17 @@ MonoBehaviour:
   onGrabCollisionDelay: 0
   destroyImmediatelyOnThrow: 1
   customJoint: {fileID: 153819125318513738}
+--- !u!114 &114355822857296096
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493383963071498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ac8767a75b43d347aaa06eede4b864b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114368539754342044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5826,7 +5851,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.47, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 1.272, y: -7.514, z: 0.502}
+  m_ConnectedAnchor: {x: 1.272, y: -7.5375, z: 0.502}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: -1, z: 0}
   m_XMotion: 0
@@ -5920,7 +5945,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.47, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 1.015, y: -7.534, z: 0.879}
+  m_ConnectedAnchor: {x: 1.015, y: -7.5575, z: 0.879}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: -1, z: 0}
   m_XMotion: 0

@@ -17,6 +17,7 @@ public class GameStatistics
 		public int totalButtonTriggers = 0;
     public float pair = -1; // the lightest weight of the pair
     public string weightOrder;
+		public int numberOfResets = 0;
 
 		protected bool firstInteraction = false;
 
@@ -39,6 +40,7 @@ public class GameStatistics
 				serializedData += (",\"totalButtonTriggers\":" + totalButtonTriggers);
         serializedData += (",\"pair\":\"" + pair + "\"");
         serializedData += (",\"weightOrder\":\"" + weightOrder + "\"");
+				serializedData += (",\"numberOfResets\":\"" + numberOfResets + "\"");
         serializedData += (",\"sceneName\":\"" + sceneName + "\"");
         serializedData += "}";
 
@@ -51,7 +53,7 @@ public class GameStatistics
 				serializedData += "timeToFirstInteraction,correct,";
 				serializedData += "totalTouches,totalGrabs,totalButtonCollisions,";
 				serializedData += "totalButtonTriggers,";
-        serializedData += "pair,weightOrder,sceneName";
+        serializedData += "pair,weightOrder,numberOfResets,sceneName";
         serializedData += "\n";
         return serializedData;
     }
@@ -64,7 +66,8 @@ public class GameStatistics
 				serializedData += timeToFirstInteraction + ",";
         serializedData += correct + "," + totalTouches + "," + totalGrabs + ",";
 				serializedData += totalButtonCollisions + "," + totalButtonTriggers + ",";
-        serializedData += pair + "," + weightOrder + "," + sceneName;
+        serializedData += pair + "," + weightOrder + ",";
+				serializedData += numberOfResets + "," + sceneName;
 
         serializedData += "\n";
 
