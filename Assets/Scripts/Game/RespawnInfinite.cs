@@ -5,10 +5,14 @@ using UnityEngine;
 public class RespawnInfinite : RespawnObject {
 
 	protected float lastSpawn = 0f;
-	protected float cooldownTime = 6f;
+
 	protected bool continueRespawn = true;
 
 	public int parentNum;
+	public float cooldownTime = 6f;
+	public float angleX = 0f;
+	public float angleY = 0f;
+	public float angleZ = 90f;
 
 
 	// Use this for initialization
@@ -34,7 +38,7 @@ public class RespawnInfinite : RespawnObject {
 
 	public void Respawn() {
 		Vector3 localPos = new Vector3(0.3f,0f,0f); // added because of the rotation
-		respawnedObject = Instantiate(prefab, respawnPos.position+localPos, Quaternion.Euler(0f,0f,90f), parent.transform);
+		respawnedObject = Instantiate(prefab, respawnPos.position+localPos, Quaternion.Euler(angleX,angleY,angleZ), parent.transform);
 	}
 	public void StopRespawn() {
 		continueRespawn = false;

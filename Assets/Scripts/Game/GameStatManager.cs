@@ -17,43 +17,54 @@ public class GameStatManager : StatManager {
 		stats = new List<GameStatistics>();
 		stats.Add(new GameStatistics());
 	}
+	public void ResetStats() {
+		stats = new List<GameStatistics>();
+	}
 	public void NewStat() {
 		stats.Add(new GameStatistics());
 	}
+	public void HandleLevelIndex() {
+		int lvlNum = gameControl.GetCurrentLevel();
+		stats[lvlNum].sceneNumber = lvlNum;
+		stats[lvlNum].sceneName = "Level " + lvlNum;
+	}
 	public void HandleLevelTime(float start, float end) {
 		float duration = end - start;
-		stats[gameControl.GetCurrentLevel()-1].timeToCompletion = duration;
+		stats[gameControl.GetCurrentLevel()].timeToCompletion = duration;
 	}
 	public void IncreaseButtonCollisions() {
-		stats[gameControl.GetCurrentLevel()-1].totalButtonCollisions += 1;
+		stats[gameControl.GetCurrentLevel()].totalButtonCollisions += 1;
 	}
 	public void DecreaseButtonCollisions() {
-		stats[gameControl.GetCurrentLevel()-1].totalButtonCollisions -= 1;
+		stats[gameControl.GetCurrentLevel()].totalButtonCollisions -= 1;
 	}
 	public void IncreaseButtonTriggers() {
-		stats[gameControl.GetCurrentLevel()-1].totalButtonTriggers += 1;
+		stats[gameControl.GetCurrentLevel()].totalButtonTriggers += 1;
 	}
 	public void DecreaseButtonTriggers() {
-		stats[gameControl.GetCurrentLevel()-1].totalButtonTriggers -= 1;
+		stats[gameControl.GetCurrentLevel()].totalButtonTriggers -= 1;
 	}
 	public void AddTimeGrabbing(float time) {
-		stats[gameControl.GetCurrentLevel()-1].timeGrabbingObj += time;
+		stats[gameControl.GetCurrentLevel()].timeGrabbingObj += time;
 	}
 	public void AddGrab() {
-		stats[gameControl.GetCurrentLevel()-1].totalGrabs += 1;
+		stats[gameControl.GetCurrentLevel()].totalGrabs += 1;
 	}
 	public void AddReset() {
-		stats[gameControl.GetCurrentLevel()-1].numberOfResets += 1;
+		stats[gameControl.GetCurrentLevel()].numberOfResets += 1;
+	}
+	public void SetCorrect() {
+		stats[gameControl.GetCurrentLevel()].correct = true;
 	}
 	public void HandleFirstInteraction(float startTime) {
-		stats[gameControl.GetCurrentLevel()-1].HandleFirstInteraction(startTime);
+		stats[gameControl.GetCurrentLevel()].HandleFirstInteraction(startTime);
 	}
 	public void AddCSVStatPerGrab(float startTime, float endTime, float weight, string hand)
 	{
 			float duration = endTime - startTime;
 			string sceneName = "Level " + gameControl.GetCurrentLevel();
 			int sceneNumber = gameControl.GetCurrentLevel();
-			stats[gameControl.GetCurrentLevel()-1].AddCSVStatPerGrab(sceneNumber, startTime, endTime, duration, weight, -1, sceneName);
+			stats[gameControl.GetCurrentLevel()].AddCSVStatPerGrab(sceneNumber, startTime, endTime, duration, weight, -1, sceneName);
 	}
 
 	// Serialize data to json format

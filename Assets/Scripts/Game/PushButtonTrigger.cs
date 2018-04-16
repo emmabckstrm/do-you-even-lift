@@ -10,12 +10,16 @@ public class PushButtonTrigger : MonoBehaviour {
 	public ButtonHandler buttonHandlerScript;
 	public GameObject button;
 	public bool actionOnTrigger = false;
-	public ButtonHandler.TriggerActions triggerAction;
 	private bool triggered = false;
 	protected Transform buttonPress;
 	protected Renderer renderer;
 	protected Material mat;
 	public Color emissionColor = new Color(0.3360726f, 0.8161765f, 0.6175128f);
+	public RespawnInfinite respawnScript;
+	public enum TriggerActions {
+		StopInfiniteRespawn,
+	}
+	public TriggerActions triggerAction = TriggerActions.StopInfiniteRespawn;
 
 	// Use this for initialization
 	void Start () {
@@ -33,7 +37,7 @@ public class PushButtonTrigger : MonoBehaviour {
 			triggered = true;
 			buttonHandlerScript.PushButton();
 			if (actionOnTrigger) {
-				buttonHandlerScript.HandleAction(triggerAction);
+				HandleAction(triggerAction);
 			}
 			mat = button.GetComponent<Renderer>().material;
 			mat.SetColor("_EmissionColor", emissionColor);
@@ -46,10 +50,21 @@ public class PushButtonTrigger : MonoBehaviour {
 			triggered = false;
 			buttonHandlerScript.UnpushButton();
 			if (actionOnTrigger) {
-				buttonHandlerScript.UnhandleAction(triggerAction);
+				UnhandleAction(triggerAction);
 			}
 			mat = button.GetComponent<Renderer>().material;
 			mat.SetColor("_EmissionColor", Color.black);
+		}
+	}
+
+	public void HandleAction(TriggerActions action) {
+		if (action == TriggerActions.StopInfiniteRespawn) {
+			respawnScript.StopRespawn();
+		}
+	}
+	public void UnhandleAction(TriggerActions action) {
+		if (action == TriggerActions.StopInfiniteRespawn) {
+			respawnScript.ContinueRespawn();
 		}
 	}
 }

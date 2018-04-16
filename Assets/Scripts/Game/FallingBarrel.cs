@@ -28,7 +28,6 @@ public class FallingBarrel : RespawnObject {
 		gameObj = other.transform.parent.gameObject;
 		if (gameObj.tag == "Weight") {
 			interactableObjectScript = gameObj.GetComponent<VRTK.InteractableObjectCustom>();
-			Debug.Log("HEY");
 			originalPos = gameObj.GetComponent<RespawnPosition>();
 
 			if (originalPos != null && !interactableObjectScript.IsGrabbed() && !interactableObjectScript.IsTouched()) {
