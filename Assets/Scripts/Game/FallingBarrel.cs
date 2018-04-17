@@ -8,6 +8,7 @@ public class FallingBarrel : RespawnObject {
 	protected VRTK.InteractableObjectCustom interactableObjectScript;
 	protected GameObject gameObj;
 	private bool triggered = false;
+	private bool respawned = false;
 
 	// Use this for initialization
 	void Start () {
@@ -22,21 +23,25 @@ public class FallingBarrel : RespawnObject {
 	}
 
 	void OnTriggerEnter(Collider other) {
+		Debug.Log("trigger " + other + " " + other.isTrigger);
 		if (triggered) return;
 		triggered = true;
 
 		gameObj = other.transform.parent.gameObject;
-		if (gameObj.tag == "Weight") {
-			interactableObjectScript = gameObj.GetComponent<VRTK.InteractableObjectCustom>();
-			originalPos = gameObj.GetComponent<RespawnPosition>();
+		if (other.isTrigger && other.tag == "Weight") {
+			Debug.Log("hhh");
+			interactableObjectScript = other.GetComponent<VRTK.InteractableObjectCustom>();
+			originalPos = other.GetComponent<RespawnPosition>();
 
 			if (originalPos != null && !interactableObjectScript.IsGrabbed() && !interactableObjectScript.IsTouched()) {
+					if (respawned) return;
+					respawned = true;
+					Debug.Log("Respawn");
+					Respawn(other.gameObject, originalPos.GetRespawnPosition(), other.gameObject.transform.parent.transform);
+					Destroy(other.gameObject);
 
-					Respawn(gameObj, originalPos.GetRespawnPosition());
-					Destroy(gameObj);
 					triggered = false;
-			} else {
-				triggered = false;
+					respawned = false;
 			}
 		} else if (gameObj.tag == "Respawn") {
 			Destroy(gameObj);
@@ -58,5 +63,9 @@ public class FallingBarrel : RespawnObject {
 
 	public void Respawn() {
 		base.Respawn();
+	}
+
+	public void RespawnBarrel() {
+
 	}
 }

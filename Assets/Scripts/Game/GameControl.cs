@@ -21,6 +21,8 @@ public class GameControl : MonoBehaviour {
 	protected float levelDuration;
 	protected float tempTime;
 
+	protected GlobalControl globalControl;
+
 
 	//public variables
 	public int startLevel = 0;
@@ -30,6 +32,7 @@ public class GameControl : MonoBehaviour {
 	void Start () {
 		physics = GameObject.Find("PlayArea").GetComponent<VRTK.VRTK_BodyPhysics>();
 		positionRewind = GameObject.Find("PlayArea").GetComponent<VRTK.PositionRewind>();
+		globalControl = GameObject.Find("AppManager").GetComponent<GlobalControl>();
 		currentLevelNum = startLevel;
 		if (startLevel > 0) {
 			StartCoroutine( WaitAndStartAtLevel(2f, startLevel) );
@@ -98,12 +101,13 @@ public class GameControl : MonoBehaviour {
 	}
 
 	// Handles a chunk of different status
-	protected void HandleLevelStats(bool correct) {
+	protected void HandleLevelStats(bool correct = false) {
 		statManager.HandleLevelIndex();
 		HandleLevelTime();
 		if (correct) {
 			statManager.SetCorrect();
 		}
+		statManager.SetUsingLiftLimitation(globalControl.useLiftLimitation);
 	}
 
 	//
@@ -144,7 +148,6 @@ public class GameControl : MonoBehaviour {
 		DestroyGameObj(lvl + "(Clone)");
 		for (int i=0; i<currentLevelNum; i++) {
 			Transform floorParent = GameObject.Find("Environment/Floor " + i).transform;
-			Debug.Log("floor paremt " + floorParent);
 			GameObject newFloor = (GameObject) Instantiate(Resources.Load(gamePath + "Floor"), floorParent);
 		}
 		statManager.ResetStats();
@@ -173,6 +176,7 @@ public class GameControl : MonoBehaviour {
 	//
 	// Methods for statistics -----------------
 	public void SaveData() {
+		HandleLevelStats();
 		statManager.WriteDataToFile();
 		PrintData();
 	}

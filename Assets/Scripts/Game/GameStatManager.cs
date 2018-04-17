@@ -56,6 +56,9 @@ public class GameStatManager : StatManager {
 	public void SetCorrect() {
 		stats[gameControl.GetCurrentLevel()].correct = true;
 	}
+	public void SetUsingLiftLimitation(bool t) {
+		stats[gameControl.GetCurrentLevel()].usingLiftLimitation = t;
+	}
 	public void HandleFirstInteraction(float startTime) {
 		stats[gameControl.GetCurrentLevel()].HandleFirstInteraction(startTime);
 	}

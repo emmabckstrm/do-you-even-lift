@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 114008587557810998}
   - component: {fileID: 114486581699975566}
   - component: {fileID: 114906758858323258}
+  - component: {fileID: 136263478911953092}
   m_Layer: 0
   m_Name: Barrel1
   m_TagString: Weight
@@ -594,6 +595,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3297099719aca04ebc8e89383baa0db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &136263478911953092
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340303833567332}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.6163318
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5389415, z: 0}
 --- !u!136 &136327529863964514
 CapsuleCollider:
   m_ObjectHideFlags: 1

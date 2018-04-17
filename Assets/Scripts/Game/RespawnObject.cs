@@ -42,4 +42,9 @@ public class RespawnObject : MonoBehaviour {
 	public virtual void Respawn(GameObject gameObj, Vector3 customPos) {
 		respawnedObject = Instantiate(gameObj, customPos, Quaternion.identity, parent.transform);
 	}
+	public virtual void Respawn(GameObject gameObj, Vector3 customPos, Transform customParent) {
+		respawnedObject = Instantiate(gameObj, customPos, Quaternion.identity, customParent);
+
+	}
+
 }
