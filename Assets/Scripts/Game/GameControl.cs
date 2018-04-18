@@ -116,8 +116,8 @@ public class GameControl : MonoBehaviour {
 
 	public void LoadNextLevel(bool correct = true) {
 		string lvl = gamePath + "Level " + (currentLevelNum+1);
-		HandleLevelStats(correct);
 		if (Resources.Load(lvl) != null) {
+			HandleLevelStats(correct);
 			statManager.NewStat();
 			LoadGameObject(lvl);
 		} else {

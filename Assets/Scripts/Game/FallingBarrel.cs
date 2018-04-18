@@ -23,20 +23,17 @@ public class FallingBarrel : RespawnObject {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		Debug.Log("trigger " + other + " " + other.isTrigger);
 		if (triggered) return;
 		triggered = true;
 
 		gameObj = other.transform.parent.gameObject;
 		if (other.isTrigger && other.tag == "Weight") {
-			Debug.Log("hhh");
 			interactableObjectScript = other.GetComponent<VRTK.InteractableObjectCustom>();
 			originalPos = other.GetComponent<RespawnPosition>();
 
 			if (originalPos != null && !interactableObjectScript.IsGrabbed() && !interactableObjectScript.IsTouched()) {
 					if (respawned) return;
 					respawned = true;
-					Debug.Log("Respawn");
 					Respawn(other.gameObject, originalPos.GetRespawnPosition(), other.gameObject.transform.parent.transform);
 					Destroy(other.gameObject);
 
