@@ -354,7 +354,9 @@ MonoBehaviour:
   prefab: {fileID: 1100597833115046, guid: 9f0a38cc250b5634fa4ee98c6ce23a63, type: 2}
   buttonHandlerScript: {fileID: 0}
   button: {fileID: 1288538576351588}
-  emissionColor: {r: 0.3360726, g: 0.8161765, b: 0.6175128, a: 1}
+  actionOnTrigger: 0
+  respawnScript: {fileID: 0}
+  triggerAction: 0
 --- !u!153 &153579042561412252
 ConfigurableJoint:
   m_ObjectHideFlags: 1

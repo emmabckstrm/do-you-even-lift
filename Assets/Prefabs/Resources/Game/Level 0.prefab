@@ -205,6 +205,7 @@ GameObject:
   - component: {fileID: 114410114732212714}
   - component: {fileID: 114232141603026832}
   - component: {fileID: 114030398694862694}
+  - component: {fileID: 136936824839997358}
   m_Layer: 0
   m_Name: Barrel1
   m_TagString: Weight
@@ -357,6 +358,7 @@ GameObject:
   - component: {fileID: 224516024757912474}
   - component: {fileID: 222407558707446770}
   - component: {fileID: 114753620348542472}
+  - component: {fileID: 132170577840568624}
   m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
@@ -1487,7 +1489,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: d1b516abfca48d647b60eb1e8324b2ad, type: 2}
+  - {fileID: 2100000, guid: 981de4f9cf8229844a895792f5f2ea9d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2702,7 +2704,6 @@ MonoBehaviour:
   buttonHandlerScript: {fileID: 0}
   button: {fileID: 1946364962674738}
   actionOnTrigger: 0
-  emissionColor: {r: 0.3360726, g: 0.8161765, b: 0.6175128, a: 1}
   respawnScript: {fileID: 0}
   triggerAction: 0
 --- !u!114 &114647022630082416
@@ -2752,7 +2753,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: cc4d890e1801e9546be1248cc3b5b763, type: 3}
     m_FontSize: 17
     m_FontStyle: 0
     m_BestFit: 0
@@ -2764,10 +2765,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Welcome. \nYou are currently trapped inside a tower and your only way to
-    escape is by solving puzzles on each level. \n\nThe goal of each puzzle is to
-    push all the buttons. You have barrels of different weights at your disposal.\n\nPut
-    a barrel on the button to start the game. \nGood luck.\n"
+  m_Text: "DO YOU EVEN LIFT?\n\nPush all the buttons. You have barrels of different
+    weights at your disposal.\n\nPut a barrel on the button to start the game. \nGood
+    luck.\n"
 --- !u!114 &114850376102297488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2798,6 +2798,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18055ba762aa3994f9c10208cd088bc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!132 &132170577840568624
+GUIText:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1421624160748068}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Text: 
+  m_Anchor: 0
+  m_Alignment: 0
+  m_PixelOffset: {x: 0, y: 0}
+  m_LineSpacing: 1
+  m_TabSize: 4
+  m_Font: {fileID: 12800000, guid: cc4d890e1801e9546be1248cc3b5b763, type: 3}
+  m_Material: {fileID: 0}
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_PixelCorrect: 1
+  m_RichText: 1
 --- !u!136 &136414218418780264
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -2824,6 +2847,19 @@ CapsuleCollider:
   m_Height: 0.9750513
   m_Direction: 1
   m_Center: {x: 0, y: 0.52, z: 0}
+--- !u!136 &136936824839997358
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1239623688552584}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.6163318
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5389415, z: 0}
 --- !u!153 &153397694862366042
 ConfigurableJoint:
   m_ObjectHideFlags: 1

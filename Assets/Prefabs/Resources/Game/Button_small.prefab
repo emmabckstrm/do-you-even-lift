@@ -150,7 +150,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: d1b516abfca48d647b60eb1e8324b2ad, type: 2}
+  - {fileID: 2100000, guid: 981de4f9cf8229844a895792f5f2ea9d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -282,7 +282,9 @@ MonoBehaviour:
   prefab: {fileID: 1100597833115046, guid: 9f0a38cc250b5634fa4ee98c6ce23a63, type: 2}
   buttonHandlerScript: {fileID: 0}
   button: {fileID: 1974828784951910}
-  emissionColor: {r: 0.3360726, g: 0.8161765, b: 0.6175128, a: 1}
+  actionOnTrigger: 0
+  respawnScript: {fileID: 0}
+  triggerAction: 0
 --- !u!153 &153315507419207628
 ConfigurableJoint:
   m_ObjectHideFlags: 1

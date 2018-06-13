@@ -14,7 +14,9 @@ public class PushButtonTrigger : MonoBehaviour {
 	protected Transform buttonPress;
 	protected Renderer renderer;
 	protected Material mat;
-	public Color emissionColor = new Color(0.3360726f, 0.8161765f, 0.6175128f);
+	//public Color emissionColor = new Color(0.3360726f, 0.8161765f, 0.6175128f);
+	//protected Color emissionColor = new Color(0.2039f, 0.815686f, 0.058823f);
+	protected Color emissionColor = new Color(0.2039f, 0.796078f, 0.611764f);
 	public RespawnInfinite respawnScript;
 	public enum TriggerActions {
 		StopInfiniteRespawn,
@@ -35,6 +37,7 @@ public class PushButtonTrigger : MonoBehaviour {
 		if (other.tag == "Button") {
 			if (triggered) return;
 			triggered = true;
+			Debug.Log("pushed");
 			buttonHandlerScript.PushButton();
 			if (actionOnTrigger) {
 				HandleAction(triggerAction);
@@ -48,6 +51,7 @@ public class PushButtonTrigger : MonoBehaviour {
 		if (other.tag == "Button") {
 			if (!triggered) return;
 			triggered = false;
+			Debug.Log("unnnnpushed");
 			buttonHandlerScript.UnpushButton();
 			if (actionOnTrigger) {
 				UnhandleAction(triggerAction);

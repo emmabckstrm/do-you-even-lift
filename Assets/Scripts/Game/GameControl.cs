@@ -124,8 +124,9 @@ public class GameControl : MonoBehaviour {
 			// game is won
 			HandleWin();
 		}
+		DestroyGameObj("Level " + (currentLevelNum) + "(Clone)");
 		OpenFloor(currentLevelNum);
-		StartCoroutine( WaitAndDestroy(1.0f, "Level " + (currentLevelNum) + "(Clone)") );
+		//StartCoroutine( WaitAndDestroy(1.0f, "Level " + (currentLevelNum) + "(Clone)") );
 		StartCoroutine( WaitAndDestroy(1.0f, ("Environment/Floor " + (currentLevelNum) + "/Floor(Clone)")) );
 		physics.enableBodyCollisions = true;
 		currentLevelNum++;
