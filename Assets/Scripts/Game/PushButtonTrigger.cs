@@ -37,7 +37,6 @@ public class PushButtonTrigger : MonoBehaviour {
 		if (other.tag == "Button") {
 			if (triggered) return;
 			triggered = true;
-			Debug.Log("pushed");
 			buttonHandlerScript.PushButton();
 			if (actionOnTrigger) {
 				HandleAction(triggerAction);
@@ -51,7 +50,6 @@ public class PushButtonTrigger : MonoBehaviour {
 		if (other.tag == "Button") {
 			if (!triggered) return;
 			triggered = false;
-			Debug.Log("unnnnpushed");
 			buttonHandlerScript.UnpushButton();
 			if (actionOnTrigger) {
 				UnhandleAction(triggerAction);

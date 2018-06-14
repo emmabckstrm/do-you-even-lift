@@ -16,7 +16,7 @@ public class BarrelSpawnShuffleMass : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log("hello");
+		// shuffles the order
 		mass = massList.OrderBy(a => rng.Next()).ToList();
 		SpawnBarrels();
 	}
@@ -25,10 +25,16 @@ public class BarrelSpawnShuffleMass : MonoBehaviour {
 		int i = 0;
 		foreach (Transform child in transform)
 		{
-			Respawn(child);
-			respawnedObject.GetComponent<Rigidbody>().mass = mass[i];
+			SpawnBarrel(child, i);
 			i++;
 		}
+	}
+
+	protected void SpawnBarrel(Transform t, int i) {
+		Respawn(t);
+		respawnedObject.GetComponent<Rigidbody>().mass = mass[i];
+		respawnedObject.GetComponent<VRTK.InteractableObjectTrackMovement2>().UpdateAngularDrag();
+		respawnedObject.GetComponent<VRTK.InteractableObjectTrackMovement2>().UpdateMovementLimitValue();
 	}
 
 	public virtual void Respawn(Transform customPos) {
