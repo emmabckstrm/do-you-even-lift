@@ -82,7 +82,6 @@ public class GameControl : MonoBehaviour {
 		StartAtLevel(level);
 	}
 	protected IEnumerator WaitAndResetGame(float waitTime) {
-		Debug.Log("lets wait and reset game");
 		yield return new WaitForSeconds(waitTime);
 		ResetGame();
 	}
@@ -101,8 +100,7 @@ public class GameControl : MonoBehaviour {
 		}
 	}
 	protected void HandleWin() {
-		Debug.Log("You won!");
-		WaitAndResetGame(10f);
+		StartCoroutine( WaitAndResetGame(10f) );
 		SaveData();
 	}
 
