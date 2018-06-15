@@ -3,31 +3,36 @@ namespace VRTK
     using UnityEngine;
     using System.Linq;
 
-    public class InteractableObjectTrackMovement3 : InteractableObjectCustom
+    public class InteractableObjectTrackMovement2 : InteractableObjectCustom
     {
-				// calculates average movement
+        // calculates movement every x frame
 
         protected Vector3 startPosition;
         public float safeZoneDistance = 0f;
+        public bool globalDangerZoneWarning = true;
+        public bool warnInDangerZone = true;
+        protected float speedDangerZone = 0.15f;
+        protected bool permanentGrab = false;
         protected HingeJoint hingeJoint;
         protected JointSpring jointSpring;
         protected float timeStep;
-        protected int numFrames = 10;
+        protected int numFrames = 40;
         protected int currentFrame = 0;
         protected float[] movementArray;
         protected float[] movementArrayTemp;
         protected float avgMovement = 0f;
         [Tooltip("Number of frames that will be skipped each time velocity or acceleration is calculated")]
-        protected int skipFrames = 1;
+        protected int skipFrames = 4;
         protected float lastFrameTime = 0f;
         protected Shake shakeScript;
+        protected GameControl gameControl;
 
         // Use this for initialization
         protected override void Awake()
         {
             base.Awake();
             shakeScript = GetComponent<Shake>();
-            safeZoneDistance = 0.067f;
+            safeZoneDistance = 0.057f;
             Rigidbody rb = interactableRigidbody;
             // modifies the hingeJoint
             hingeJoint = GetComponent<HingeJoint>();
@@ -38,10 +43,12 @@ namespace VRTK
               jointSpring.damper = newDamper;
             }
             // gets other scripts
-            statManager = GameObject.Find("AppManager").GetComponent<StatManager>();
-            globalControl = GameObject.Find("AppManager").GetComponent<GlobalControl>();
+            gameControl = GameObject.Find("AppManager").GetComponent<GameControl>();
             if (GlobalMovementLimit) {
-                movementLimitType = (MovementLimitationTypes)globalControl.movementLimitType;
+                movementLimitType = (MovementLimitationTypes)gameControl.movementLimitType;
+            }
+            if (globalDangerZoneWarning) {
+              warnInDangerZone = gameControl.warnInDangerZone;
             }
             // Calculates movement limit depending on what movementLimitationType is chosen
             UpdateMovementLimitValue();
@@ -55,7 +62,7 @@ namespace VRTK
         {
             base.FixedUpdate();
             if (IsGrabbed()) {
-              if (currentFrame%skipFrames == 0) {
+              if (currentFrame%skipFrames == 0 && gameControl.useLiftLimitation) {
                 if (safeZoneDistance == 0 || (transform.position - startPosition).magnitude > safeZoneDistance ) {
                   // Calls different functions depending on what movementlimiation type has been chosen
                   // If any direction
@@ -70,17 +77,13 @@ namespace VRTK
                   }
                   //vleocity or acc
                   if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.VelocityVertical) {
-                    UpdateMovementArray(speed);
-                    // check speed here when not using average movement
-                    //CheckMovementSpeed(speed);
+                    HandleCurrentMovment(speed);
                   } else {
-                    UpdateMovementArray(acceleration);
-                    // check speed here when not using average movement
-                    //CheckMovementSpeed(acceleration);
+                    HandleCurrentMovment(acceleration);
                   }
                   // Debug.Log("frame " + currentFrame);
-                  avgMovement = CalculateAverageMovement();
-                  CheckMovementSpeed(avgMovement);
+                  //avgMovement = CalculateAverageMovement();
+                  //CheckMovementSpeed(avgMovement);
                   // always velocity
                   lastSpeed = speed;
                   lastPosition = transform.position;
@@ -103,11 +106,11 @@ namespace VRTK
           int j = 0;
           for (int i=0; i<numFrames; i=i+skipFrames) {
             total += movementArray[i];
-            //Debug.Log("movementcalc " + i + " - " + movementArray[i]);
+            Debug.Log("movementcalc " + i + " - " + movementArray[i]);
             j++;
           }
           float averageMovement = total / j;
-          //Debug.Log("averageMovement "+ averageMovement);
+          Debug.Log("averageMovement "+ averageMovement);
           return averageMovement;
         }
         // Calculates the speed or acceleration in any direction
@@ -166,15 +169,71 @@ namespace VRTK
         {
             return ((Mathf.Abs(speed-lastSpeed)) / (Time.time - lastFrameTime));
         }
+        protected override void CheckMovementSpeed(float speed) {
+          //Debug.Log("Trying to print shakeScript " + shakeScript.IsShaking());
+          if (speed > speedLimit)
+          {
+              //Debug.Log(" *************** Too fast! speed limit " + speedLimit + " speed " + speed + " angular drag " + interactableRigidbody.angularDrag);
+              ForceReleaseGrab();
+          } else if(shakeScript != null) {
+             if (warnInDangerZone && speed > speedLimit-speedDangerZone && !shakeScript.IsShaking()) {
+              //Debug.Log(" ******* ALMOST Too fast! danger zone speed limit " + speedLimit + " speed " + speed);
+              shakeScript.EnableShake();
+            } else if (warnInDangerZone && speed <= speedLimit-speedDangerZone && shakeScript.IsShaking()){
+              shakeScript.DisableShake();
+            }
+          }
+        }
+        protected void CheckDistanceFromOrigin() {
+          Vector3 distance = transform.position - startPosition;
+          if (distance.y > 0.5f && Mathf.Abs(distance.x) < 0.1f && Mathf.Abs(distance.z) < 0.1f) {
+            permanentGrab = true;
+          }
+        }
+        protected void HandleCurrentMovment(float movement) {
+          //UpdateMovementArray(movement);
+          // check speed here when not using average movement
+          CheckDistanceFromOrigin();
+          if (!permanentGrab) {
+            CheckMovementSpeed(movement);
+          }
+        }
+        // Updates movement limit
+        public override void UpdateMovementLimitValue()
+        {
+          // Calculates movement limit depending on what movementLimitationType is chosen
+          if (movementLimitType == MovementLimitationTypes.VelocityAnyDirection || movementLimitType == MovementLimitationTypes.VelocityVertical)
+          {
+            if (interactableRigidbody.mass > 9.83f) {
+              speedLimit = (1.9f / interactableRigidbody.mass + 0.06f);
+            } else if (interactableRigidbody.mass > 2.36f) {
+              // speedLimit = ((2 / (interactableRigidbody.mass))+0.1f); works good
+               //speedLimit = ((1.5f / (interactableRigidbody.mass))+0.07f); // works good as well. A bit frustrating but I managed to get the first four scenes correct
+              //speedLimit = ((2.3f / (interactableRigidbody.mass))+0.07f); // used for user study1
+              //speedLimit = (4/(interactableRigidbody.mass+0.45f)-0.1f); //wip
+              // 4/(x+0.9)-0.2 //wip
+              //speedLimit = (1.9f / interactableRigidbody.mass + 0.06f); // prototype 3A
+              //speedLimit = (-0.08f * interactableRigidbody.mass + 1.1f); // combining linear
+              speedLimit = (-0.08f * interactableRigidbody.mass + 1.05f); // combining linear
+            } else {
+              speedLimit = (-0.8f * interactableRigidbody.mass + 2.75f); // prototype 3A or cobining linear
+              //speedLimit = (-1.8f * interactableRigidbody.mass + 3.6f);
+            }
+
+          }
+          else if (movementLimitType == MovementLimitationTypes.AccelerationAnyDirection || movementLimitType == MovementLimitationTypes.AccelerationVertical)
+          {
+              // speedLimit = ((150 / (interactableRigidbody.mass+5))+0.2f);
+              speedLimit = (30f / (interactableRigidbody.mass+5));
+          }
+        }
         protected override void ForceReleaseGrab()
         {
             GameObject grabbingObject = GetGrabbingObject();
             if (grabbingObject != null)
             {
+                timeForceRelease = Time.time;
                 grabbingObject.GetComponent<VRTK_InteractGrab>().ForceRelease();
-                forceRelease = true;
-                numberOfForceReleases++;
-                statManager.localSceneStats.totalForceReleases += 1;
             }
         }
 
@@ -195,22 +254,15 @@ namespace VRTK
         {
             float timeGrabEnd = Time.time;
             timeGrabbed = timeGrabEnd - timeGrabStart;
+            if (shakeScript != null) {
+                shakeScript.DisableShake();
+            }
             numberOfGrabs += 1;
-            statManager.localSceneStats.timeGrabbingObj += timeGrabbed;
-            statManager.localSceneStats.totalGrabs += 1;
+            gameControl.AddTimeGrabbing(timeGrabbed);
+            gameControl.AddGrab();
             string hand = "";
-            if (previousGrabbingObject.name.Contains("right"))
-            {
-                statManager.localSceneStats.totalGrabsRight += 1;
-                statManager.localSceneStats.timeGrabbingRight += timeGrabbed;
-                hand = "right";
-            }
-            else {
-                statManager.localSceneStats.totalGrabsLeft += 1;
-                statManager.localSceneStats.timeGrabbingLeft += timeGrabbed;
-                hand = "left";
-            }
-            statManager.AddCSVStatPerGrab(timeGrabStart, timeGrabEnd, interactableRigidbody.mass, hand, forceRelease);
+            permanentGrab = false;
+            gameControl.AddCSVStatPerGrab(timeGrabStart, timeGrabEnd, interactableRigidbody.mass, hand);
             forceRelease = false;
 
             base.Ungrabbed(previousGrabbingObject);

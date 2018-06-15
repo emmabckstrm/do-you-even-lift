@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameControl : MonoBehaviour {
+	/*
+	Game controller. Keeps track of important events of the game
+	*/
 
 
 	protected int currentLevelNum = 0;
@@ -21,27 +24,30 @@ public class GameControl : MonoBehaviour {
 	protected float levelDuration;
 	protected float tempTime;
 
-	protected GlobalControl globalControl;
-
 
 	//public variables
 	public int startLevel = 0;
 	public GameStatManager statManager;
+	public enum MovementLimitationTypes
+	{
+			VelocityAnyDirection,
+			VelocityVertical,
+			AccelerationAnyDirection,
+			AccelerationVertical,
+	}
+	[Tooltip("Determines in what direction the movement limit is")]
+	public MovementLimitationTypes movementLimitType = MovementLimitationTypes.VelocityAnyDirection;
+	public bool useLiftLimitation = true;
+	public bool warnInDangerZone = false; // currently not working well 2018-06-15
 
 	// Use this for initialization
 	void Start () {
 		physics = GameObject.Find("PlayArea").GetComponent<VRTK.VRTK_BodyPhysics>();
 		positionRewind = GameObject.Find("PlayArea").GetComponent<VRTK.PositionRewind>();
-		globalControl = GameObject.Find("AppManager").GetComponent<GlobalControl>();
 		currentLevelNum = startLevel;
 		if (startLevel > 0) {
 			StartCoroutine( WaitAndStartAtLevel(2f, startLevel) );
 		}
-	}
-
-	// Update is called once per frame
-	void Update () {
-
 	}
 
 	// Destroys a gameobject of a certain name
@@ -111,7 +117,7 @@ public class GameControl : MonoBehaviour {
 		if (correct) {
 			statManager.SetCorrect();
 		}
-		statManager.SetUsingLiftLimitation(globalControl.useLiftLimitation);
+		statManager.SetUsingLiftLimitation(useLiftLimitation);
 	}
 
 	//

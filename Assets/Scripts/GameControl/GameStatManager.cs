@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
 
-public class GameStatManager : StatManager {
+public class GameStatManager : MonoBehaviour {
 
 	protected List<GameStatistics> stats;
 	protected GameControl gameControl;
@@ -117,7 +117,7 @@ public class GameStatManager : StatManager {
 			return serializedData;
 	}
 
-	public override string SerializeData()
+	public string SerializeData()
 	{
 			string serializedData = SerializeDataJson();
 			serializedData += "\n\n\n";
@@ -128,7 +128,7 @@ public class GameStatManager : StatManager {
 			return serializedData;
 	}
 	// writes all collected data to files
-	public override void WriteDataToFile()
+	public void WriteDataToFile()
 	{
 			// create folder with this name DateTime.Now.ToString("yyyy-MM-dd HH:mm")
 			string currentPath = path + System.DateTime.Now.ToString("yyyy-MM-dd HHmm");

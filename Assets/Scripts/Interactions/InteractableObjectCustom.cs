@@ -35,8 +35,6 @@ namespace VRTK
         protected int numberOfTouches = 0;
         protected int numberOfForceReleases = 0;
         protected bool forceRelease = false;
-        protected StatManager statManager;
-        protected GlobalControl globalControl;
         protected float timeForceRelease;
 
         // Calculates the velocity based on objects position
@@ -69,25 +67,6 @@ namespace VRTK
                 Debug.Log(" *************** Too fast! speed limit " + speedLimit + " speed " + speed + " angular drag " + interactableRigidbody.angularDrag);
                 ForceReleaseGrab();
             }
-        }
-        public virtual float GetForceReleaseTime() {
-          return timeForceRelease;
-        }
-        //Overridden to count number of touches to object
-        public override void StartTouching(VRTK_InteractTouch currentTouchingObject)
-        {
-            numberOfTouches += 1;
-            statManager.localSceneStats.totalTouches += 1;
-            if (currentTouchingObject.name.Contains("right"))
-            {
-                statManager.localSceneStats.totalTouchesRight += 1;
-            }
-            else
-            {
-                statManager.localSceneStats.totalTouchesLeft += 1;
-            }
-            //Debug.Log("total touches to this obj: " + numberOfTouches);
-            base.StartTouching(currentTouchingObject);
         }
         // Updates movement limit
         public virtual void UpdateMovementLimitValue()

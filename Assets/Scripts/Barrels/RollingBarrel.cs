@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class RollingBarrel : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
 
-	}
-
-	// Update is called once per frame
-	void Update () {
-
-	}
 	// Destroys a gameobject of a certain name
 	protected void DestroyGameObj(string name) {
 		GameObject obj = GameObject.Find(name);
