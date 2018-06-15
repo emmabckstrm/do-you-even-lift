@@ -20694,6 +20694,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1116452703}
+  - component: {fileID: 1116452702}
+  - component: {fileID: 1116452701}
+  - component: {fileID: 1116452700}
   - component: {fileID: 1116452699}
   - component: {fileID: 1116452704}
   m_Layer: 0
@@ -20716,7 +20719,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startLevel: 0
   statManager: {fileID: 1116452704}
+--- !u!114 &1116452700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1116452698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4c1f4be9297d6849b5a9add4023c063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1116452701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1116452698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a86c75ef0b53da4397e53a0573b211a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSceneIndex: 0
+  nextSceneIndex: 0
+  prefab: {fileID: 0}
+--- !u!114 &1116452702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1116452698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be1728321f19db4dae98bd86988dd89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   movementLimitType: 1
+  numberOfDiscriminations: 3
+  numberOfDiscriminationScenes: 2
+  minimumWeight: 1
+  weightStep: 2
+  weightPrefab: {fileID: 1084882984030734, guid: 33767015c656d1a478a0917aafbd84f7,
+    type: 2}
   useLiftLimitation: 1
   warnInDangerZone: 0
 --- !u!4 &1116452703
