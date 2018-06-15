@@ -5,6 +5,10 @@ using System.Linq;
 using UnityEngine;
 
 public class BarrelSpawnShuffleMass : MonoBehaviour {
+	/*
+	Placed on empty game object. Will spawn objects on its childrens' positions.
+	Takes a list of masses to shuffle and assign to spawned obejcts.
+	*/
 
 	public GameObject prefab;
 	public List<float> massList;

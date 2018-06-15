@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PushButtonTrigger : MonoBehaviour {
+	/*
+	Trigger that keeps track whether or not the button has been pressed all the way down = activated.
+	Changes emission color on active button.
+	Can activate actions when button is activated.
+	*/
 
 	protected bool isPushed = false;
 	protected GameObject level;

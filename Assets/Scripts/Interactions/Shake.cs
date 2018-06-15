@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Shake : MonoBehaviour {
+	/*
+	Adds a shaking to the object
+	*/
 
 	public enum ShakeDir {
 		X,

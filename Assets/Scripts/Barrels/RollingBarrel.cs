@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RollingBarrel : MonoBehaviour {
+	/*
+	Destroys the game object after certain time
+	*/
 
 
 	// Destroys a gameobject of a certain name

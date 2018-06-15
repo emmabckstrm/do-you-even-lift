@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FallingBarrel : RespawnObject {
+	/*
+	Respawns barrels that fall outside of the tower
+	*/
 
 	protected RespawnPosition originalPos;
 	protected VRTK.InteractableObjectCustom interactableObjectScript;

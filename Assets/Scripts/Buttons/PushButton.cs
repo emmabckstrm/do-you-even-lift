@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PushButton : MonoBehaviour {
+	/*
+	Registers collisions to the button as an attempt
+	*/
 
 	protected int numberOfCollisions;
 	protected GameControl gameControl;

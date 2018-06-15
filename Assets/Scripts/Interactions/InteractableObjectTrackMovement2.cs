@@ -5,7 +5,9 @@ namespace VRTK
 
     public class InteractableObjectTrackMovement2 : InteractableObjectCustom
     {
-        // calculates movement every x frame
+        /*
+        calculates movement every x frame
+        */
 
         protected Vector3 startPosition;
         public float safeZoneDistance = 0f;

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RespawnObject : MonoBehaviour {
+	/*
+	Different methods to instantiate objects
+	*/
 
 	protected GameControl gameControl;
 	protected GameObject parent;

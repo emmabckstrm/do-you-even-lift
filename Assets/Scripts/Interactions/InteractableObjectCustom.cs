@@ -5,6 +5,9 @@ namespace VRTK
 
     public class InteractableObjectCustom : VRTK_InteractableObject
     {
+      /*
+      Should be abstract class - is only used as base
+      */
 
       // Different types of movement limitations
       public enum MovementLimitationTypes

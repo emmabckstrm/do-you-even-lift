@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RespawnInfinite : RespawnObject {
+	/*
+	Instantiate an object every x seconds infinitely
+	*/
 
 	protected float lastSpawn = 0f;
 

@@ -106,7 +106,7 @@ public class GameControl : MonoBehaviour {
 		}
 	}
 	protected void HandleWin() {
-		StartCoroutine( WaitAndResetGame(10f) );
+		StartCoroutine( WaitAndResetGame(8f) );
 		SaveData();
 	}
 

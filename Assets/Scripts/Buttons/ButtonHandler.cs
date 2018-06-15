@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ButtonHandler : MonoBehaviour {
+	/*
+	Placed on parent object of buttons.
+	Keeps track of how many buttons that have been activated and compares to its number of children.
+	*/
 
 	protected GameControl gameControl;
-
-
 	protected int numberOfChildren = 0;
 	protected int pushedButtons = 0;
 	private float timeStart;
