@@ -19,7 +19,10 @@ The rules are simple. You are trapped in a tower and need to escape by solving a
 
   Check again. Make sure all buttons are *actually* activated (fully pressed down and have changed colour), and that you have activated *all* buttons on the level. Sometimes people forget to look behind themselves ;)
 - **I fell to the next level and now I'm bouncing up and down and the floor is below the physical floor?!**
-  Congratulations, you found a bug. You'll need to restart the game. This bug usually occurs when you stand to close to the edge of the playing area which leads to you landing on top of an object on the floor below. So try to stand more in the middle of the playing area!
+  Congratulations, you found a bug. You'll need to restart the game. This bug usually occurs when you stand too close to the edge of the playing area which makes you land on top of an object on the floor below. So try to stand more in the middle of the playing area!
+- **I won. Now what?**
+
+  I know the UX is not perfect, but the game will bring you back to lobby 8 seconds after you fallen out of the tower!
 ### TODO
 - Display time after finish
 - Reset level button in game
