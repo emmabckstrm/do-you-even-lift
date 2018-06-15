@@ -5,6 +5,8 @@ This is a room scale VR puzzle game originally built for Emma Bäckström's mast
 The interaction method tries to simulate weight without using any haptic technologies. This is done by setting a velocity limit to the objects, and when they are lifted with a velocity exceeding that limit, the objects are disconnected from the controller. In other words, the player needs to lift heavy objects slowly.
 ### How to play
 The rules are simple. You are trapped in a tower and need to escape by solving a puzzle on each level. All puzzles are solved by activating all the buttons on that level. The player has to use wooden barrels of different weights to place on the buttons.
+
+A barrel is lifted by touching it with the controller and pressing and holding the trigger button. The barrels lights up in yellow when you are touching it. The barrels have a velocity limit that when it's exceeded the barrel disconnect from the controller, this means that you have to lift some barrels more slowly than others.
 ### FAQ
 - **Why are the barrels dropping from the controller? Is it a bug?**
   No, it's not a bug. It's a feature, I promise. The fact that the barrels are dropping from the controller is the core functionality of the interaction method that tries to simulate weight.
